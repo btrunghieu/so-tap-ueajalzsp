@@ -909,6 +909,7 @@ async function writeOnce(key) {
   const body = bodyFor(key);
   if (S.mode === 'db') await refFor(key).set(body);
   else if (S.mode === 'local') lsSet(key, body);
+  if (S.mode === 'local' && !SY.applying) syncSoon();
 }
 function pendingCount() { return Object.keys(S.timers).length + Object.keys(S.busy).filter(k => S.busy[k]).length; }
 function queue(key, delay) {
@@ -1396,6 +1397,7 @@ function sheetHtml() {
 <h2>Dữ liệu</h2><p class="note">${storeInfo()}</p>
 <div class="row" style="margin-top:8px"><button class="btn" data-export>Xuất dữ liệu (JSON)</button><label class="btn filebtn">Nhập từ file JSON<input type="file" accept="application/json,.json" data-import hidden></label></div>
 <details><summary>Dán nội dung JSON thay vì chọn file</summary><textarea class="in ta" id="imp-text" rows="4" aria-label="Nội dung JSON"></textarea><button class="btn" data-importtext style="margin-top:8px">Nhập nội dung đã dán</button></details>
+<h2>Kết nối đồng bộ</h2><p class="note" id="sync-info">${syncInfo()}</p><div class="row" style="margin-top:8px"><label class="fld grow"><span>GitHub token (chỉ lưu trên máy này)</span><input class="in" type="password" id="sync-token" autocomplete="off" placeholder="github_pat_…"></label></div><div class="row" style="margin-top:8px"><button class="btn" data-syncsave>Lưu & đồng bộ</button><button class="btn" data-syncnow>Đồng bộ ngay</button><button class="btn" data-syncoff>Ngắt kết nối</button></div>
 <p class="note" id="io-msg" role="status"></p>
 <p class="note">Sổ tập V-taper, lịch 4.2. Nhập dữ liệu sẽ ghi đè những ngày trùng.</p></div>`;
 }
@@ -1715,6 +1717,9 @@ function wire() {
     const b = e.target.closest('button'); if (!b) return;
     if (b.hasAttribute('data-close')) { closeSheet(); return; }
     if (b.hasAttribute('data-export')) { doExport(); return; }
+    if (b.hasAttribute('data-syncsave')) { const v = ($('#sync-token') || {}).value || ''; if (!v.trim()) { ioMsg('Dán token trước đã.'); return; } try { localStorage.setItem(SY.TK, v.trim()); } catch (e) {} SY.sha = null; ioMsg('Đang kết nối…'); syncPull(true).then(ok => { if (ok) syncPush(); }); return; }
+    if (b.hasAttribute('data-syncnow')) { ioMsg('Đang đồng bộ…'); syncPull(true).then(ok => { if (ok) syncPush(); }); return; }
+    if (b.hasAttribute('data-syncoff')) { try { localStorage.removeItem(SY.TK); } catch (e) {} ioMsg('Đã ngắt đồng bộ trên máy này.'); const i = $('#sync-info'); if (i) i.textContent = syncInfo(); return; }
     if (b.hasAttribute('data-habadd')) {
       const list = habits().slice(); list.push({ id: 'h' + uid(), n: '', t: '', from: todayKey(), to: null });
       SET().habits = list; queue('settings'); $('#hab-list').innerHTML = habRows();
@@ -1760,6 +1765,49 @@ function wire() {
   window.addEventListener('pagehide', flushAll);
 }
 
+
+/* ---------- sync: GitHub private repo (token only in this device's localStorage) ---------- */
+const SY = { TK: 'vtsync:token', REPO: 'btrunghieu/so-tap-data', FILE: 'data.json', sha: null, t: null, busy: false, again: false, applying: false, last: null, err: '' };
+function syTok() { try { return localStorage.getItem(SY.TK) || ''; } catch (e) { return ''; } }
+function syncInfo() { if (!syTok()) return 'Chưa kết nối. Dán token GitHub (chỉ quyền Contents của repo so-tap-data) để tự sao lưu mọi thay đổi.'; return 'Đã kết nối ' + SY.REPO + '. ' + (SY.err ? 'Lỗi: ' + SY.err : SY.last ? 'Đồng bộ lần cuối ' + new Date(SY.last).toLocaleString('vi-VN') : 'Chưa đồng bộ lần nào.'); }
+function syUpd() { const i = $('#sync-info'); if (i) i.textContent = syncInfo(); }
+function syApi(method, body) { return fetch('https://api.github.com/repos/' + SY.REPO + '/contents/' + SY.FILE, { method, cache: 'no-store', headers: { Authorization: 'Bearer ' + syTok(), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }, body: body ? JSON.stringify(body) : undefined }); }
+const b64e = s => { const b = new TextEncoder().encode(s); let r = ''; for (let i = 0; i < b.length; i += 0x8000) r += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(r); };
+const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, '')), c => c.charCodeAt(0)));
+function syncSoon() { if (!syTok()) return; clearTimeout(SY.t); SY.t = setTimeout(syncPush, 2500); }
+function exportObj() { return { app: 'so-tap-vtaper', v: 1, exportedAt: new Date().toISOString(), settings: state.settings, inbody: state.inbody, presets: state.presets, days: state.days }; }
+async function syncPush() {
+  if (!syTok()) return; if (SY.busy) { SY.again = true; return; } SY.busy = true;
+  try {
+    for (let tries = 0; tries < 2; tries++) {
+      if (!SY.sha) { const g = await syApi('GET'); if (g.ok) SY.sha = (await g.json()).sha; else if (g.status !== 404) throw new Error('HTTP ' + g.status); }
+      const body = { message: 'sync ' + new Date().toISOString(), content: b64e(JSON.stringify(exportObj(), null, 1)) }; if (SY.sha) body.sha = SY.sha;
+      const r = await syApi('PUT', body);
+      if (r.ok) { SY.sha = (await r.json()).content.sha; SY.last = Date.now(); SY.err = ''; try { localStorage.setItem('vtsync:last', String(SY.last)); } catch (e) {} break; }
+      if (r.status === 409 || r.status === 422) { SY.sha = null; continue; }
+      throw new Error(r.status === 401 ? 'token sai hoặc hết hạn' : r.status === 403 || r.status === 404 ? 'token không có quyền ghi repo' : 'HTTP ' + r.status);
+    }
+  } catch (e) { SY.err = String(e.message || e); console.warn('sync push', e); }
+  SY.busy = false; syUpd(); if (SY.again) { SY.again = false; syncSoon(); }
+}
+async function syncPull(verbose) {
+  if (!syTok()) return false;
+  try {
+    const r = await syApi('GET');
+    if (r.status === 404) { SY.sha = null; if (verbose) ioMsg('Repo chưa có file — sẽ tạo mới.'); return true; }
+    if (!r.ok) throw new Error(r.status === 401 ? 'token sai hoặc hết hạn' : 'HTTP ' + r.status);
+    const j = await r.json(); SY.sha = j.sha; const o = JSON.parse(b64d(j.content));
+    SY.applying = true; let n = 0;
+    Object.keys(o.days || {}).forEach(k => { const v = o.days[k], c = state.days[k]; if (v && isKey(k) && (!c || (v.u || 0) > (c.u || 0))) { state.days[k] = v; if (S.mode === 'local') lsSet('day:' + k, v); n++; } });
+    if (Array.isArray(o.inbody)) { const have = new Set(state.inbody.map(x => x.id)); const add = o.inbody.filter(x => x && x.id && !have.has(x.id)); if (add.length) { state.inbody = state.inbody.concat(add).sort((a, b) => a.date < b.date ? -1 : 1); if (S.mode === 'local') lsSet('inbody', { list: state.inbody }); n++; } }
+    if (Array.isArray(o.presets)) { const have = new Set(state.presets.map(x => x.n)); const add = o.presets.filter(x => x && x.n && !have.has(x.n)); if (add.length) { state.presets = state.presets.concat(add); if (S.mode === 'local') lsSet('presets', { list: state.presets }); } }
+    SY.applying = false; keysCache = null; SY.err = ''; SY.last = Date.now();
+    if (n) { render(); toast('Đã lấy ' + n + ' mục mới từ bản đồng bộ.'); }
+    if (verbose) ioMsg('Đã kết nối. Lấy về ' + n + ' mục mới.');
+    syUpd(); return true;
+  } catch (e) { SY.applying = false; SY.err = String(e.message || e); if (verbose) ioMsg('Lỗi đồng bộ: ' + SY.err); syUpd(); return false; }
+}
+
 /* ---------- boot ---------- */
 async function boot() {
   wire(); applyTheme(); renderHeader(); setStatus();
@@ -1767,6 +1815,8 @@ async function boot() {
   ui.ready = true;
   if (!state.settings.phaseStart) { state.settings.phaseStart = mondayOf(todayKey()); queue('settings'); }
   applyTheme(); render();
+  if (syTok()) syncPull(false).then(ok => { if (ok) syncSoon(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && syTok() && SY.t) { clearTimeout(SY.t); syncPush(); } });
 }
 boot();
 })();
