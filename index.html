@@ -1,0 +1,1777 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sổ tập V-taper 4.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#EEF2EC;--surface:#F9FBF7;--ink:#1C2B25;--muted:#56665E;--line:#C6D1C4;--soft:#DCE4D9;
+  --pine:#2F5D4E;--on-pine:#F3F8F4;--marker:#F4CD3C;--on-marker:#2A2204;--brick:#A63F2B;
+  --ridge:#D5E2D1;--focus:#1D63D8;
+  --f:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --n:"Barlow Condensed","Roboto Condensed","Arial Narrow",system-ui,sans-serif;
+  color-scheme:light;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#121C18;--surface:#192620;--ink:#E3ECE6;--muted:#9AADA3;--line:#30433B;--soft:#22332C;--pine:#74BA9D;--on-pine:#0E1914;--marker:#E9C23A;--on-marker:#1F1902;--brick:#E8866F;--ridge:#1D2F28;--focus:#86B7FF;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#121C18;--surface:#192620;--ink:#E3ECE6;--muted:#9AADA3;--line:#30433B;--soft:#22332C;--pine:#74BA9D;--on-pine:#0E1914;--marker:#E9C23A;--on-marker:#1F1902;--brick:#E8866F;--ridge:#1D2F28;--focus:#86B7FF;color-scheme:dark}
+:root[data-theme="strava"]{--paper:#121212;--surface:#1E1E1E;--ink:#F5F5F5;--muted:#A3A3A3;--line:#343434;--soft:#262626;--pine:#FC4C02;--on-pine:#FFFFFF;--marker:#FFFFFF;--on-marker:#121212;--brick:#FF5A6E;--ridge:#2A2A2A;--focus:#5AA9FF;color-scheme:dark}
+:root[data-theme="strava"] nav.tabs{background:#121212;border-top-color:#2A2A2A}
+:root[data-theme="strava"] nav.tabs button[aria-current="page"]{color:#FC4C02}
+:root[data-theme="strava"] nav.tabs button[aria-current="page"]::before{background:#FC4C02}
+:root[data-theme="strava"] .btn.pri,:root[data-theme="strava"] .q button[aria-pressed="true"]{font-weight:700}
+:root[data-theme="strava"] .nutline,:root[data-theme="strava"] .how,:root[data-theme="strava"] .banner{background:#1E1E1E}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font:15px/1.5 var(--f)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* header + ridge */
+.top{padding-top:10px}
+.toprow{display:flex;align-items:center;gap:8px}
+.wk{flex:1;min-width:0;text-align:center}
+.wk b{display:block;font:700 1.4rem/1.1 var(--n);letter-spacing:.2px}
+.wk .sub{font-size:.8rem;color:var(--muted)}
+#savestat::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pine);margin:0 4px 1px 8px}
+#savestat.busy::before{background:var(--marker)}
+#savestat.warn{color:var(--brick)}
+#savestat.warn::before{background:var(--brick)}
+.linkbtn{border:0;background:none;color:var(--pine);font-size:.8rem;text-decoration:underline;text-underline-offset:2px;padding:0 0 0 8px}
+.iconbtn{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;font-size:1.15rem;line-height:1;padding:0}
+.ridge{position:relative;height:120px;margin:4px -8px 0}
+.ridge svg{position:absolute;left:0;top:0;width:100%;height:84px}
+.r-area{fill:var(--ridge)}
+.r-c{fill:none;stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
+.r-main{fill:none;stroke:var(--pine);stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.days{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr)}
+.days button{position:relative;background:none;border:0;border-radius:10px;color:var(--muted);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:1px;padding:0 0 4px}
+.days button b{font:600 .75rem/1 var(--f)}
+.days button span{font:600 1.1rem/1.1 var(--n)}
+.days button[aria-current="date"]{color:var(--ink)}
+.days button[aria-current="date"] b{font-weight:700}
+.days button.today span{text-decoration:underline 2px;text-underline-offset:3px}
+.dot{position:absolute;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--surface);border:2px solid var(--pine)}
+.rest .dot{width:10px;height:10px;margin-left:-5px;border-color:var(--muted)}
+.done .dot{background:var(--pine)}
+[aria-current="date"] .dot{box-shadow:0 0 0 5px var(--marker)}
+
+/* page */
+#view{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+body.timing #view{padding-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
+.loading{padding:48px 0;color:var(--muted)}
+h1.dayh{font:700 2.2rem/1.05 var(--n);margin:18px 0 6px;letter-spacing:.2px}
+.tag{font:600 .75rem/1 var(--f);background:var(--marker);color:var(--on-marker);padding:4px 7px;border-radius:4px;vertical-align:.45em;margin-left:8px}
+.focusline{margin:0}
+.code{display:inline-block;font:600 .78rem/1.7 var(--f);border:1px solid var(--pine);color:var(--pine);border-radius:4px;padding:0 6px;margin-right:8px;vertical-align:1px}
+.muted{color:var(--muted)}
+.nutline{display:block;width:100%;text-align:left;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px;line-height:1.35}
+.nutline strong{font:700 1.3rem/1 var(--n)}
+.mac{font:600 1.02rem/1 var(--n);word-spacing:.35em;margin-left:4px}
+.blk{margin-top:24px}
+h2{font:600 1.02rem/1.3 var(--f);margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+h2 small{font-weight:400;color:var(--muted);font-size:.82rem}
+h2 .btn{margin-left:auto}
+.note{font-size:.84rem;color:var(--muted);margin:6px 0 0}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--soft);cursor:pointer}
+.chk input{flex:none;width:22px;height:22px;margin:0;accent-color:var(--pine)}
+.chk.on span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+ul.steps{margin:0;padding-left:18px}
+ul.steps li{margin:2px 0}
+.banner{margin:12px 0 0;padding:10px 12px;border-left:4px solid var(--marker);background:var(--surface);border-radius:0 6px 6px 0}
+.banner.ok{border-left-color:var(--pine)}
+.banner.warn{border-left-color:var(--brick)}
+
+/* exercises */
+.ex{position:relative;padding:14px 0 14px 42px;border-bottom:1px solid var(--soft)}
+.ex .no{position:absolute;left:0;top:12px;width:32px;text-align:center;font:700 1.75rem/1 var(--n);color:var(--muted)}
+.ex.done .no{color:var(--pine)}
+.ex h3{font:600 1rem/1.3 var(--f);margin:0}
+.rx{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:3px;font:600 1.05rem/1.3 var(--n)}
+.cue{font-size:.84rem;color:var(--muted);margin:4px 0 0}
+.prev{font-size:.86rem;margin:8px 0 0}
+.prev b{font:700 1.05rem/1 var(--n)}
+.hint{display:inline-block;font:500 .78rem/1.35 var(--f);padding:2px 7px;border-radius:4px;margin:2px 0 0 2px}
+.hint.up{background:var(--marker);color:var(--on-marker)}
+.hint.down{color:var(--brick);border:1px solid var(--brick)}
+.hint.hold{color:var(--muted);border:1px solid var(--line)}
+.sets{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.set label{display:block;font-size:.7rem;color:var(--muted);text-align:center;margin-bottom:2px}
+.rep{width:3.2em;height:50px;font:700 1.6rem/1 var(--n);text-align:center;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:0}
+.rep.hit{border-color:var(--pine);box-shadow:inset 0 -3px 0 var(--pine)}
+.rep.load{width:3.8em;font-size:1.3rem}
+.exv{margin-top:8px;width:100%}
+.st{font-size:.84rem;margin:6px 0 0}
+.st:empty{display:none}
+
+/* cách tập */
+.exhead{display:inline-block;max-width:100%;position:relative;vertical-align:top}
+.exname{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.info{width:24px;height:24px;margin-left:8px;border:1px solid var(--pine);border-radius:50%;background:var(--surface);color:var(--pine);font:italic 700 .82rem/1 Georgia,"Times New Roman",serif;padding:0;vertical-align:2px}
+.info[aria-expanded="true"]{background:var(--pine);color:var(--on-pine)}
+.how{display:none;margin:8px 0 4px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--pine);border-radius:0 8px 8px 0;font-size:.88rem;line-height:1.5;text-align:left}
+.how.open{display:block}
+.how p{margin:0 0 6px}
+.how ol,.how ul{margin:0 0 8px;padding-left:20px}
+.how li{margin:2px 0}
+.how .howh{font-weight:600;margin:8px 0 2px}
+.how .howsafe{color:var(--brick)}
+@media (hover:hover) and (pointer:fine){
+  .exname{text-decoration:underline dotted var(--muted);text-underline-offset:4px;cursor:help}
+  .exhead:not(.nohov):hover .how:not(.open){display:block;position:absolute;left:0;top:calc(100% - 2px);width:min(540px,calc(100vw - 80px));z-index:6;margin:0;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+}
+/* widget calo */
+.ring .rg-bg{fill:none;stroke:var(--soft)}
+.ring .rg-fg{fill:none;stroke:var(--pine);stroke-linecap:round}
+.ring.over .rg-fg{stroke:var(--brick)}
+.ring.full .rg-fg{stroke:var(--pine)}
+.kw{margin-top:16px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.kw-main{display:flex;align-items:center;gap:18px}
+.kw-ring{position:relative;width:148px;height:148px;flex:none}
+.kw-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.kw-center b{font:700 2.5rem/1 var(--n)}
+.kw-center b.over{color:var(--brick)}
+.kw-center span{font-size:.74rem;color:var(--muted);margin-top:3px}
+.kw-side{flex:1;min-width:0;display:grid;gap:9px}
+.kw-eq{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:1px solid var(--soft);padding-bottom:5px}
+.kw-eq span{font-size:.8rem;color:var(--muted)}
+.kw-eq b{font:700 1.35rem/1 var(--n)}
+.kw-macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.km{display:flex;flex-direction:column;align-items:center;text-align:center}
+.km-ring{position:relative;width:62px;height:62px}
+.km-ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 1.1rem/1 var(--n)}
+.km>span{font-size:.8rem;font-weight:600;margin-top:5px}
+.km small{font-size:.72rem;color:var(--muted)}
+.km small.over{color:var(--brick)}
+.km small.okc{color:var(--pine)}
+.kw-mini{display:flex;align-items:center;gap:12px}
+.kw-mini .ring{flex:none}
+.kw-mini .kt{min-width:0}
+.kw-mini .kt b{font:700 1.6rem/1 var(--n)}
+.kw-mini .kt b.over{color:var(--brick)}
+.kw-mini .kt small{display:block;margin-top:3px}
+/* thói quen */
+.habit{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--soft);cursor:pointer}
+.habit input{flex:none;width:24px;height:24px;margin:0;accent-color:var(--pine)}
+.habit .hn{flex:1;min-width:0}
+.habit .ht{font-size:.74rem;color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:1px 8px;white-space:nowrap}
+.habit .hs{font:600 .95rem/1 var(--n);color:var(--muted);min-width:3.2em;text-align:right}
+.habit.on .hn{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.habit.on .hs{color:var(--pine)}
+.hrow{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:8px}
+/* inputs */
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.fld{display:flex;flex-direction:column;gap:3px}
+.fld>span{font-size:.74rem;color:var(--muted)}
+.fld.grow{flex:1 1 170px}
+.in{height:42px;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:0 10px;min-width:0}
+.numin{width:5.4em;font:600 1.2rem/1 var(--n)}
+.numin.s{width:4.4em}
+.ta{width:100%;height:auto;padding:8px 10px;resize:vertical;line-height:1.45}
+.btn{height:40px;padding:0 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font:500 .9rem/1 var(--f)}
+.btn.pri{background:var(--pine);border-color:var(--pine);color:var(--on-pine)}
+.btn.sm{height:32px;padding:0 10px;font-size:.8rem}
+.chip{height:34px;padding:0 12px;border:1px solid var(--line);border-radius:17px;background:var(--surface);font:500 .82rem/1 var(--f)}
+.chip small{color:var(--muted);margin-left:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.pchip{display:inline-flex;align-items:center}
+.x{flex:none;min-width:34px;height:34px;border:0;border-radius:17px;background:none;color:var(--muted);font-size:1.25rem;line-height:1;padding:0}
+.x.armed{color:var(--on-pine);background:var(--brick);font-size:.75rem;padding:0 10px}
+
+/* food, sleep, body */
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:2.6em 1fr 6.6em;align-items:center;gap:10px}
+.bar>span{font-weight:600}
+.tr{height:10px;background:var(--soft);border-radius:5px;overflow:hidden}
+.tr i{display:block;height:100%;background:var(--pine)}
+.tr i.over{background:var(--brick)}
+.bar b{font:700 1.15rem/1 var(--n);text-align:right}
+.bar b small{font-weight:500;color:var(--muted);font-size:.85rem}
+.list{border-top:1px solid var(--soft)}
+.li{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--soft)}
+.li .nm{flex:1;min-width:0;overflow-wrap:anywhere}
+.li .mc{font:500 .98rem/1.2 var(--n);color:var(--muted);text-align:right}
+.big{font:700 2.4rem/1 var(--n);margin:4px 0 0}
+.warnc{color:var(--brick)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px 16px}
+.kv span{display:block;font-size:.76rem;color:var(--muted)}
+.kv b{font:700 1.5rem/1.15 var(--n)}
+.q{display:flex;gap:8px;margin-top:4px}
+.q button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);font:700 1.25rem/1 var(--n)}
+.q button[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:var(--on-pine)}
+.lbl{font-size:.74rem;color:var(--muted);margin:14px 0 0}
+.chart{display:block;width:100%;height:auto;margin-top:8px}
+.chart text{font:11px var(--f);fill:var(--muted)}
+.chart .gl{stroke:var(--soft);stroke-width:1}
+.chart .ref{stroke:var(--marker);stroke-width:1.5;stroke-dasharray:5 4}
+.chart polyline.main{fill:none;stroke:var(--pine);stroke-width:2.5;stroke-linejoin:round}
+.chart circle.main{fill:var(--pine)}
+.chart circle.raw{fill:var(--muted);opacity:.55}
+.chart .okb{fill:var(--pine)}
+.chart .low{fill:var(--brick)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem}
+.tbl th,.tbl td{padding:7px 6px;border-bottom:1px solid var(--soft);text-align:right;white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl th{font-weight:600;color:var(--muted);font-size:.76rem}
+.tbl td{font:600 1rem/1.2 var(--n)}
+.flag{color:var(--brick);font-weight:700}
+details{margin-top:12px}
+summary{cursor:pointer;font-weight:600;padding:6px 0}
+.ibform{margin:6px 0 14px;padding:12px;border:1px dashed var(--line);border-radius:8px}
+
+/* tabs, timer, sheet, toast */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs .wrap{display:grid;grid-template-columns:repeat(5,1fr);padding:0 4px}
+nav.tabs button{position:relative;height:58px;border:0;background:none;color:var(--muted);font:500 .86rem/1 var(--f)}
+nav.tabs button[aria-current="page"]{color:var(--ink);font-weight:700}
+nav.tabs button[aria-current="page"]::before{content:"";position:absolute;left:24%;right:24%;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--marker)}
+.timer{position:fixed;left:0;right:0;z-index:19;bottom:calc(59px + env(safe-area-inset-bottom,0px));background:var(--pine);color:var(--on-pine);display:none}
+body.timing .timer{display:block}
+.timer.go{background:var(--marker);color:var(--on-marker)}
+.timer .wrap{display:flex;align-items:center;gap:8px;height:58px}
+.timer .t{font:700 2.1rem/1 var(--n);min-width:2.8em}
+.timer .tl{flex:1;min-width:0;height:auto;border:0;background:none;color:inherit;text-align:left;padding:0;display:flex;flex-direction:column;gap:2px;font:inherit}
+.timer .tl b{font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timer .tl span{font-size:.76rem;opacity:.92;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rep.next{border-color:var(--marker);box-shadow:0 0 0 3px var(--marker)}
+.timer button{flex:none;height:38px;min-width:44px;padding:0 8px;border:1px solid currentColor;border-radius:6px;background:transparent;color:inherit;font:700 .95rem/1 var(--n)}
+.sheet{position:fixed;inset:0;z-index:40;background:rgba(8,18,13,.5);display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.pane{width:100%;max-width:640px;max-height:90%;overflow:auto;background:var(--paper);border-radius:14px 14px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.pane h2{margin-top:20px}
+.sheethead{display:flex;align-items:center;justify-content:space-between}
+.sheethead h2{margin:0;font:700 1.5rem/1 var(--n)}
+.filebtn{display:inline-flex;align-items:center}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom,0px));z-index:50;max-width:90vw;background:var(--ink);color:var(--paper);padding:9px 14px;border-radius:8px;font-size:.86rem;display:none}
+.toast.show{display:block}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (min-width:700px){body{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <div class="toprow">
+    <button class="iconbtn" id="prevw" aria-label="Tuần trước">‹</button>
+    <div class="wk"><b id="wk-title">Sổ tập</b><span class="sub"><span id="wk-range"></span><span id="savestat" role="status"></span><button class="linkbtn" id="todaybtn" hidden>về hôm nay</button></span></div>
+    <button class="iconbtn" id="nextw" aria-label="Tuần sau">›</button>
+    <button class="iconbtn" id="setbtn" aria-label="Cài đặt và dữ liệu">⚙</button>
+  </div>
+  <div class="ridge"><svg id="ridge-svg" viewBox="0 0 700 84" preserveAspectRatio="none" aria-hidden="true"></svg><div class="days" id="ridge-days"></div></div>
+</header>
+<main class="wrap" id="view"><p class="loading">Đang tải sổ tập…</p></main>
+<div class="timer" id="timer" role="timer"><div class="wrap"><span class="t" id="tm-time">0:00</span><button class="tl" id="tm-go" aria-label="Tới hiệp tiếp theo"><b id="tm-head"></b><span id="tm-sub"></span></button><button id="tm-minus" aria-label="Bớt 15 giây">−15</button><button id="tm-plus" aria-label="Thêm 15 giây">+15</button><button id="tm-stop" aria-label="Tắt đồng hồ nghỉ">✕</button></div></div>
+<nav class="tabs" aria-label="Mục chính"><div class="wrap"><button data-tab="today">Hôm nay</button><button data-tab="food">Ăn</button><button data-tab="sleep">Ngủ</button><button data-tab="body">Cơ thể</button><button data-tab="week">Tuần</button></div></nav>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Cài đặt và dữ liệu"></div>
+<div class="toast" id="toast" role="status"></div>
+<noscript><p class="wrap">Cần bật JavaScript để dùng sổ tập.</p></noscript>
+<script>
+(() => {
+'use strict';
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ESC[c]);
+const clone = o => JSON.parse(JSON.stringify(o));
+const num = v => { if (v === '' || v == null || v === false) return null; const n = Number(String(v).trim().replace(',', '.')); return Number.isFinite(n) ? n : null; };
+const f0 = n => (n == null || !Number.isFinite(n)) ? '–' : String(Math.round(n));
+const f1 = n => (n == null || !Number.isFinite(n)) ? '–' : (Math.round(n * 10) / 10).toFixed(1);
+const sgn = (n, d = 1) => (n == null || !Number.isFinite(n)) ? '–' : (n > 0 ? '+' : n < 0 ? '−' : '±') + Math.abs(n).toFixed(d);
+const avg = a => { const v = a.filter(x => x != null && Number.isFinite(x)); return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null; };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const pad = n => String(n).padStart(2, '0');
+const keyOf = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const dateOf = k => { const p = k.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
+const todayKey = () => keyOf(new Date());
+const addDays = (k, n) => { const d = dateOf(k); d.setDate(d.getDate() + n); return keyOf(d); };
+const wd = k => dateOf(k).getDay();
+const mondayOf = k => addDays(k, -((wd(k) + 6) % 7));
+const daysBetween = (a, b) => Math.round((dateOf(b) - dateOf(a)) / 864e5);
+const dm = k => { const d = dateOf(k); return d.getDate() + '/' + (d.getMonth() + 1); };
+const dmy = k => dm(k) + (k.slice(0, 4) !== todayKey().slice(0, 4) ? '/' + k.slice(2, 4) : '');
+const mmss = s => Math.floor(s / 60) + ':' + pad(s % 60);
+const hm = m => { if (m == null || !Number.isFinite(m)) return '–'; m = Math.round(m); return Math.floor(m / 60) + 'h' + pad(m % 60); };
+const isKey = k => /^\d{4}-\d{2}-\d{2}$/.test(k || '');
+const WDS = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+const WDL = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+
+/* ---------- plan 4.2 (index = Date.getDay(): 0 = Chủ nhật) ---------- */
+const PLAN = {
+  1: { code: 'Pull A', focus: 'Độ rộng xô, vai giữa, tay trước', dur: 50, load: .55,
+    nut: { kcal: 1890, p: 130, c: 230, f: 50 },
+    warm: ['Xoay khớp chung (~2 phút)', 'Hiệp mồi: treo xà thả lỏng 10–15s → 3 rep pull-up có band (hoặc 5 rep inverted row người đứng cao)'],
+    ex: [
+      { id: 'mon_pullup', n: 'Pull-ups tay sấp, rộng ~1.5 vai', s: 4, lo: 6, hi: 10, rir: '1–2, hiệp cuối 0–1', rest: 165, rl: "nghỉ 2'30–3'", cue: 'Kéo khuỷu về hông, ngực hướng lên xà, không đu. >10 rep mọi hiệp → đeo balo.' },
+      { id: 'mon_chin', n: 'Chin-ups tay ngửa, rộng bằng vai', s: 3, lo: 6, hi: 10, rir: '1–2', rest: 135, rl: "nghỉ 2'–2'30", cue: 'Hạ 2–3s, duỗi hết tay ở đáy.' },
+      { id: 'mon_invrow', n: 'Inverted Row tay ngửa', s: 3, lo: 8, hi: 12, rir: '1–2', rest: 120, rl: "nghỉ 2'", cue: 'Kéo về rốn, khuỷu sát sườn → thiên về xô.' },
+      { id: 'mon_lat', n: 'Leaning Lateral Raise 1 tay', s: 3, lo: 12, hi: 20, rir: '0–1', rest: 0, rl: 'tay kia làm = nghỉ', cue: 'Nghiêng người về phía cột 15–20° (vai bên tập cao hơn); ở đáy tạ treo chéo trước hông. Dẫn bằng khuỷu, lên ngang vai, hạ 2–3s. Ghi số rep mỗi tay.' },
+      { id: 'mon_curl', n: 'Wall-Leaned DB Curl', s: 3, lo: 10, hi: 15, rir: '0–1', rest: 70, rl: 'nghỉ 60–75"', cue: 'Không có ghế dốc → curl đứng, lưng dựa tường.' },
+      { id: 'mon_hang', n: 'Hanging Knee Raise → Leg Raise', s: 3, lo: 8, hi: 15, rir: '1–2', rest: 60, rl: 'nghỉ 60"', cue: 'Cuộn xương chậu lên, không đu người.' }
+    ],
+    ride: { type: 'z1', t: 'Đạp thả lỏng Zone 1', min: 25, opt: true, steps: ['20–30 phút đạp rất nhẹ, hoặc đi bộ.'] },
+    eve: 'apt' },
+
+  2: { code: 'Push A', focus: 'Vai (ưu tiên), ngực trên, tay sau', dur: 45, load: .75,
+    nut: { kcal: 2050, p: 130, c: 270, f: 50 },
+    warm: ['Xoay khớp chung (~2 phút)', 'Hiệp mồi: pike push-up trên sàn (không kê chân) × 3–5'],
+    ex: [
+      { id: 'tue_pike', n: 'Pike Push-ups kê chân', s: 4, lo: 6, hi: 10, rir: '1–2', rest: 150, rl: "nghỉ 2'30", cue: 'Hông cao, đầu hạ ra trước tay (tam giác), khuỷu ~45°. >12 rep → kê cao hơn / deficit / HSPU âm tính dựa tường.' },
+      { id: 'tue_decline', n: 'Decline Push-ups, chân kê 40–60 cm', s: 3, lo: 8, hi: 15, rir: '1–2', rest: 120, rl: "nghỉ 2'", cue: 'Tay trên chồng sách/tay cầm để xuống sâu. >15 rep → đeo balo.' },
+      { id: 'tue_lat', n: 'Leaning Lateral Raise 1 tay', s: 4, lo: 12, hi: 20, rir: 'hiệp cuối 0 + 5–8 partial', rest: 0, rl: 'tay kia làm = nghỉ', cue: 'Nghiêng như thứ 2: vai bên tập cao hơn, tạ treo chéo trước hông. Partial = nửa dưới biên độ khi không nâng hết được nữa.' },
+      { id: 'tue_ohext', tag: '4a', n: 'Overhead DB Triceps Extension', s: 3, lo: 10, hi: 15, rir: '1', rest: 0, rl: 'sang ngay 4b', cue: 'Khuỷu hướng trần, hạ sâu sau đầu.' },
+      { id: 'tue_face', tag: '4b', n: 'Band Face Pull', s: 3, lo: 15, hi: 20, rir: '1–2', rest: 60, rl: 'nghỉ 60" rồi lặp 4a', cue: 'Kéo về trán, tách hai tay, xoay ngoài vai.' },
+      { id: 'tue_fly', tag: '5', n: 'Low-to-high Band Fly (ngực trên)', s: 3, lo: 12, hi: 20, rir: '1', rest: 70, rl: 'nghỉ 60–75"', cue: 'Neo band thấp phía sau (chân xà kép hoặc chân cửa), đứng chân trước chân sau. Khuỷu hơi cong và giữ cố định, vai hạ và lùi. Vòng hai tay chéo lên, gặp nhau ngang cằm, siết ngực 1s, về chậm 2–3s. Chạm đỉnh rep → bước xa neo hơn hoặc đổi band nặng hơn. Ghi màu band vào ô ghi chú.' }
+    ],
+    ride: { type: 'thr', t: 'Đạp ngưỡng (~50 phút)', min: 50, steps: ["Khởi động 12' tăng dần.", "3 × 8' Zone 4 (RPE 7–8, cadence 80–90; lên dốc 65–75), nghỉ 4' đạp nhẹ.", "Thả lỏng 5–10'."], note: "Tăng dần qua các tuần: 3×10' → 2×15' → 2×20'. Không đạp dưới 60 rpm." },
+    eve: 'tib' },
+
+  3: { code: 'Nghỉ', focus: 'Nghỉ ngơi hoàn toàn', rest: true, load: .12,
+    nut: { kcal: 1700, p: 130, c: 160, f: 60 },
+    restItems: ['Đi bộ / dạo phố 6–8k bước'], restNote: 'Không calisthenics, không đạp xe, không trị liệu tối.' },
+
+  4: { code: 'Pull B', focus: 'Lưng giữa, vai sau, vai giữa', dur: 40, load: .58,
+    nut: { kcal: 2010, p: 130, c: 260, f: 50 },
+    warm: ['Xoay khớp chung (~2 phút)', 'Hiệp mồi: inverted row người đứng cao (không kê chân) × 5'],
+    ex: [
+      { id: 'thu_invrow', n: 'Inverted Row tay sấp, kê chân', s: 4, lo: 8, hi: 12, rir: '1–2', rest: 120, rl: "nghỉ 2'", cue: 'Kéo xà về ngực dưới, siết bả vai 1s ở đỉnh. >12 rep → balo / archer row.' },
+      { id: 'thu_neutral', n: 'Neutral-grip Pull-ups', s: 3, lo: 6, hi: 10, rir: '1–2', rest: 150, rl: "nghỉ 2'30", cue: 'Không có tay song song → pull-up tay sấp hẹp bằng vai.' },
+      { id: 'thu_face', tag: '3a', n: 'Band Face Pull', s: 3, lo: 15, hi: 20, rir: '1', rest: 0, rl: 'sang ngay 3b', cue: '' },
+      { id: 'thu_bandlat', tag: '3b', n: 'Band Lateral Raise (hoặc tạ đơn)', s: 3, lo: 15, hi: 20, rir: '0–1', rest: 60, rl: 'nghỉ 60" rồi lặp 3a', cue: '' }
+    ],
+    after: ['Dead hang 30–60s cuối buổi để giãn vai (tùy chọn)'],
+    ride: { type: 'z2', t: 'Đạp nền tảng Zone 2 (45–60 phút)', min: 50, steps: ['Zone 2 (nói được thành câu), cadence 85–95.'] },
+    eve: 'apt' },
+
+  5: { code: 'Push B', focus: 'Ngực, tay sau, vai giữa, bụng', dur: 45, load: .76,
+    nut: { kcal: 2050, p: 130, c: 270, f: 50 },
+    warm: ['Xoay khớp chung (~2 phút)', 'Hiệp mồi: push-up thường × 5 → dips chân chạm đất hỗ trợ × 3'],
+    ex: [
+      { id: 'fri_dips', n: 'Dips / xà kép, đổ người ~20–30°', s: 4, lo: 6, hi: 10, rir: '1–2', rest: 165, rl: "nghỉ 2'30–3'", cue: 'Xuống tới khi vai thấp hơn khuỷu một chút. Đau vai trước → giảm độ sâu. >12 rep → đeo balo.' },
+      { id: 'fri_deficit', n: 'Deficit Push-ups', s: 3, lo: 8, hi: 12, rir: '1–2', rest: 120, rl: "nghỉ 2'", cue: 'Ngực xuống thấp hơn tay. >15 rep → balo. Thay thế: archer push-up 3 × 5–8/bên.' },
+      { id: 'fri_lat', n: 'Seated DB Lateral Raise', s: 4, lo: 12, hi: 20, rir: '0–1', rest: 60, rl: 'nghỉ 60"', cue: 'Ngồi để bớt đu, nâng hơi chếch về trước.' },
+      { id: 'fri_diamond', n: 'Diamond Push-ups (hoặc band pushdown)', s: 2, lo: 10, hi: 20, rir: '1', rest: 75, rl: 'nghỉ 75"', cue: '' },
+      { id: 'fri_ab', n: 'Ab Wheel Rollout (hoặc RKC plank 15–20s)', s: 3, lo: 6, hi: 12, rir: '2', rest: 75, rl: 'nghỉ 75"', cue: 'Giữ xương chậu cuộn, không võng lưng. Làm plank thì ghi số giây.', noHint: true }
+    ],
+    exNote: 'Không có pike hôm nay là cố ý — vai trước đã đủ tải.',
+    ride: { type: 'vo2', t: 'Đạp VO2max (~40 phút)', min: 40, steps: ["Khởi động 15' (có 3 × 15s tăng tốc).", "2 block × 10 lần (30s RPE 9 / 15s đạp nhẹ), nghỉ 3' giữa block.", "Thả lỏng 5–10'."], note: 'Canh bằng RPE, không canh nhịp tim. Tăng dần tới 3 block × 13.' },
+    eve: 'tib' },
+
+  6: { code: 'Nghỉ', focus: 'Nghỉ, nạp carb vừa phải', rest: true, load: .16,
+    nut: { kcal: 1805, p: 130, c: 220, f: 45 },
+    restItems: ["Đi bộ + giãn cơ nhẹ 10'"], restNote: 'Ăn đúng bảng — carb-loading chỉ dành cho đua trên 90 phút.' },
+
+  0: { code: 'Long ride', focus: 'Đạp dài Zone 2, có leo đồi', load: 1, dynamic: true,
+    nut: { p: 130, f: 50 },
+    ride: { type: 'long', t: 'Long ride Zone 2 (2.5–4 giờ)', min: 210, steps: ['Bữa sáng giàu carb 2–3 giờ trước.', 'Zone 2 (RPE 3–4/10). Lên dốc cho phép Zone 3 ngắn, không đua.', 'Từ phút 45–60: nạp 40–60 g carb/giờ.', 'Nước 500–750 ml/giờ, trời nóng thêm điện giải.'], note: 'Giai đoạn giảm mỡ: giữ ≤ 4 giờ. Tối ăn đủ theo bảng để sáng T2 kéo xà không hụt sức.' },
+    eve: 'apt', eveNote: 'Không tập bụng tối nay.' }
+};
+
+const EVE = {
+  apt: { t: 'Trị liệu xương chậu (APT)', items: ['Lăn foam roller đùi trước 1–2 phút/bên', 'Kneeling hip flexor stretch 45–60s/bên, siết mông', 'Cat-Cow × 10, tập trung cuộn xương chậu', 'Glute bridge 3 × 15, siết mông 2s ở đỉnh', 'Dead bug 3 × 10/bên, ép thắt lưng xuống sàn'] },
+  tib: { t: 'Tăng cường chày trước', items: ['Toe raises dựa tường 2 × 15–20', 'Banded dorsiflexion 2 × 12–15/bên'] }
+};
+const MORNING = ['Chin tuck 2 × 10, giữ 3–5s', 'Nghỉ mắt nhìn xa – gần (tùy chọn)'];
+const RF = { z1: 4.5, z2: 7, thr: 8, vo2: 8, long: 7.5, walk: 4.3 }; // kcal / kg / giờ, ước tính thô khi không có số đồng hồ
+const RULES = [
+  'RIR = số rep còn dư trước thất bại (RIR 2 ≈ RPE 8, RIR 1 ≈ RPE 9, RIR 0 = thất bại). Không tập mọi hiệp tới thất bại.',
+  'Khởi động 3–4 phút không phải bài tập: xoay khớp chung + 1 hiệp mồi (bản dễ, ~50% số rep). Không tính vào số hiệp.',
+  'Nghỉ 2–3 phút giữa các hiệp compound, bài cô lập 60–90 giây.',
+  'Tiến bộ kép: mọi hiệp chạm đỉnh rep ở đúng RIR → buổi sau tăng độ khó (balo +1–2.5 kg, kê chân cao hơn, biến thể khó hơn) và quay về đáy rep. Không chạm đáy → giảm độ khó (band, kê thấp).',
+  'Pull-up dưới 5 rep sạch: band hỗ trợ + negative 3 × 3–5 (hạ 3–5s) làm bài số 1.',
+  'Deload tuần 7, hoặc khi rep tụt 2 buổi liền: giữ bài, ½ số hiệp, RIR 3–4, chỉ đạp Zone 2.',
+  'Đạp xe chiều cách buổi tạ sáng ≥ 6 giờ; giữa hai buổi ăn 1 bữa carb + protein.',
+  'Ngủ 7–9 giờ. Ngủ ít khi đang giảm cân dễ mất cơ thay vì mất mỡ.',
+  'Sàn năng lượng: ăn − calo tập ≥ 30 kcal × cân nặng không mỡ, xét theo trung bình tuần. Chủ nhật: ăn = sàn + kcal buổi đạp; không đạp thì ăn như thứ 7.',
+  'Sau giai đoạn 1 (8–12 tuần hoặc BIA ~13–15%): 2 tuần ăn duy trì ~2350 kcal, rồi tăng cân nạc +150–250 kcal/ngày.'
+];
+
+/* ---------- đợt tạm nghỉ, tập lại, bài an toàn vùng đầu ---------- */
+// Thay bài có đầu thấp hơn tim trong thời gian bảo vệ vùng cấy
+const HEAD_SAFE = {
+  tue_pike: { id: 'tue_ohpress', n: 'Đẩy vai tạ đơn, ngồi ghế tựa', s: 4, lo: 8, hi: 12, rir: '2', rest: 150, rl: "nghỉ 2'30", cue: 'Thay pike push-up khi đang bảo vệ vùng cấy: người thẳng, đầu luôn cao. Thở ra khi đẩy, không nín thở gồng.' },
+  tue_decline: { id: 'tue_incline', n: 'Push-up tay kê cao', s: 3, lo: 8, hi: 15, rir: '1–2', rest: 120, rl: "nghỉ 2'", cue: 'Thay decline push-up: tay đặt trên bàn hoặc ghế chắc chắn, đầu luôn cao hơn chân. >15 rep → hạ độ cao tay (bàn → ghế) hoặc đeo balo.' }
+};
+const HEAD_SAFE_WARM = { 'Hiệp mồi: pike push-up trên sàn (không kê chân) × 3–5': 'Hiệp mồi: đẩy vai tạ nhẹ × 8' };
+const PAUSE_NUT = { kcal: 2000, p: 130, c: 235, f: 60 };      // 4 ngày đầu sau cấy: ăn duy trì
+const WALK_NUT = { kcal: 1850, p: 130, c: 209, f: 55 };       // ngày 5–14: chỉ đi bộ, không đổ mồ hôi
+const LIGHT_NUT = { kcal: 1950, p: 130, c: 234, f: 55 };      // ngày 15–31: tập nhẹ + đi bộ, không đổ mồ hôi
+const BASE_STEPS = 4000;                                       // bước sinh hoạt đã nằm trong mức duy trì
+const WALK_TIPS = ['Đi lúc mát: trước 7h sáng hoặc sau 18h. Tránh nắng chiếu thẳng da đầu — chọn bóng râm, che ô; chỉ đội mũ rộng không chạm vùng cấy khi bác sĩ cho.', 'Tốc độ nói chuyện thoải mái (~4–5 km/h), đường bằng, tránh leo dốc dài.', 'Chia 2–3 lần trong ngày, mỗi lần 20–40 phút. Thấy rịn mồ hôi ở trán → đi chậm lại hoặc đứng nghỉ chỗ mát.', 'Mang nước. Không đeo balo nặng, không cúi gập người lâu.'];
+const PAUSE_EARLY = ['Nghỉ ngơi, chỉ đi lại nhẹ trong nhà', 'Ngủ theo tư thế phòng khám dặn (thường là nửa ngồi)', 'Protein 4 bữa × 30–35 g — đồ mềm: trứng, cháo gà/cá, sữa chua, whey', 'Uống 2–2.5 lít nước', 'Không rượu, hạn chế đồ mặn (mì gói, đồ hộp, chấm nhiều nước mắm)', 'Chăm sóc vùng cấy đúng hướng dẫn phòng khám'];
+const PAUSE_LATE = ['Protein 4 bữa × 30–35 g (có thể dời 1 bữa thành sữa chua/sữa + whey trước ngủ)', 'Uống 2–2.5 lít nước', 'Không rượu, hạn chế đồ mặn', 'Ngủ 7–9 giờ', 'Chăm sóc vùng cấy đúng hướng dẫn phòng khám'];
+function walkFor(R) {
+  const long = R.type === 'long';
+  return { type: 'walk', t: long ? 'Đi bộ 45–60 phút (thay long ride)' : R.opt ? 'Đi bộ nhẹ 20–30 phút (tùy chọn)' : 'Đi bộ nhanh 30–45 phút (thay đạp xe)', min: long ? 50 : R.opt ? 25 : 40, opt: R.opt,
+    steps: ['Đi nơi có bóng râm, hoặc sáng sớm và chiều muộn.', 'Tốc độ vẫn nói chuyện được, chỉ ra mồ hôi nhẹ.', 'Chỉ đội mũ rộng không ép lên vùng cấy, và chỉ khi bác sĩ cho.'],
+    note: 'Đạp xe lại khi bác sĩ cho đội mũ bảo hiểm và ra nắng — đặt ngày "Đạp xe lại từ" trong ⚙.' };
+}
+
+/* ---------- cách tập chi tiết ---------- */
+const HOW = {
+  pullup: {
+    m: 'Xô (hai bên lưng dưới nách); phụ: tay trước, cẳng tay.',
+    setup: 'Nắm xà sấp (lòng bàn tay hướng ra trước), tay rộng ~1.5 vai. Treo thẳng tay, kéo vai xa tai, siết bụng và mông, hai chân khép hơi đưa ra trước để người không đu.',
+    steps: ['Bắt đầu bằng việc hạ vai xuống (vai rời khỏi tai) trước khi gập khuỷu.', 'Kéo khuỷu xuống và về phía hông, như đang bẻ cong thanh xà.', 'Ngực hướng lên xà, cằm qua xà; không rướn cổ để "câu" cằm lên.', 'Dừng ngắn ở đỉnh, hạ có kiểm soát 2–3s về gần duỗi thẳng tay, vai vẫn hơi căng.'],
+    breath: 'Hít vào ở dưới, thở ra khi kéo lên.',
+    feel: 'Căng hai bên lưng, ngay dưới nách. Nếu tay trước mỏi trước lưng → nghĩ "kéo bằng khuỷu" và thả lỏng tay nắm hơn.',
+    err: ['Đu người, lấy đà bằng chân.', 'Nửa biên độ: không duỗi tay ở đáy.', 'Nhún vai lên tai ở đáy.', 'Rướn cằm thay vì đưa ngực lên.'],
+    easy: 'Band hỗ trợ vòng dưới gối hoặc bàn chân; hoặc negative 3–5s (nhảy lên đỉnh rồi hạ thật chậm).',
+    hard: 'Đeo balo +1–2.5 kg; dừng 1s ở đỉnh.'
+  },
+  chinup: {
+    m: 'Xô và tay trước — bắp tay trước làm nhiều hơn pull-up tay sấp.',
+    setup: 'Nắm xà ngửa (lòng bàn tay hướng về mặt), rộng bằng vai. Treo thẳng tay, vai kéo xuống, siết bụng.',
+    steps: ['Hạ vai xuống trước, rồi kéo khuỷu xuống sát sườn.', 'Kéo tới khi ngực gần chạm xà, cằm qua xà.', 'Hạ chậm 2–3s và duỗi hết tay ở đáy — đó là lúc xô được kéo giãn nhiều nhất.'],
+    breath: 'Hít vào ở dưới, thở ra khi kéo lên.',
+    feel: 'Xô và bắp tay trước.',
+    err: ['Không duỗi hết tay ở đáy.', 'Đu hông lấy đà.', 'Gập cổ tay vào trong quá mức.'],
+    easy: 'Band hỗ trợ hoặc negative 3–5s.',
+    hard: 'Đeo balo; dừng 1s ở đỉnh.',
+    safe: 'Đau mặt trong khuỷu → bớt hiệp hôm đó hoặc đổi sang tay cầm song song.'
+  },
+  invrow_sup: {
+    m: 'Xô, lưng giữa, tay trước, vai sau.',
+    setup: 'Nằm dưới xà thấp (xà kép hoặc mép bàn thật chắc), nắm ngửa rộng bằng vai. Thân thẳng một đường từ vai tới gót: siết mông và bụng, gót chạm sàn.',
+    steps: ['Kéo thân lên, hướng xà về phía rốn.', 'Khuỷu đi sát sườn và về phía hông — đây là điểm làm bài thiên về xô.', 'Siết bả vai 1s ở đỉnh.', 'Hạ 2s về duỗi thẳng tay.'],
+    feel: 'Lưng xô và giữa lưng; tay trước chỉ phụ.',
+    err: ['Võng hoặc chổng hông.', 'Ngóc cổ nhìn lên.', 'Kéo xà lên ngực trên với khuỷu bè ra — bài chuyển sang lưng trên, không còn thiên về xô.'],
+    easy: 'Đứng cao hơn để người dốc hơn, hoặc co gối.',
+    hard: 'Kê chân, đeo balo, dừng 2s ở đỉnh.'
+  },
+  lat_lean: {
+    m: 'Vai giữa, được kéo căng nhiều hơn lateral raise đứng thẳng — phần làm vai rộng ra, quan trọng nhất cho dáng chữ V.',
+    setup: 'Đứng cách cột hoặc khung cửa khoảng một bước, bên tay không tập hướng về cột. Tay không tập đặt lên cột, để người nghiêng về phía cột 15–20° — vai bên tay tập cao hơn. Tay tập cầm tạ buông tự nhiên: tạ phải treo trước hông, lệch vào gần giữa người.',
+    steps: ['Kiểm tra trước hiệp: ở đáy, tạ treo trước hông và hơi chéo vào giữa người. Tạ treo xa người, có khoảng hở với đùi → đang nghiêng ngược chiều, sửa lại.', 'Nâng tạ ra ngang, dẫn bằng khuỷu, khuỷu hơi cong và giữ cố định.', 'Tay hơi chếch về trước ~20–30°, lên tới khi cánh tay ngang vai rồi dừng.', 'Hạ chậm 2–3s về hẳn vị trí chéo trước người — đoạn cuối này là phần kích thích tốt nhất, đừng cắt ngắn.', 'Xong một tay thì đổi bên, đứng sang phía kia của cột; thời gian tay kia làm chính là thời gian nghỉ.', 'Hiệp cuối thứ 3: khi không nâng hết được nữa, làm thêm 5–8 rep nửa dưới biên độ (partial).'],
+    breath: 'Thở ra khi nâng, hít vào khi hạ.',
+    feel: 'Căng rõ ở mặt ngoài vai ngay từ đầu rep, nóng rát ở cuối hiệp. Cổ và cầu vai nóng hơn vai → tạ đang quá nặng.',
+    err: ['Nghiêng sai chiều: người ngả ra xa cột, tay tập ở phía thấp — tạ treo xa người và mất lực ở đầu rep.', 'Nhún vai — cầu vai làm thay vai giữa.', 'Đu thân lấy đà.', 'Tạ quá nặng nên phải gập khuỷu nhiều.'],
+    easy: 'Tạ nhẹ hơn; nghiêng ít hơn (10°).',
+    hard: 'Tăng rep trong dải 12–20 trước, rồi +0.5–1 kg; hoặc hạ 3–4s.'
+  },
+  curl_wall: {
+    m: 'Tay trước (bắp tay trước) và cơ cánh tay.',
+    setup: 'Đầu, lưng, mông dựa tường, gót cách tường 20–30 cm, gối mềm. Cầm tạ, lòng bàn tay hướng ra trước, tay duỗi hết.',
+    steps: ['Cuộn tạ lên, khuỷu giữ yên cạnh sườn — tường giúp không đu người.', 'Siết bắp tay 1s ở đỉnh.', 'Hạ chậm 2–3s và duỗi hết tay.'],
+    feel: 'Căng dồn ở bắp tay trước.',
+    err: ['Lưng rời tường, đẩy hông lấy đà.', 'Khuỷu trôi ra trước khi lên.', 'Hạ quá nhanh hoặc không duỗi hết tay.'],
+    easy: 'Tạ nhẹ hơn, làm từng tay.',
+    hard: 'Tạ nặng hơn; hạ 4s; 1.5 rep (lên hết, xuống nửa, lên lại, xuống hết).'
+  },
+  hang_raise: {
+    m: 'Bụng dưới; cơ gập hông phụ.',
+    setup: 'Treo xà thẳng tay, vai kéo nhẹ xuống (không treo thả lỏng hoàn toàn), hai chân khép.',
+    steps: ['Cuộn xương chậu ra sau trước (như đưa mông lên), rồi mới đưa chân.', 'Knee raise: kéo gối lên ngực. Leg raise: chân gần thẳng, đưa lên ngang hông hoặc cao hơn.', 'Hạ chậm 2–3s, không để người đu theo quán tính.'],
+    breath: 'Thở ra khi đưa chân lên.',
+    feel: 'Bụng dưới co lại. Chỉ thấy mỏi ở háng và đùi trước → xương chậu chưa cuộn.',
+    err: ['Đu người lấy đà.', 'Chỉ nhấc chân mà xương chậu không cuộn.', 'Thả rơi chân xuống.'],
+    easy: 'Knee raise; tay mỏi trước bụng → reverse crunch nằm sàn.',
+    hard: 'Leg raise thẳng chân, rồi toes-to-bar; dừng 1s ở đỉnh.'
+  },
+  pike: {
+    m: 'Vai trước, tay sau, cầu vai trên.',
+    setup: 'Chân kê lên ghế hoặc bục, tay đặt sàn rộng hơn vai một chút. Đẩy hông lên cao để thân gần thẳng đứng (hình chữ V ngược), tay thẳng.',
+    steps: ['Gập khuỷu, hạ đầu xuống phía trước hai bàn tay — đầu và hai tay tạo thành tam giác.', 'Khuỷu khoảng 45° so với thân, không bè ngang.', 'Xuống tới khi đỉnh đầu gần chạm sàn.', 'Đẩy lên, đưa đầu về lại giữa hai tay và duỗi thẳng tay.'],
+    breath: 'Hít vào khi xuống, thở ra khi đẩy.',
+    feel: 'Vai trước và tay sau.',
+    err: ['Hông thấp → thành push-up dốc, lực chuyển sang ngực.', 'Đầu rơi thẳng giữa hai tay → tay sau gánh gần hết.', 'Khuỷu bè 90°.', 'Chỉ xuống nửa biên độ.'],
+    easy: 'Pike push-up trên sàn (không kê chân).',
+    hard: 'Kê chân cao hơn, deficit (tay trên chồng sách), HSPU âm tính dựa tường.',
+    safe: 'Đau nhói trong khớp vai → giảm độ sâu, không cố.'
+  },
+  decline_pu: {
+    m: 'Ngực trên, vai trước, tay sau.',
+    setup: 'Chân kê ghế 40–60 cm. Tay rộng hơn vai một chút, đặt trên chồng sách hoặc tay cầm để xuống sâu hơn. Thân thẳng, siết bụng và mông.',
+    steps: ['Kéo nhẹ bả vai về sau, hạ ngực xuống giữa hai tay, khuỷu ~45°.', 'Xuống tới khi ngực ngang mặt tay cầm, dừng 1s.', 'Đẩy lên và nghĩ "khép hai cánh tay vào nhau" thay vì "duỗi khuỷu" — ý này dồn lực về ngực.'],
+    breath: 'Hít vào khi xuống, thở ra khi đẩy.',
+    feel: 'Ngực trên, gần xương đòn.',
+    err: ['Hông võng hoặc chổng lên.', 'Đầu đưa ra trước, cổ gập.', 'Xuống nửa chừng.', 'Khuỷu bè ra hai bên.'],
+    easy: 'Kê chân thấp hơn.',
+    hard: 'Đeo balo; hạ 3s; dừng 2s ở đáy.'
+  },
+  oh_ext: {
+    m: 'Tay sau, đặc biệt đầu dài — phần lớn nhất, chỉ được kéo giãn đủ khi tay ở trên đầu.',
+    setup: 'Đứng hoặc ngồi thẳng, hai tay ôm một đầu quả tạ (ngón cái và ngón trỏ tạo hình kim cương), đưa tạ lên thẳng trên đầu. Siết bụng để lưng không ưỡn.',
+    steps: ['Giữ khuỷu hướng lên trần, chỉ gập ở khuỷu.', 'Hạ tạ ra sau đầu thật sâu tới khi mặt sau cánh tay căng.', 'Duỗi lên gần hết, không giật khóa khuỷu.'],
+    feel: 'Căng rõ ở mặt sau cánh tay khi tạ ở đáy.',
+    err: ['Khuỷu bè sang hai bên.', 'Ưỡn thắt lưng để đẩy tạ.', 'Hạ nông để được nhiều rep.'],
+    easy: 'Tạ nhẹ hơn; ngồi có tựa lưng.',
+    hard: 'Tạ nặng hơn; làm 1 tay; hạ 3s.'
+  },
+  face_pull: {
+    m: 'Vai sau, nhóm xoay ngoài vai, giữa lưng — cân bằng cho các bài đẩy, giữ vai khỏe và tư thế thẳng.',
+    setup: 'Neo band ngang mặt hoặc cao hơn mặt một chút (xà đơn, khung cửa). Cầm hai đầu band, lùi tới khi band căng, đứng thẳng.',
+    steps: ['Kéo band về phía trán, khuỷu cao ngang vai.', 'Tách hai tay sang hai bên đầu.', 'Cuối động tác xoay vai ra ngoài: nắm tay đi lên cao hơn khuỷu, như tư thế khoe bắp tay.', 'Giữ 1s, về chậm.'],
+    feel: 'Sau vai và giữa hai bả vai.',
+    err: ['Kéo xuống ngực — thành bài row.', 'Nhún vai.', 'Ngả người ra sau lấy lực.'],
+    easy: 'Band nhẹ hơn, đứng gần neo hơn.',
+    hard: 'Band nặng hơn, lùi xa hơn, giữ 2s.'
+  },
+  band_fly: {
+    m: 'Ngực trên (bó đòn); vai trước chỉ phụ.',
+    setup: 'Neo band thấp phía sau (chân xà kép hoặc chân cửa). Đứng chân trước chân sau, người hơi nghiêng về trước, hai tay dang thấp hai bên, khuỷu hơi cong.',
+    steps: ['Giữ nguyên độ cong khuỷu như đang ôm một cái thùng lớn.', 'Vòng hai tay chéo lên phía trước, gặp nhau ngang cằm.', 'Siết ngực 1s.', 'Về chậm 2–3s tới khi thấy ngực giãn.'],
+    feel: 'Ngực trên, gần xương đòn; tay sau gần như không mỏi.',
+    err: ['Gập duỗi khuỷu — động tác biến thành đẩy.', 'Vai nhô ra trước ở cuối — vai trước làm thay ngực.', 'Band quá nặng, hai tay không khép được tới cằm.'],
+    easy: 'Band nhẹ hơn, đứng gần neo hơn.',
+    hard: 'Bước xa neo hơn, band nặng hơn, chập đôi band.'
+  },
+  invrow_pro: {
+    m: 'Lưng giữa (cơ thang giữa, cơ trám), vai sau, xô — tạo độ dày cho lưng.',
+    setup: 'Nằm dưới xà thấp, nắm sấp rộng hơn vai một chút. Kê chân lên ghế để thân nằm gần ngang, thân thẳng từ vai tới gót.',
+    steps: ['Kéo xà về ngực dưới, khuỷu khoảng 45–60° so với thân.', 'Siết hai bả vai vào nhau 1s ở đỉnh.', 'Hạ 2s về duỗi thẳng tay, để bả vai giãn ra hết.'],
+    feel: 'Giữa hai bả vai và sau vai.',
+    err: ['Võng hông.', 'Không siết bả vai, chỉ gập tay.', 'Nửa biên độ.'],
+    easy: 'Bỏ kê chân, hoặc đứng cao hơn.',
+    hard: 'Đeo balo; archer row (dồn lực sang một tay).'
+  },
+  neutral_pullup: {
+    m: 'Xô, tay trước, cơ cánh tay quay; nhẹ cho khuỷu và vai hơn tay sấp.',
+    setup: 'Nắm hai tay cầm song song (lòng bàn tay đối diện nhau). Không có tay cầm song song → pull-up tay sấp hẹp bằng vai.',
+    steps: ['Hạ vai xuống trước.', 'Kéo khuỷu xuống sát sườn, ngực hướng lên.', 'Lên tới khi cằm qua tay cầm.', 'Hạ 2–3s về gần duỗi thẳng.'],
+    breath: 'Hít vào ở dưới, thở ra khi kéo lên.',
+    feel: 'Xô, thiên về phần dưới lưng xô.',
+    err: ['Đu người.', 'Nửa biên độ.', 'Nhún vai ở đáy.'],
+    easy: 'Band hỗ trợ hoặc negative 3–5s.',
+    hard: 'Đeo balo.'
+  },
+  band_lat: {
+    m: 'Vai giữa.',
+    setup: 'Đạp giữa band bằng một hoặc hai chân. Đạp bằng chân đối diện tay tập để band chạy chéo trước người → có lực ngay từ đáy. Cầm hai đầu band.',
+    steps: ['Nâng tay ra ngang, dẫn bằng khuỷu, khuỷu hơi cong.', 'Lên tới ngang vai, giữ 1s — band nặng nhất ở đỉnh.', 'Hạ chậm 2s.'],
+    feel: 'Mặt ngoài vai.',
+    err: ['Nhún vai.', 'Ngả người.', 'Hạ nhanh, để band tự kéo tay về.'],
+    easy: 'Band nhẹ hơn, cầm dài band hơn.',
+    hard: 'Cầm ngắn band, band nặng hơn, hoặc đổi sang tạ đơn.'
+  },
+  dips: {
+    m: 'Ngực dưới và giữa, tay sau, vai trước.',
+    setup: 'Chống thẳng tay trên xà kép, vai hạ xuống (không nhún), hai chân co ra sau. Đổ người về trước 20–30° để dồn vào ngực.',
+    steps: ['Gập khuỷu hạ người, khuỷu hướng ra sau và hơi ra ngoài.', 'Xuống tới khi vai thấp hơn khuỷu một chút.', 'Đẩy lên tới duỗi tay, không giật khóa khuỷu.'],
+    breath: 'Hít vào khi xuống, thở ra khi đẩy.',
+    feel: 'Ngực dưới và tay sau.',
+    err: ['Xuống quá sâu gây đau vai trước.', 'Nhún vai lên tai.', 'Người thẳng đứng — thành bài tay sau.', 'Đu chân lấy đà.'],
+    easy: 'Dips chân chạm đất hỗ trợ, hoặc band dưới gối.',
+    hard: 'Đeo balo; dừng 1s ở đáy.',
+    safe: 'Đau vai trước → giảm độ sâu ngay.'
+  },
+  deficit_pu: {
+    m: 'Ngực (nhận tải nhiều ở tư thế giãn), vai trước, tay sau.',
+    setup: 'Tay đặt trên hai chồng sách hoặc tay cầm cao 8–15 cm, rộng hơn vai một chút. Thân thẳng, siết bụng và mông.',
+    steps: ['Hạ người tới khi ngực thấp hơn mặt tay cầm.', 'Dừng 1s ở đáy, cảm nhận ngực giãn.', 'Đẩy lên duỗi tay.'],
+    breath: 'Hít vào khi xuống, thở ra khi đẩy.',
+    feel: 'Căng rõ ở ngực khi ở đáy.',
+    err: ['Không xuống hết độ sâu — mất lợi ích của deficit.', 'Hông võng.', 'Khuỷu bè ngang.'],
+    easy: 'Deficit thấp hơn, hoặc chống gối.',
+    hard: 'Đeo balo; hạ 3s; archer push-up 3 × 5–8/bên.'
+  },
+  lat_seated: {
+    m: 'Vai giữa.',
+    setup: 'Ngồi mép ghế, lưng thẳng, hai chân vững. Tạ hai bên hông, lòng bàn tay hướng vào thân.',
+    steps: ['Nâng tạ ra ngang, hơi chếch về trước, dẫn bằng khuỷu.', 'Lên tới ngang vai.', 'Hạ chậm 2–3s, không chạm tạ vào ghế để nghỉ.'],
+    breath: 'Thở ra khi nâng, hít vào khi hạ.',
+    feel: 'Mặt ngoài vai; ngồi nên khó đu người hơn đứng.',
+    err: ['Nhún vai.', 'Ngả người ra sau.', 'Tạ quá nặng.'],
+    easy: 'Tạ nhẹ hơn.',
+    hard: 'Tăng rep, rồi +0.5–1 kg; hạ 3–4s.'
+  },
+  diamond: {
+    m: 'Tay sau; ngực trong phụ.',
+    setup: 'Hai tay chụm dưới ngực, ngón cái và ngón trỏ tạo hình kim cương. Thân thẳng.',
+    steps: ['Hạ ngực xuống gần chạm tay, khuỷu đi sát thân về phía sau.', 'Đẩy lên duỗi hết tay.'],
+    feel: 'Mặt sau cánh tay.',
+    err: ['Khuỷu bè ra.', 'Hông võng.', 'Đau cổ tay → tách tay rộng hơn một chút (close-grip push-up).'],
+    easy: 'Chống gối.',
+    hard: 'Hạ 3s; kê chân.',
+    alt: 'Band pushdown: neo band trên xà đơn, khuỷu kẹp sát sườn, duỗi tay xuống hết, về chậm.'
+  },
+  ab_wheel: {
+    m: 'Cơ bụng và cơ bụng sâu, làm nhiệm vụ chống võng lưng.',
+    setup: 'Quỳ gối trên đệm, tay nắm bánh xe ngay dưới vai. Cuộn xương chậu (mông hơi quặp), lưng tròn nhẹ.',
+    steps: ['Lăn ra trước chậm, giữ nguyên xương chậu cuộn.', 'Đi xa tới mức lưng chưa võng thì dừng.', 'Kéo về bằng bụng, như kéo khuỷu về phía gối.'],
+    feel: 'Bụng căng cứng; không được thấy đau thắt lưng.',
+    err: ['Võng thắt lưng.', 'Lăn xa quá sức.', 'Kéo về bằng cách chổng hông.'],
+    easy: 'Lăn ngắn hơn, hoặc lăn về phía tường để tường chặn.',
+    hard: 'Lăn xa hơn; dừng 1s ở điểm xa nhất.',
+    alt: 'RKC plank: chống khuỷu, siết mông và bụng hết mức, kéo khuỷu về phía chân (không di chuyển thật) — giữ 15–20s, ghi số giây vào ô rep.'
+  }
+};
+HOW.db_press = {
+  m: 'Vai trước và vai giữa, tay sau — thay pike push-up mà đầu vẫn luôn cao hơn tim.',
+  setup: 'Ngồi ghế có tựa lưng, lưng áp ghế, hai bàn chân vững. Đưa tạ lên ngang tai, khuỷu hơi chếch về trước (không bè thẳng hai bên), lòng bàn tay hơi hướng vào trong.',
+  steps: ['Đẩy tạ thẳng lên trên đầu, hai tạ hơi tiến lại gần nhau ở đỉnh.', 'Dừng ngay trước khi khóa khuỷu.', 'Hạ chậm 2s về ngang tai.'],
+  breath: 'Thở ra khi đẩy, hít vào khi hạ — tuyệt đối không nín thở gồng khi đang bảo vệ vùng cấy.',
+  feel: 'Vai trước và mặt trên vai; tay sau phụ.',
+  err: ['Ưỡn thắt lưng rời ghế để đẩy.', 'Khuỷu bè thẳng ngang, gây khó chịu khớp vai.', 'Hạ nông, chỉ đẩy nửa trên.', 'Gồng đến đỏ mặt — giữ RIR 2.'],
+  easy: 'Tạ nhẹ hơn; làm từng tay.',
+  hard: 'Tăng rep trong dải 8–12 rồi tăng tạ; hạ 3s.',
+  safe: 'Trong 3 tháng sau cấy: dừng ngay nếu thấy căng, nhói hoặc nóng ở vùng cấy.'
+};
+HOW.incline_pu = {
+  m: 'Ngực (thiên phần dưới), vai trước, tay sau — thay decline push-up, đầu luôn cao hơn chân.',
+  setup: 'Tay đặt trên mép bàn, ghế hoặc bậc thật chắc, rộng hơn vai một chút. Lùi chân ra sau để thân thẳng một đường từ vai tới gót, siết bụng và mông.',
+  steps: ['Hạ ngực xuống chạm mép bàn/ghế, khuỷu ~45°.', 'Dừng 1s.', 'Đẩy lên, nghĩ "khép hai cánh tay vào nhau".'],
+  breath: 'Hít vào khi xuống, thở ra khi đẩy.',
+  feel: 'Ngực; tay sau phụ.',
+  err: ['Hông võng hoặc chổng.', 'Chỉ xuống nửa chừng.', 'Khuỷu bè ngang.', 'Chỗ tựa trượt — luôn kiểm tra bàn/ghế chắc chắn.'],
+  easy: 'Tay đặt cao hơn (mép bàn cao, bệ cửa sổ).',
+  hard: 'Tay đặt thấp hơn (bàn → ghế → bậc thấp) nhưng đầu vẫn cao hơn chân; đeo balo; hạ 3s.'
+};
+const HOW_OF = {
+  mon_pullup: 'pullup', mon_chin: 'chinup', mon_invrow: 'invrow_sup', mon_lat: 'lat_lean', mon_curl: 'curl_wall', mon_hang: 'hang_raise',
+  tue_pike: 'pike', tue_decline: 'decline_pu', tue_lat: 'lat_lean', tue_ohext: 'oh_ext', tue_face: 'face_pull', tue_fly: 'band_fly',
+  tue_ohpress: 'db_press', tue_incline: 'incline_pu',
+  thu_invrow: 'invrow_pro', thu_neutral: 'neutral_pullup', thu_face: 'face_pull', thu_bandlat: 'band_lat',
+  fri_dips: 'dips', fri_deficit: 'deficit_pu', fri_lat: 'lat_seated', fri_diamond: 'diamond', fri_ab: 'ab_wheel'
+};
+function howHtml(h) {
+  let s = `<p><b>Cơ chính:</b> ${esc(h.m)}</p><p><b>Chuẩn bị:</b> ${esc(h.setup)}</p>`;
+  s += `<p class="howh">Thực hiện</p><ol>${h.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol>`;
+  if (h.breath) s += `<p><b>Thở:</b> ${esc(h.breath)}</p>`;
+  s += `<p><b>Cảm giác đúng:</b> ${esc(h.feel)}</p>`;
+  s += `<p class="howh">Lỗi hay gặp</p><ul>${h.err.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  s += `<p><b>Dễ hơn:</b> ${esc(h.easy)}<br><b>Khó hơn:</b> ${esc(h.hard)}</p>`;
+  if (h.alt) s += `<p><b>Thay thế:</b> ${esc(h.alt)}</p>`;
+  if (h.safe) s += `<p class="howsafe"><b>An toàn:</b> ${esc(h.safe)}</p>`;
+  return s;
+}
+
+/* ---------- state ---------- */
+const DEF = { phaseStart: null, ffm: null, autoTimer: true, sound: true, theme: 'auto', pauseLabel: '', pauseFrom: null, pauseTo: null, reentryTo: null, headSafeTo: null, rideFrom: null, deloadWeek: 7, habits: [] };
+const state = { settings: Object.assign({}, DEF), inbody: [], presets: [], days: {} };
+const ui = { tab: 'today', date: todayKey(), lastToday: todayKey(), ibForm: false, editPresets: false, ready: false, openHow: new Set() };
+
+let keysCache = null;
+const sortedKeys = () => keysCache || (keysCache = Object.keys(state.days).sort());
+const D = k => state.days[k] || null;
+function dayW(k) { if (!state.days[k]) { state.days[k] = { date: k }; keysCache = null; } return state.days[k]; }
+function touch(k, delay) { dayW(k).u = Date.now(); queue('day:' + k, delay); }
+
+const phaseStart = () => state.settings.phaseStart || mondayOf(todayKey());
+/* ---------- đợt tạm nghỉ → tập lại → bảo vệ vùng đầu ---------- */
+const SET = () => state.settings;
+const hasPause = () => isKey(SET().pauseFrom) && isKey(SET().pauseTo) && SET().pauseFrom <= SET().pauseTo;
+const inPause = k => hasPause() && k >= SET().pauseFrom && k <= SET().pauseTo;
+const inReentry = k => hasPause() && isKey(SET().reentryTo) && k > SET().pauseTo && k <= SET().reentryTo;
+const headSafe = k => hasPause() && isKey(SET().headSafeTo) && k >= SET().pauseFrom && k <= SET().headSafeTo;
+const rideBlocked = k => hasPause() && k >= SET().pauseFrom && !(isKey(SET().rideFrom) && k >= SET().rideFrom);
+const pauseDays = mon => { let c = 0; for (let i = 0; i < 7; i++) if (inPause(addDays(mon, i))) c++; return c; };
+const isPausedWeek = mon => pauseDays(mondayOf(mon)) >= 4;
+const hasReentryDay = mon => [0, 1, 2, 3, 4, 5, 6].filter(i => inReentry(addDays(mondayOf(mon), i))).length >= 4;
+function pausedWeeksBefore(mon) {
+  if (!hasPause()) return 0;
+  let n = 0;
+  for (let m = mondayOf(SET().pauseFrom); m < mon && m <= SET().pauseTo; m = addDays(m, 7)) if (isPausedWeek(m)) n++;
+  return n;
+}
+const phaseWeek = k => { const mon = mondayOf(k); return Math.floor(daysBetween(mondayOf(phaseStart()), mon) / 7) + 1 - pausedWeeksBefore(mon); };
+const isDeload = k => !isPausedWeek(mondayOf(k)) && !inReentry(k) && phaseWeek(k) === (num(SET().deloadWeek) || 7);
+const inRecovery = k => inPause(k) || inReentry(k);
+function stepGoal(k) {
+  if (inPause(k)) { const idx = daysBetween(SET().pauseFrom, k); return idx < 4 ? null : idx < 9 ? 8000 : 10000; }
+  if (inReentry(k)) return 12000;
+  return null;
+}
+const walkKcal = k => { const st = num((D(k) || {}).steps); return st ? Math.round(Math.max(0, st - BASE_STEPS) * 0.00045 * wEst(k)) : 0; };
+function dayPlan(k) {
+  const base = PLAN[wd(k)];
+  if (inPause(k)) {
+    const idx = daysBetween(SET().pauseFrom, k), len = daysBetween(SET().pauseFrom, SET().pauseTo) + 1;
+    return { code: idx < 4 ? 'Hồi phục' : 'Đi bộ', focus: `${SET().pauseLabel || 'Tạm nghỉ hồi phục'}, ngày ${idx + 1}/${len}`, rest: true, pause: true, load: idx < 4 ? .05 : .2, nut: Object.assign({}, idx < 4 ? PAUSE_NUT : WALK_NUT), restItems: idx < 4 ? PAUSE_EARLY : PAUSE_LATE };
+  }
+  const P = Object.assign({}, base);
+  if (P.ex && headSafe(k)) {
+    P.ex = P.ex.map(e => HEAD_SAFE[e.id] ? Object.assign({ orig: e.id }, HEAD_SAFE[e.id]) : e);
+    if (P.warm) P.warm = P.warm.map(w => HEAD_SAFE_WARM[w] || w);
+    if (base.ex.some(e => HEAD_SAFE[e.id])) P.focus = 'Vai (ưu tiên), ngực, tay sau';
+  }
+  if (inReentry(k)) {
+    P.reentry = true; P.ride = null; P.dynamic = false; P.nut = Object.assign({}, LIGHT_NUT);
+    if (P.rest) { P.restItems = ['Đi bộ đủ mục tiêu bước (khối Đi bộ bên trên)', "Giãn cơ nhẹ 10' trong phòng mát"]; P.restNote = 'Chưa đổ mồ hôi được: không đạp xe, không tập cường độ.'; }
+    if (!P.rest && !P.ex) { P.code = 'Đi bộ'; P.focus = 'Ngày đi bộ dài, không đổ mồ hôi'; P.rest = true; P.restItems = ['Đi bộ đủ mục tiêu bước, có thể dồn 1 lần 60–75 phút lúc sáng sớm']; P.restNote = 'Long ride quay lại khi bác sĩ cho đổ mồ hôi và đội mũ bảo hiểm.'; P.eve = null; }
+    return P;
+  }
+  if (P.ride && rideBlocked(k)) {
+    P.ride = walkFor(base.ride);
+    if (P.dynamic) { P.dynamic = false; P.nut = Object.assign({}, PLAN[6].nut); }
+    else if (!base.ride.opt && !P.reentry) { const c = Math.max(0, P.nut.c - 50); P.nut = Object.assign({}, P.nut, { c, kcal: P.nut.kcal - (P.nut.c - c) * 4 }); }
+  }
+  return P;
+}
+const ALL_EX = (() => { const out = []; Object.values(PLAN).forEach(P => (P.ex || []).forEach(e => out.push(e))); Object.values(HEAD_SAFE).forEach(e => out.push(e)); return out; })();
+function latestInbody() { let b = null; state.inbody.forEach(e => { if (e && isKey(e.date) && (!b || e.date > b.date)) b = e; }); return b; }
+function ffmAuto() { const ib = latestInbody(); return (ib && num(ib.ffm)) || 47.4; }
+const ffm = () => num(state.settings.ffm) || ffmAuto();
+const floorKcal = () => Math.round(30 * ffm());
+/* ---------- thói quen hằng ngày (thuốc, chăm sóc tóc…) ---------- */
+const habits = () => Array.isArray(SET().habits) ? SET().habits.filter(h => h && h.id) : [];
+const habActive = (h, k) => (!isKey(h.from) || k >= h.from) && (!isKey(h.to) || k <= h.to);
+const habOn = (k, id) => !!(((D(k) || {}).hab || {})[id]);
+function habStreak(h, k) {
+  let d = habOn(k, h.id) ? k : addDays(k, -1), n = 0;
+  while (habActive(h, d) && habOn(d, h.id) && n < 400) { n++; d = addDays(d, -1); }
+  return n;
+}
+function habBlock(k) {
+  const list = habits().filter(h => habActive(h, k));
+  if (!list.length) return '';
+  const done = list.filter(h => habOn(k, h.id)).length;
+  return `<section class="blk" id="hab-blk"><h2>Thói quen hằng ngày <small id="hab-count">${done}/${list.length}</small><button class="btn sm" data-habedit>Sửa</button></h2>`
+    + list.map(h => { const on = habOn(k, h.id), st = habStreak(h, k); return `<label class="habit${on ? ' on' : ''}"><input type="checkbox" data-hab="${esc(h.id)}"${on ? ' checked' : ''}><span class="hn">${esc(h.n || 'Thói quen')}</span>${h.t ? `<span class="ht">${esc(h.t)}</span>` : ''}<span class="hs" data-hs="${esc(h.id)}">${st ? st + ' ngày' : ''}</span></label>`; }).join('')
+    + '<p class="note">Tên thuốc, liều và giờ dùng làm đúng theo đơn của phòng khám; sửa danh sách trong ⚙.</p></section>';
+}
+function wEst(k) {
+  const ws = [];
+  for (let i = 0; i < 21 && ws.length < 7; i++) { const d = D(addDays(k, -i)); if (d && num(d.weight)) ws.push(num(d.weight)); }
+  if (ws.length) return avg(ws);
+  const ib = latestInbody(); return (ib && num(ib.weight)) || 57.8;
+}
+
+/* ---------- energy & targets ---------- */
+const rideEst = (k, R, r) => Math.round(RF[R.type] * wEst(k) * (num(r && r.min) || R.min) / 60);
+function rideInfo(k) {
+  const R = dayPlan(k).ride; if (!R) return { kcal: 0, est: false };
+  const r = (D(k) || {}).ride || {};
+  const logged = num(r.kcal); if (logged) return { kcal: Math.round(logged), est: false };
+  if (r.done) return { kcal: rideEst(k, R, r), est: true };
+  return { kcal: 0, est: false };
+}
+const hasSets = x => !!(x && x.r && x.r.some(v => num(v) != null));
+function calisKcal(k) { const P = dayPlan(k), d = D(k); if (!P.ex || !d || !d.sets) return 0; if (!Object.values(d.sets).some(hasSets)) return 0; return Math.round(4 * wEst(k) * P.dur / 60); }
+function exKcal(k) { const r = rideInfo(k), c = calisKcal(k), w = inRecovery(k) ? walkKcal(k) : 0; return { ride: r.kcal, rideEst: r.est, calis: c, walk: w, total: r.kcal + c + w }; }
+function targets(k) {
+  const P = dayPlan(k);
+  if (!P.dynamic) return Object.assign({}, P.nut);
+  const fl = floorKcal(), ri = rideInfo(k);
+  let kcal, note;
+  if (ri.kcal > 0) { kcal = Math.max(PLAN[6].nut.kcal, fl + ri.kcal); note = `Sàn ${fl} + đạp ${ri.kcal}${ri.est ? ' (ước tính)' : ''} kcal.`; }
+  else { const e = Math.round(RF.long * wEst(k) * 3.5); kcal = fl + e; note = `Tạm tính cho 3.5 giờ đồi (≈ ${e} kcal đạp). Ghi kcal buổi đạp để tính lại; không đạp thì ăn như thứ 7.`; }
+  kcal = Math.round(kcal / 10) * 10;
+  const p = P.nut.p, f = P.nut.f;
+  return { kcal, p, c: Math.round((kcal - p * 4 - f * 9) / 4), f, note, dynamic: true };
+}
+function totals(items) { const t = { kcal: 0, p: 0, c: 0, f: 0 }; (items || []).forEach(it => { t.kcal += num(it.kcal) || 0; t.p += num(it.p) || 0; t.c += num(it.c) || 0; t.f += num(it.f) || 0; }); return t; }
+function sleepMin(s) {
+  if (!s || !s.bed || !s.wake) return null;
+  const b = s.bed.split(':').map(Number), w = s.wake.split(':').map(Number);
+  if ([b[0], b[1], w[0], w[1]].some(x => !Number.isFinite(x))) return null;
+  let m = (w[0] * 60 + w[1]) - (b[0] * 60 + b[1]); if (m <= 0) m += 1440; return m;
+}
+
+/* ---------- training logic ---------- */
+function prevLog(id, k) {
+  const ks = sortedKeys();
+  for (let i = ks.length - 1; i >= 0; i--) {
+    if (ks[i] >= k) continue;
+    const x = state.days[ks[i]].sets && state.days[ks[i]].sets[id];
+    if (hasSets(x)) return { k: ks[i], r: x.r, w: x.w, v: x.v };
+  }
+  return null;
+}
+function hintFrom(e, reps, when) {
+  const v = (reps || []).map(num).filter(x => x != null);
+  if (v.length < Math.ceil(e.s / 2)) return null;
+  if (v.every(x => x >= e.hi)) return { c: 'up', t: `Chạm đỉnh mọi hiệp → ${when} tăng độ khó, quay về ${e.lo} rep` };
+  if (v.some(x => x < e.lo)) return { c: 'down', t: `Có hiệp dưới ${e.lo} → ${when} giảm độ khó (band, kê thấp)` };
+  return { c: 'hold', t: `Giữ độ khó, ${when} cố thêm rep` };
+}
+const setsFor = (e, k) => (isDeload(k) || inReentry(k)) ? Math.ceil(e.s / 2) : e.s;
+const exComplete = (reps, n) => (reps || []).slice(0, n).filter(x => num(x) != null).length >= n;
+function exStatus(e, reps, n) {
+  const v = (reps || []).slice(0, n).map(num).filter(x => x != null);
+  if (!v.length) return '';
+  let s = `Hôm nay: ${v.length}/${n} hiệp, tổng ${v.reduce((a, b) => a + b, 0)}`;
+  if (v.length >= n && !e.noHint) { const h = hintFrom(e, reps.slice(0, n), 'buổi sau'); if (h) s += ` <span class="hint ${h.c}">${esc(h.t)}</span>`; }
+  return s;
+}
+function dayDone(k) {
+  const P = dayPlan(k), d = D(k); if (!d) return false;
+  const sg = stepGoal(k); if (sg && !P.ex) return (num(d.steps) || 0) >= sg;
+  if (P.ex) { const done = P.ex.filter(e => hasSets(d.sets && d.sets[e.id])).length; return done >= Math.ceil(P.ex.length / 2); }
+  if (P.ride && !P.ride.opt) return !!(d.ride && (d.ride.done || num(d.ride.kcal)));
+  return false;
+}
+function recent(field, k, n) { for (let i = 1; i < n; i++) { const x = D(addDays(k, -i)); if (x && x[field] != null && x[field] !== false) return true; } return false; }
+function lastVal(field, k) { const ks = sortedKeys(); for (let i = ks.length - 1; i >= 0; i--) { if (ks[i] > k) continue; const v = num(state.days[ks[i]][field]); if (v != null) return { k: ks[i], v }; } return null; }
+
+function weekStats(mon) {
+  const ks = [0, 1, 2, 3, 4, 5, 6].map(i => addDays(mon, i));
+  const ws = ks.map(k => num((D(k) || {}).weight)).filter(v => v != null);
+  const waists = ks.map(k => num((D(k) || {}).waist)).filter(v => v != null);
+  const sl = ks.map(k => sleepMin((D(k) || {}).sleep)).filter(v => v != null);
+  const train = ks.filter(k => !dayPlan(k).rest);
+  const foodDays = ks.filter(k => ((D(k) || {}).food || []).length);
+  const tots = foodDays.map(k => totals(D(k).food));
+  const stp = ks.map(k => num((D(k) || {}).steps)).filter(v => v != null);
+  let habDone = 0, habTotal = 0;
+  ks.forEach(k => habits().forEach(h => { if (habActive(h, k)) { habTotal++; if (habOn(k, h.id)) habDone++; } }));
+  return {
+    habDone, habTotal, steps: avg(stp),
+    mon, avgW: avg(ws), nW: ws.length, waist: waists.length ? waists[waists.length - 1] : null,
+    sleep: avg(sl), done: train.filter(dayDone).length, planned: train.length,
+    protein: tots.filter(t => t.p >= 125).length, nFood: tots.length, kcal: avg(tots.map(t => t.kcal)),
+    ea: avg(foodDays.map(k => totals(D(k).food).kcal - exKcal(k).total))
+  };
+}
+function repDrops(upto) {
+  const after = hasPause() ? (isKey(SET().reentryTo) ? SET().reentryTo : SET().pauseTo) : null;
+  if (after && upto >= SET().pauseFrom && upto <= after) return [];
+  const out = [], ks = sortedKeys().filter(k => k <= upto && !(after && upto > after && k <= after)).reverse();
+  ALL_EX.forEach(e => {
+    if (e.noHint) return;
+    const ss = [];
+    for (const k of ks) {
+      const x = state.days[k].sets && state.days[k].sets[e.id];
+      if (!hasSets(x)) continue;
+      const v = x.r.map(num).filter(n => n != null);
+      ss.push({ n: v.length, t: v.reduce((a, b) => a + b, 0), w: num(x.w) || 0 });
+      if (ss.length === 3) break;
+    }
+    if (ss.length === 3 && ss[0].n === ss[1].n && ss[1].n === ss[2].n && ss[0].w === ss[1].w && ss[1].w === ss[2].w && ss[0].t < ss[1].t && ss[1].t < ss[2].t) out.push(e.n);
+  });
+  return out;
+}
+function biaReason() {
+  if (hasPause()) {
+    const tk = todayKey(), back = addDays(isKey(SET().reentryTo) ? SET().reentryTo : SET().pauseTo, 14);
+    if (tk >= SET().pauseFrom && tk < back) return null;
+  }
+  const ib = latestInbody();
+  if (!ib) return 'Chưa có mốc BIA — đo sáng T5, nhịn ăn, sau vệ sinh, trước tập.';
+  if (!ib.protocol) return `Lần đo ${dm(ib.date)} chưa đúng giao thức — đo lại sáng T5 (nhịn ăn, sau vệ sinh, trước tập, cùng máy) làm mốc.`;
+  const g = daysBetween(ib.date, todayKey());
+  if (g >= 28) return `Đã ${g} ngày từ lần đo BIA gần nhất — đến hạn đo (sáng T5, nhịn ăn, trước tập).`;
+  return null;
+}
+function advice(mon) {
+  const out = [], tk = todayKey(), wk = phaseWeek(mon);
+  const ref = addDays(mon, 6) < tk ? mon : addDays(mon, -7);
+  const a = weekStats(ref), b = weekStats(addDays(ref, -7)), c = weekStats(addDays(ref, -14));
+  const ok = s => s.avgW != null && s.nW >= 3;
+  const dw = num(SET().deloadWeek) || 7, disturbed = m => [0, 1, 2, 3, 4, 5, 6].some(i => { const x = addDays(m, i); return inPause(x) && daysBetween(SET().pauseFrom, x) < 7; }), rec = inRecovery(ref) || inRecovery(addDays(ref, 6));
+  if (isPausedWeek(mon)) out.push({ c: 'info', t: `<b>${esc(SET().pauseLabel || 'Tạm nghỉ hồi phục')}.</b> Không tập, không đạp, không đổ mồ hôi. Đi bộ là thâm hụt chính (8–10k bước), ăn ${WALK_NUT.kcal} kcal, protein ${WALK_NUT.p} g.` });
+  else if (hasReentryDay(mon)) out.push({ c: 'info', t: `<b>Giai đoạn tập nhẹ, chưa đổ mồ hôi.</b> Calisthenics ½ số hiệp, RIR 3–4 trong phòng mát; 12k bước/ngày; ăn ${LIGHT_NUT.kcal} kcal. Chưa đạp xe.` });
+  else if (isDeload(mon)) out.push({ c: 'info', t: '<b>Tuần deload.</b> Giữ bài, ½ số hiệp, RIR 3–4, chỉ đạp Zone 2.' });
+  else if (wk === dw - 1) out.push({ c: 'info', t: `Tuần sau là deload (tuần ${dw}).` });
+  if (disturbed(ref) || disturbed(addDays(ref, -7))) out.push({ c: 'info', t: 'Tạm chưa đánh giá nhịp giảm cân: tuần đầu sau cấy cân dao động vì sưng và nước. Bắt đầu so từ tuần thứ 3 sau cấy.' });
+  else if (ok(a) && ok(b)) {
+    const d1 = a.avgW - b.avgW, d2 = ok(c) && !disturbed(addDays(ref, -14)) ? b.avgW - c.avgW : null;
+    const wa = a.waist != null && b.waist != null ? a.waist - b.waist : null;
+    const txt = `Tuần bắt đầu ${dm(ref)}: ${sgn(d1, 2)} kg so với tuần trước`;
+    if (d1 < -0.5) out.push({ c: 'warn', t: `${txt} — nhanh hơn 0.5 kg/tuần${rec ? ' (tuần đầu có thể là nước và sưng rút)' : ''} → thêm 100–150 kcal/ngày${rec ? '' : ' vào carb các ngày tập'}.` });
+    else if (d1 <= -0.35) out.push({ c: 'info', t: `${txt} — hơi nhanh. Giữ nguyên nếu rep vẫn giữ hoặc tăng.` });
+    else if (d1 <= -0.2) out.push({ c: 'ok', t: `${txt} — đúng nhịp 0.2–0.35 kg/tuần. Giữ nguyên.` });
+    else if (d1 < -0.1) out.push({ c: 'info', t: `${txt} — hơi chậm, theo dõi thêm 1 tuần.` });
+    else if (d2 != null && d2 > -0.1 && (wa == null || wa > -0.3)) out.push({ c: 'warn', t: rec ? `${txt}, tuần trước đó ${sgn(d2, 2)} kg — chững 2 tuần. 1) Kiểm tra lại cân đo đồ ăn, dầu, nước chấm, đồ uống; 2) thêm 2000 bước/ngày (vẫn không đổ mồ hôi). Chưa cắt thêm calo khi vùng cấy đang lành.` : `${txt}, tuần trước đó ${sgn(d2, 2)} kg — chững 2 tuần. Làm lần lượt: 1) kiểm tra lại cân đo đồ ăn, dầu, nước chấm, đồ uống; 2) thêm ~3000 bước/ngày; 3) thêm 2 tuần vẫn đứng → bớt 25 g carb ở T2, T4, T7. Không bớt ngày tập đôi và CN.` });
+    else if (d1 > 0.1) out.push({ c: 'warn', t: `${txt} — đang tăng. Kiểm tra lượng ăn đã ghi, đồ uống${rec ? ' và số bước' : ''}.` });
+    else out.push({ c: 'info', t: `${txt} — gần như đứng yên. Tuần sau vẫn vậy sẽ tính là chững.` });
+    if (wa != null) out.push({ c: wa <= -0.3 ? 'ok' : 'info', t: `Vòng eo ${sgn(wa, 1)} cm so với tuần trước.` });
+  } else out.push({ c: 'info', t: 'Cần 2 tuần liền có cân sáng (ít nhất 3 lần mỗi tuần) để đánh giá nhịp giảm cân.' });
+  if (a.sleep != null && a.sleep < 420) out.push({ c: 'warn', t: `Ngủ trung bình ${hm(a.sleep)} — dưới 7 giờ. Ưu tiên ngủ trước khi chỉnh calo.` });
+  if (rec && a.steps != null) out.push({ c: a.steps >= 9000 ? 'ok' : 'info', t: `Bước chân trung bình ${f0(a.steps)}/ngày${a.steps >= 9000 ? ' — đang đúng hướng.' : ' — thấp hơn mục tiêu; đi bộ là nguồn thâm hụt chính lúc này.'}` });
+  if (a.ea != null && a.ea < floorKcal()) out.push({ c: 'warn', t: `Năng lượng còn lại sau tập trung bình ${Math.round(a.ea)} kcal — dưới sàn ${floorKcal()}. Ăn thêm carb quanh buổi đạp.` });
+  const drops = repDrops(addDays(ref, 6));
+  if (drops.length) out.push({ c: 'warn', t: `Rep tụt 2 buổi liền: ${drops.map(esc).join(', ')} → thêm 100–150 kcal/ngày hoặc deload sớm.` });
+  const br = biaReason(); if (br) out.push({ c: 'info', t: esc(br) });
+  if (wk >= 8 && !isPausedWeek(mon)) out.push({ c: 'info', t: 'Từ tuần 8: kết thúc giai đoạn 1 khi BIA ~13–15% hoặc hết tuần 12, rồi 2 tuần ăn duy trì ~2350 kcal. Hai tuần tạm nghỉ không tính vào số tuần.' });
+  return out;
+}
+
+/* ---------- storage: account db (claude.ai) → localStorage → memory ---------- */
+const S = { mode: 'init', db: null, uid: null, timers: {}, busy: {}, again: {}, failed: new Set(), fallback: false };
+const LS = 'vt42:';
+const SEED = {"app":"so-tap-vtaper","v":1,"exportedAt":"2026-10-12T14:31:48.115Z","settings":{"phaseStart":"2026-09-21","ffm":null,"autoTimer":true,"sound":true,"theme":"strava","pauseLabel":"Hậu phẫu cấy tóc","pauseFrom":"2026-10-03","pauseTo":"2026-10-16","reentryTo":"2026-11-02","headSafeTo":"2027-01-03","rideFrom":"2026-11-03","deloadWeek":10,"habits":[{"from":"2026-10-03","id":"hmed1","n":"Uống thuốc theo đơn (sáng)","t":"Sáng","to":null},{"from":"2026-10-03","id":"hmed2","n":"Uống thuốc theo đơn (tối)","t":"Tối","to":null},{"from":"2026-10-03","id":"hspray","n":"Xịt / giữ ẩm vùng cấy theo hướng dẫn (1 tháng sau cấy)","t":"Theo giờ hẹn","to":null},{"from":"2026-10-03","id":"hwash","n":"Gội / vệ sinh da đầu đúng cách phòng khám dặn","t":"Hằng ngày","to":null}]},"inbody":[{"bf":18,"bmr":1392,"date":"2026-09-19","fat":10.4,"ffm":47.4,"id":"ib-20260919","note":"T7 11h, sau hôm tập đôi, có thể đã ăn — chưa đúng giao thức","protocol":false,"smm":26.3,"trunk":160.1,"visc":3,"weight":57.76},{"bf":17.5,"bmr":1413,"date":"2026-09-24","fat":10.2,"ffm":45.1,"id":"ib-muf14s0o4qtk","protocol":true,"smm":26.9,"visc":3,"weight":58.51},{"bf":18.5,"bmr":1399,"date":"2026-10-09","fat":10.8,"ffm":44.5,"id":"ib-mv0gigpvc3fk","protocol":true,"smm":26.5,"trunk":158,"visc":3,"weight":58.48}],"presets":[{"c":12,"f":6,"kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":42,"f":0.5,"kcal":195,"n":"Cơm trắng 1 bát (~150 g)","p":4},{"c":0,"f":3.6,"kcal":165,"n":"Ức gà chín bỏ da 100 g","p":31},{"c":0.4,"f":4.8,"kcal":72,"n":"Trứng gà 1 quả","p":6.3},{"c":27,"f":0.4,"kcal":105,"n":"Chuối 1 quả vừa","p":1.3},{"c":17.7,"f":0.1,"kcal":76,"n":"Khoai lang luộc 100 g","p":1.4},{"c":1.9,"f":4.8,"kcal":76,"n":"Đậu phụ 100 g","p":8.1},{"c":0,"f":13.5,"kcal":120,"n":"Dầu ăn 1 thìa canh","p":0},{"c":0,"f":0,"kcal":110,"n":"Whey","p":27}],"days":{"2026-10-12":{"chk":{"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-12","food":[{"c":70,"f":12.9,"id":"mv52u1do2xr8","kcal":516,"n":"Cơm trưa","p":28}],"hab":{"hmed1":true,"hspray":true,"hwash":true},"note":"Kẽm","u":1791804744712},"2026-10-10":{"chk":{"p0":true,"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-10","food":[{"c":106,"f":25.7,"id":"mv2ccncpkdmr","kcal":848,"n":"Trưa","p":36.7},{"c":63.7,"f":27.6,"id":"mv2gyx9o8x8n","kcal":757,"n":"Tối","p":60.8},{"c":0,"f":0,"id":"mv2h6b8snqyk","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"mv2h6coylsuc","kcal":110,"n":"Whey","p":27},{"c":35,"f":22,"id":"mv2nqq8mzyv9","kcal":340,"n":"Bơ","p":5.5}],"hab":{"hmed1":true,"hmed2":true,"hwash":true},"note":"Kẽm","steps":7438,"u":1791652701013},"2026-10-09":{"chk":{"p0":true,"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-09","food":[{"c":179.4,"f":42.4,"id":"mv0y836ary9h","kcal":1473,"n":"Trưa + chè","p":93.7},{"c":73.5,"f":14.1,"id":"mv14n58auev0","kcal":761,"n":"Tối","p":79.1}],"hab":{"hmed1":true,"hmed2":true,"hwash":true},"note":"ko krmx","sleep":{"bed":"03:36","q":4,"wake":"10:20"},"steps":12312,"u":1791567534789,"weight":58.48},"2026-10-08":{"chk":{"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-08","food":[{"c":67.8,"f":32.2,"id":"muzcreo6gfaq","kcal":596,"n":"Trưa","p":32.2},{"c":69.1,"f":28,"id":"muznoqmsq1r8","kcal":864.4,"n":"Tối","p":77.6},{"c":28,"f":5,"id":"muznptwp0p57","kcal":240,"n":"Ăn vặt","p":18},{"c":12,"f":6,"id":"muznpxcokjyg","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0}],"hab":{"hmed1":true,"hmed2":true,"hwash":true},"note":"Kẽm","sleep":{"bed":"03:10","q":5,"wake":"10:46"},"steps":8600,"u":1791519403072},"2026-10-07":{"date":"2026-10-07","hab":{"hmed1":true,"hmed2":true},"note":"ko kẽm","steps":10000,"u":1791452643122},"2026-10-06":{"date":"2026-10-06","hab":{"hmed1":true,"hmed2":true,"hwash":true},"u":1791302276496},"2026-09-28":{"date":"2026-09-28","note":"Nay ko tập vì mải lý do và nói tóm lại là phế\nMai tập lại","u":1790614804841},"2026-09-27":{"date":"2026-09-27","ride":{"done":true,"kcal":1944,"min":272},"steps":8236,"u":1790531191378,"weight":58},"2026-09-26":{"date":"2026-09-26","food":[{"c":0,"f":37.2,"id":"mui4s9oal5ad","kcal":1131,"n":"Sáng trưa","p":71.5},{"c":109.8,"f":52.4,"id":"muijwngvzdct","kcal":1050,"n":"Tối","p":33},{"c":0,"f":0,"id":"muijwr9ooofh","kcal":110,"n":"Whey","p":27}],"note":"Long ride trên 90p","sleep":{"bed":"02:27","q":1,"wake":"06:31"},"u":1790436912396},"2026-09-25":{"chk":{"e0":true,"e1":true,"m0":true,"w0":true},"date":"2026-09-25","food":[{"c":0,"f":0,"id":"mugf8kd9nlsa","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"mugf8l094h3c","kcal":110,"n":"Whey","p":27},{"c":100.8,"f":55.4,"id":"mugs5ifm4rjx","kcal":1087,"n":"Trưa","p":45.3},{"c":28,"f":5,"id":"mugs9r9rlbb8","kcal":240,"n":"Ăn vặt","p":18},{"c":63.8,"f":31.5,"id":"muh3gmaiu08l","kcal":660,"n":"Tối","p":26.4}],"sets":{"fri_ab":{"r":[20,20,20]},"fri_deficit":{"r":[8,6,7]},"fri_diamond":{"r":[10,10],"w":0},"fri_dips":{"r":[6,7,10,5]},"fri_lat":{"r":[12,12,10,12]}},"sleep":{"bed":"02:02","q":3,"wake":"09:03"},"steps":8449,"u":1790355774285},"2026-09-24":{"chk":{"e0":true,"e1":true,"e2":true,"e3":true,"e4":true,"m0":true,"w0":true,"w1":true},"date":"2026-09-24","food":[{"c":0,"f":0,"id":"mufamfoy47sw","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"mufamgmnsdq1","kcal":110,"n":"Whey","p":27},{"c":72.6,"f":22.1,"id":"mufb662ffr15","kcal":696,"n":"Cơm trưa","p":52.8},{"c":0,"f":0,"id":"mufhr5sr624r","kcal":135,"n":"Bánh","p":0},{"c":75.9,"f":20.7,"id":"muft9jnjl7wb","kcal":664,"n":"Tối","p":39.6},{"c":12,"f":6,"id":"muft9nkwgkwh","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":33.1,"f":4.1,"id":"muftgj6yulj6","kcal":178,"n":"Bánh","p":2.8}],"note":"Kẽm","ride":{"done":true,"elev":257,"hr":151,"kcal":567,"km":30,"min":73,"rpe":2},"sets":{"thu_bandlat":{"r":[15,15,15],"v":"Tạ đơn","w":5},"thu_face":{"r":[15,15,15],"v":"Tang cường 1 set"},"thu_invrow":{"r":[8,7,8,7],"w":0},"thu_neutral":{"r":[3,7,6],"v":"Có dây hỗ trợ","w":0}},"sleep":{"bed":"02:40","q":2,"wake":"10:50"},"steps":3915,"u":1790271778790,"weight":58.51},"2026-09-23":{"chk":{"r0":true},"date":"2026-09-23","food":[{"c":28,"f":5,"id":"muds9hb1fmmk","kcal":240,"n":"Ăn vặt pro","p":18},{"c":39.1,"f":8.3,"id":"mudsjyqtgs55","kcal":406,"n":"Cơm trưa","p":40.9},{"c":12,"f":6,"id":"mudsk0orjutp","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":32,"f":12,"id":"mudwze9ocqjw","kcal":250,"n":"Banhs trun thu","p":6},{"c":31.5,"f":9.8,"id":"mue7150kzg1j","kcal":400,"n":"Tối","p":44.5},{"c":0,"f":0,"id":"mue71edmyla4","kcal":110,"n":"Whey","p":27},{"c":24.7,"f":0.54,"id":"muebnfai3fgt","kcal":93,"n":"Táo","p":0.54}],"sleep":{"bed":"01:30","q":3,"wake":"10:50"},"steps":3596,"u":1790223853556,"weight":58.88},"2026-09-22":{"chk":{"e0":true,"e1":true,"m0":true,"w0":true,"w1":true,"w2":true},"date":"2026-09-22","food":[{"c":22.4,"f":0.3,"id":"muc4vgsz0s0d","kcal":87.2,"n":"Chuối","p":1.1},{"c":0,"f":0,"id":"muc4vzqwwnxo","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"muc4who5xuyg","kcal":110,"n":"Whey","p":27},{"c":27.6,"f":4.8,"id":"muc4xjd5jo57","kcal":240,"n":"Ăn vặt ngũ cốc","p":18},{"c":50.4,"f":0,"id":"mucdptvgb119","kcal":434.4,"n":"Cơm trưa","p":26.7},{"c":75,"f":12,"id":"much8njjc1l0","kcal":450,"n":"Chè","p":6},{"c":28.5,"f":4.3,"id":"mucsgcl5sqw0","kcal":330,"n":"Cơm tối","p":41.1},{"c":12,"f":6,"id":"mucsgng3z8v0","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":23.9,"f":0.3,"id":"mucsmlngvd0n","kcal":93,"n":"Chuối","p":1.2}],"note":"Kẽm thứ 3","ride":{"done":true,"elev":243,"hr":158,"kcal":557,"km":30.19,"min":76},"sets":{"tue_decline":{"r":[8,8,8],"v":"Ghế","w":0},"tue_face":{"r":[15,15,15]},"tue_fly":{"r":[10,6,6],"v":"Mới bổ sung","w":0},"tue_lat":{"r":[12,12,12,12],"w":5},"tue_ohext":{"r":[10,15,15],"w":5},"tue_pike":{"r":[8,6,6,6],"v":"KO kê chân","w":0},"tue_rdl":{"r":[0,0,0],"w":0}},"sleep":{"bed":"01:20","q":3,"wake":"09:30"},"steps":2922,"u":1790142613139,"weight":57.69},"2026-09-21":{"chk":{"e0":true,"e1":true,"e2":true,"e3":true,"e4":true,"m0":true,"m1":true,"w0":true,"w1":true},"date":"2026-09-21","food":[{"c":166,"f":41,"id":"mub9x8aji9ys","kcal":1615,"n":"Lần 1","p":137},{"c":23.5,"f":0.3,"id":"mubhzybkskrd","kcal":92,"n":"Chuối","p":1.1}],"ride":{"done":true,"elev":85,"hr":123,"kcal":169,"km":12.08,"min":36,"rpe":1},"sets":{"mon_chin":{"r":[6,6,4]},"mon_curl":{"r":[10,10,6],"w":6},"mon_hang":{"r":[15,15,15],"w":0},"mon_invrow":{"r":[8,8,8],"w":6},"mon_lat":{"r":[12,12,12],"w":5},"mon_pullup":{"r":[6,6,4,3],"w":0}},"shoulder":97,"sleep":{"bed":"01:31","q":3,"wake":"09:10"},"steps":3601,"u":1790049374721,"waist":75,"weight":57.85}}};
+function localOK() { try { localStorage.setItem(LS + 't', '1'); localStorage.removeItem(LS + 't'); return true; } catch (e) { return false; } }
+function lsGet(k) { try { const v = localStorage.getItem(LS + k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+function lsSet(k, v) { localStorage.setItem(LS + k, JSON.stringify(v)); }
+function lsKeys() { const out = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.indexOf(LS) === 0) out.push(k.slice(LS.length)); } } catch (e) {} return out; }
+function bodyFor(key) {
+  if (key === 'settings') return clone(state.settings);
+  if (key === 'inbody') return { list: clone(state.inbody) };
+  if (key === 'presets') return { list: clone(state.presets) };
+  const k = key.slice(4); return Object.assign(clone(state.days[k] || {}), { date: k });
+}
+function refFor(key) {
+  const base = 'data/users/' + S.uid;
+  return key.indexOf('day:') === 0 ? S.db.doc(base + '/log').collection('days').doc(key.slice(4)) : S.db.doc(base + '/' + key);
+}
+async function writeOnce(key) {
+  const body = bodyFor(key);
+  if (S.mode === 'db') await refFor(key).set(body);
+  else if (S.mode === 'local') lsSet(key, body);
+}
+function pendingCount() { return Object.keys(S.timers).length + Object.keys(S.busy).filter(k => S.busy[k]).length; }
+function queue(key, delay) {
+  clearTimeout(S.timers[key]);
+  S.timers[key] = setTimeout(() => { delete S.timers[key]; flush(key); }, delay == null ? 700 : delay);
+  setStatus();
+}
+async function flush(key) {
+  if (S.busy[key]) { S.again[key] = true; return; }
+  S.busy[key] = true; setStatus();
+  try {
+    try { await writeOnce(key); }
+    catch (e) {
+      const c = e && e.code;
+      if (S.mode === 'db' && (c === 'unavailable' || c === 'resource_exhausted')) { await wait(700 + Math.random() * 900); await writeOnce(key); }
+      else throw e;
+    }
+    S.failed.delete(key);
+  } catch (e) {
+    console.warn('save failed', key, e);
+    S.failed.add(key);
+    toast(e && e.code === 'quota_exceeded' ? 'Bộ lưu trữ đã đầy — xuất JSON rồi xóa bớt dữ liệu cũ.' : 'Chưa lưu được. App sẽ thử lại ở lần sửa tiếp theo; có thể xuất JSON để giữ bản sao.');
+    if (S.mode === 'db') { try { lsSet('backup', { at: Date.now(), settings: state.settings, inbody: state.inbody, presets: state.presets, days: state.days }); } catch (e2) {} }
+  } finally {
+    S.busy[key] = false;
+    if (S.again[key]) { S.again[key] = false; flush(key); } else setStatus();
+  }
+}
+function flushAll() { Object.keys(S.timers).forEach(k => { clearTimeout(S.timers[k]); delete S.timers[k]; flush(k); }); }
+async function saveAllNow(keys, progress) {
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    clearTimeout(S.timers[key]); delete S.timers[key];
+    while (S.busy[key]) await wait(50);
+    S.busy[key] = true;
+    for (let tries = 1; ; tries++) {
+      try { await writeOnce(key); S.failed.delete(key); break; }
+      catch (e) { const c = e && e.code; if (tries < 4 && (c === 'resource_exhausted' || c === 'unavailable')) { await wait(800 * tries); continue; } S.failed.add(key); break; }
+    }
+    S.busy[key] = false;
+    if (progress && (i % 10 === 0 || i === keys.length - 1)) progress(i + 1, keys.length);
+    if (S.mode === 'db') await wait(40);
+  }
+  setStatus();
+}
+function setStatus() {
+  const el = $('#savestat'); if (!el) return;
+  let t, cls = '';
+  if (S.mode === 'init') { t = 'đang tải…'; cls = 'busy'; }
+  else if (pendingCount()) { t = 'đang lưu…'; cls = 'busy'; }
+  else if (S.failed.size) { t = 'chưa lưu được'; cls = 'warn'; }
+  else if (S.mode === 'db') t = 'đã lưu';
+  else if (S.mode === 'local') t = 'lưu trên máy này';
+  else { t = 'không lưu được'; cls = 'warn'; }
+  el.textContent = t; el.className = cls;
+}
+function storeInfo() {
+  if (S.mode === 'db') return 'Dữ liệu lưu trong tài khoản Claude của bạn, riêng tư và đồng bộ giữa các thiết bị.';
+  if (S.mode === 'local') return 'Dữ liệu lưu trong trình duyệt này. Xuất JSON định kỳ để có bản sao.';
+  return 'Trình duyệt chặn lưu trữ — dữ liệu sẽ mất khi đóng trang. Hãy xuất JSON trước khi đóng.';
+}
+function mergeFallback() {
+  if (!localOK() || !lsGet('fallback')) return 0;
+  let n = 0;
+  lsKeys().forEach(key => {
+    if (key.indexOf('day:') !== 0) return;
+    const v = lsGet(key), k = key.slice(4), cur = state.days[k];
+    if (v && isKey(k) && (!cur || (v.u || 0) > (cur.u || 0))) { state.days[k] = v; queue(key, 400 + n * 150); n++; }
+  });
+  const ib = lsGet('inbody');
+  if (ib && ib.list) { const have = new Set(state.inbody.map(x => x.id)); const add = ib.list.filter(x => x && x.id && !have.has(x.id)); if (add.length) { state.inbody = state.inbody.concat(add); queue('inbody', 500); } }
+  const pr = lsGet('presets');
+  if (pr && pr.list) { const have = new Set(state.presets.map(x => x.n)); const add = pr.list.filter(x => x && x.n && !have.has(x.n)); if (add.length) { state.presets = state.presets.concat(add); queue('presets', 600); } }
+  try { localStorage.removeItem(LS + 'fallback'); } catch (e) {}
+  keysCache = null;
+  return n;
+}
+async function initStore() {
+  const C = window.claude;
+  if (C && typeof C.use === 'function') {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const [db, user] = await Promise.all([C.use('db'), C.use('user')]);
+        if (!db || !user) break;
+        const id = await user.id();
+        if (!id) break;
+        S.db = db; S.uid = id;
+        const base = 'data/users/' + id;
+        const [st, ib, pr, days] = await Promise.all([
+          db.doc(base + '/settings').get(), db.doc(base + '/inbody').get(), db.doc(base + '/presets').get(),
+          db.doc(base + '/log').collection('days').orderBy('date', 'desc').limit(1000).get()
+        ]);
+        if (st.exists) state.settings = Object.assign({}, DEF, clone(st.data()));
+        if (ib.exists) state.inbody = clone(ib.data().list || []);
+        if (pr.exists) state.presets = clone(pr.data().list || []);
+        days.docs.forEach(doc => { if (doc.exists && isKey(doc.id)) state.days[doc.id] = clone(doc.data()); });
+        keysCache = null; S.mode = 'db';
+        const n = mergeFallback();
+        if (n) setTimeout(() => toast(`Đã gộp ${n} ngày lưu tạm trên máy này vào tài khoản.`), 800);
+        return;
+      } catch (e) {
+        console.warn('account storage unavailable', e);
+        S.db = null; S.uid = null;
+        if (attempt === 0 && e && (e.code === 'unavailable' || e.code === 'resource_exhausted')) { await wait(1200); continue; }
+        break;
+      }
+    }
+    S.fallback = true;
+  }
+  if (localOK()) {
+    S.mode = 'local';
+    const st = lsGet('settings'); if (st) state.settings = Object.assign({}, DEF, st);
+    const ib = lsGet('inbody'); if (ib && ib.list) state.inbody = ib.list;
+    const pr = lsGet('presets'); if (pr && pr.list) state.presets = pr.list;
+    if (!lsGet('seeded') && !lsGet('settings') && !lsKeys().some(k => k.indexOf('day:') === 0)) { try { const o = SEED; lsSet('settings', o.settings || {}); lsSet('inbody', { list: o.inbody || [] }); lsSet('presets', { list: o.presets || [] }); Object.keys(o.days || {}).forEach(k => lsSet('day:' + k, Object.assign({}, o.days[k], { date: k }))); lsSet('seeded', Date.now()); const st2 = lsGet('settings'); state.settings = Object.assign({}, DEF, st2); state.inbody = o.inbody || []; state.presets = o.presets || []; } catch (e) { console.warn('seed failed', e); } }
+    lsKeys().forEach(key => { if (key.indexOf('day:') === 0 && isKey(key.slice(4))) { const v = lsGet(key); if (v) state.days[key.slice(4)] = v; } });
+    keysCache = null;
+    if (S.fallback) { try { lsSet('fallback', true); } catch (e) {} }
+  } else S.mode = 'memory';
+}
+const isTyping = () => { const a = document.activeElement; return !!(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)); };
+async function refreshFromDb() {
+  if (S.mode !== 'db' || !ui.ready || pendingCount()) return;
+  try {
+    const base = 'data/users/' + S.uid, cutoff = addDays(todayKey(), -21);
+    const [st, ib, pr, days] = await Promise.all([
+      S.db.doc(base + '/settings').get(), S.db.doc(base + '/inbody').get(), S.db.doc(base + '/presets').get(),
+      S.db.doc(base + '/log').collection('days').where('date', '>=', cutoff).get()
+    ]);
+    if (pendingCount()) return;
+    let changed = false;
+    days.docs.forEach(doc => { if (!doc.exists || !isKey(doc.id)) return; const r = doc.data(), l = state.days[doc.id]; if (!l || (r.u || 0) > (l.u || 0)) { state.days[doc.id] = clone(r); changed = true; } });
+    const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+    if (st.exists && !same(st.data(), state.settings)) { state.settings = Object.assign({}, DEF, clone(st.data())); changed = true; }
+    if (ib.exists && !same(ib.data().list || [], state.inbody)) { state.inbody = clone(ib.data().list || []); changed = true; }
+    if (pr.exists && !same(pr.data().list || [], state.presets)) { state.presets = clone(pr.data().list || []); changed = true; }
+    if (changed) { keysCache = null; applyTheme(); if (!isTyping()) render(); }
+  } catch (e) { /* thử lại ở lần mở sau */ }
+}
+
+/* ---------- header: the week as a ridge line ---------- */
+function smooth(pts) {
+  let d = `M${pts[0].x},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    d += ` C${(p1.x + (p2.x - p0.x) / 6).toFixed(1)},${(p1.y + (p2.y - p0.y) / 6).toFixed(1)} ${(p2.x - (p3.x - p1.x) / 6).toFixed(1)},${(p2.y - (p3.y - p1.y) / 6).toFixed(1)} ${p2.x},${p2.y.toFixed(1)}`;
+  }
+  return d;
+}
+function ridgePaths(pts) {
+  const lay = s => [{ x: 0, y: 78 - pts[0].P.load * 62 * s * 0.7 }].concat(pts.map(p => ({ x: p.x, y: 78 - p.P.load * 62 * s })), [{ x: 700, y: 78 - pts[6].P.load * 62 * s * 0.7 }]);
+  const main = smooth(lay(1));
+  return `<path class="r-area" d="${main} L700,84 L0,84 Z"/><path class="r-c" d="${smooth(lay(0.66))}"/><path class="r-c" d="${smooth(lay(0.33))}"/><path class="r-main" d="${main}"/>`;
+}
+function renderHeader() {
+  const mon = mondayOf(ui.date), wk = phaseWeek(mon), tk = todayKey();
+  $('#wk-title').textContent = isPausedWeek(mon) ? 'Tạm nghỉ hồi phục' : wk >= 1 ? `Tuần ${wk}${hasReentryDay(mon) ? ' (tập lại nhẹ)' : isDeload(mon) ? ' (deload)' : ''}` : 'Trước giai đoạn 1';
+  $('#wk-range').textContent = dm(mon) + ' – ' + dm(addDays(mon, 6));
+  $('#todaybtn').hidden = ui.date === tk;
+  const pts = [0, 1, 2, 3, 4, 5, 6].map(i => { const k = addDays(mon, i), P = dayPlan(k); return { k, P, x: 50 + i * 100, y: 78 - P.load * 62 }; });
+  $('#ridge-svg').innerHTML = ridgePaths(pts);
+  $('#ridge-days').innerHTML = pts.map(p => {
+    const done = dayDone(p.k);
+    const cls = [p.k === tk ? 'today' : '', p.P.rest ? 'rest' : '', done ? 'done' : ''].filter(Boolean).join(' ');
+    const top = (p.y - (p.P.rest ? 5 : 7)).toFixed(1);
+    return `<button data-day="${p.k}"${cls ? ` class="${cls}"` : ''}${p.k === ui.date ? ' aria-current="date"' : ''} aria-label="${WDL[wd(p.k)]} ${dm(p.k)}, ${esc(p.P.code)}${done ? ', đã tập' : ''}"><i class="dot" style="top:${top}px"></i><b>${WDS[wd(p.k)]}</b><span>${dateOf(p.k).getDate()}</span></button>`;
+  }).join('');
+}
+
+/* ---------- Hôm nay ---------- */
+const chkItem = (id, t, d) => { const on = !!(d.chk && d.chk[id]); return `<label class="chk${on ? ' on' : ''}"><input type="checkbox" data-chk="${id}"${on ? ' checked' : ''}><span>${esc(t)}</span></label>`; };
+const checklist = (title, pre, items, d, note) => `<section class="blk"><h2>${esc(title)}</h2>${items.map((t, i) => chkItem(pre + i, t, d)).join('')}${note ? `<p class="note">${esc(note)}</p>` : ''}</section>`;
+function ring(pct, size, stroke, cls) {
+  const r = (size - stroke) / 2, c = 2 * Math.PI * r, p = Math.max(0, Math.min(1, pct || 0)), o = size / 2;
+  const fg = p > 0 ? `<circle class="rg-fg" cx="${o}" cy="${o}" r="${r.toFixed(2)}" stroke-width="${stroke}" stroke-dasharray="${(c * p).toFixed(2)} ${c.toFixed(2)}" transform="rotate(-90 ${o} ${o})"/>` : '';
+  return `<svg class="ring${cls ? ' ' + cls : ''}" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" aria-hidden="true"><circle class="rg-bg" cx="${o}" cy="${o}" r="${r.toFixed(2)}" stroke-width="${stroke}"/>${fg}</svg>`;
+}
+function kcalState(k) {
+  const tg = targets(k), t = totals((D(k) || {}).food || []), eaten = Math.round(t.kcal), rem = tg.kcal - eaten;
+  return { tg, t, eaten, rem, over: rem < 0, pct: tg.kcal ? eaten / tg.kcal : 0 };
+}
+function macroLeft(lbl, v, tgt, isP) {
+  const d = Math.round(tgt - v);
+  if (d > 0) return `<small>còn ${d} g</small>`;
+  if (isP) return '<small class="okc">đủ</small>';
+  return `<small class="${v > tgt * 1.08 ? 'over' : ''}">${d === 0 ? 'vừa đủ' : 'vượt ' + (-d) + ' g'}</small>`;
+}
+function kcalWidget(k) {
+  const s = kcalState(k), tg = s.tg, t = s.t;
+  const km = (lbl, v, tgt, isP) => `<div class="km"><div class="km-ring">${ring(tgt ? v / tgt : 0, 62, 7, !isP && v > tgt * 1.08 ? 'over' : '')}<b>${Math.round(v)}</b></div><span>${lbl}</span><small>/ ${tgt} g</small>${macroLeft(lbl, v, tgt, isP)}</div>`;
+  return `<section class="kw" aria-label="Calo ngày ${dm(k)}">
+<div class="kw-main"><div class="kw-ring">${ring(s.pct, 148, 14, s.over ? 'over' : '')}<div class="kw-center"><b${s.over ? ' class="over"' : ''}>${Math.abs(s.rem)}</b><span>${s.over ? 'kcal vượt mục tiêu' : 'kcal còn lại'}</span></div></div>
+<div class="kw-side"><div class="kw-eq"><span>Mục tiêu</span><b>${tg.kcal}</b></div><div class="kw-eq"><span>Đã ăn</span><b>${s.eaten}</b></div><div class="kw-eq"><span>${s.over ? 'Vượt' : 'Còn lại'}</span><b>${Math.abs(s.rem)}</b></div></div></div>
+<div class="kw-macros">${km('Protein', t.p, tg.p, true)}${km('Carb', t.c, tg.c, false)}${km('Fat', t.f, tg.f, false)}</div></section>`;
+}
+function nutLine(k) {
+  const s = kcalState(k), tg = s.tg, t = s.t;
+  const left = (v, tgt) => Math.max(0, Math.round(tgt - v));
+  let h = `<span class="kw-mini">${ring(s.pct, 54, 7, s.over ? 'over' : '')}<span class="kt"><b${s.over ? ' class="over"' : ''}>${Math.abs(s.rem)}</b> ${s.over ? 'kcal vượt' : 'kcal còn lại'} <span class="muted">/ mục tiêu ${tg.kcal}</span>`
+    + `<small class="muted">Còn P ${left(t.p, tg.p)} g, C ${left(t.c, tg.c)} g, F ${left(t.f, tg.f)} g</small></span></span>`;
+  if (tg.dynamic) h += `<small class="muted" style="display:block;margin-top:6px">${esc(tg.note)}</small>`;
+  return h;
+}
+function walkBlock(k, d) {
+  const g = stepGoal(k); if (!g) return '';
+  const st = num(d.steps) || 0, pct = Math.min(100, st / g * 100);
+  return `<section class="blk" id="walk-blk"><h2>Đi bộ <small>thâm hụt chính, không đổ mồ hôi</small></h2>
+<div class="row"><label class="fld"><span>Bước hôm nay</span><input class="in numin" data-metric="steps" inputmode="numeric" value="${d.steps == null ? '' : esc(d.steps)}" placeholder="0"></label>
+<div class="fld grow"><span id="walk-txt">${st ? `${f0(st)} / ${g} bước` : `Mục tiêu ${g} bước`}</span><div class="tr" style="margin-top:8px"><i id="walk-bar" style="width:${pct.toFixed(0)}%"></i></div></div></div>
+<p class="note" id="walk-kcal">${walkNote(k)}</p>
+<ul class="steps" style="margin-top:8px">${WALK_TIPS.map(t => `<li>${esc(t)}</li>`).join('')}</ul></section>`;
+}
+const walkNote = k => { const w = walkKcal(k); return w ? `Đi bộ ≈ ${w} kcal ngoài mức sinh hoạt (${BASE_STEPS} bước đầu đã nằm trong mức duy trì). Lấy số bước từ điện thoại/đồng hồ.` : `Mỗi 1000 bước trên mức ${BASE_STEPS} ≈ ${Math.round(1000 * 0.00045 * wEst(k))} kcal. Lấy số bước từ điện thoại/đồng hồ.`; };
+function metricsBlock(k, d) {
+  const mf = (lbl, key, mode, ph) => `<label class="fld"><span>${lbl}</span><input class="in numin" data-metric="${key}" inputmode="${mode}" value="${d[key] == null ? '' : esc(d[key])}" placeholder="${esc(ph || '')}"></label>`;
+  const pw = lastVal('weight', addDays(k, -1));
+  let h = `<section class="blk"><h2>Chỉ số</h2><div class="row">${mf('Cân sáng, kg', 'weight', 'decimal', pw ? f1(pw.v) : '')}${stepGoal(k) ? '' : mf('Bước chân', 'steps', 'numeric', '')}`;
+  const quiet = inPause(k);
+  if (d.waist != null || (!quiet && !recent('waist', k, 7))) { const lw = lastVal('waist', addDays(k, -1)); h += mf('Vòng eo, cm', 'waist', 'decimal', lw ? f1(lw.v) : ''); }
+  if (d.shoulder != null || (!quiet && !recent('shoulder', k, 14))) { const ls = lastVal('shoulder', addDays(k, -1)); h += mf('Vòng vai, cm', 'shoulder', 'decimal', ls ? f1(ls.v) : ''); }
+  h += '</div>';
+  if (d.photo || (!quiet && !recent('photo', k, 14))) h += `<label class="chk${d.photo ? ' on' : ''}"><input type="checkbox" data-photo${d.photo ? ' checked' : ''}><span>Chụp ảnh tiến độ (cùng góc, cùng ánh sáng)</span></label>`;
+  const br = biaReason();
+  if (k === todayKey() && wd(k) === 4 && br) h += `<p class="banner">${esc(br)} <button class="btn sm" data-go="body">Ghi kết quả</button></p>`;
+  return h + '<p class="note">Cân sau vệ sinh, trước ăn. Eo đo ngang rốn, thở ra nhẹ, mỗi tuần; vai 2–4 tuần một lần.</p></section>';
+}
+function exBlock(k, e, i) {
+  const d = D(k) || {}, x = (d.sets && d.sets[e.id]) || {}, reps = x.r || [], n = setsFor(e, k), dl = isDeload(k) || inReentry(k);
+  const pv = prevLog(e.id, k), ph = pv && !e.noHint ? hintFrom(e, pv.r, 'hôm nay') : null;
+  const val = v => num(v) == null ? '' : num(v);
+  const hw = HOW[HOW_OF[e.id]], op = ui.openHow.has(e.id);
+  const head = hw
+    ? `<div class="exhead"><h3><button class="exname" data-how="${e.id}" aria-expanded="${op}" aria-controls="how-${e.id}">${esc(e.n)}</button><button class="info" data-how="${e.id}" aria-expanded="${op}" aria-controls="how-${e.id}" aria-label="Cách tập ${esc(e.n)}">i</button></h3><div class="how${op ? ' open' : ''}" id="how-${e.id}" role="region" aria-label="Cách tập ${esc(e.n)}">${howHtml(hw)}</div></div>`
+    : `<h3>${esc(e.n)}</h3>`;
+  let h = `<article class="ex${exComplete(reps, n) ? ' done' : ''}" id="ex-${e.id}"><div class="no">${esc(e.tag || i + 1)}</div>
+${head}
+<div class="rx"><span>${n} × ${e.lo}–${e.hi}</span><span>RIR ${dl ? '3–4' : esc(e.rir)}</span><span>${esc(e.rl)}</span>${e.rest ? `<button class="chip" data-timer="${e.rest}" data-label="${esc(e.n)}">Bấm giờ ${mmss(e.rest)}</button>` : ''}</div>`;
+  if (e.cue) h += `<p class="cue">${esc(e.cue)}</p>`;
+  h += pv
+    ? `<p class="prev">Lần trước ${dm(pv.k)}: <b>${pv.r.map(v => num(v) == null ? '–' : num(v)).join(' / ')}</b>${num(pv.w) ? ` với ${f1(num(pv.w))} kg` : ''}${pv.v ? ` (${esc(pv.v)})` : ''}${ph ? ` <span class="hint ${ph.c}">${esc(ph.t)}</span>` : ''}</p>`
+    : '<p class="prev muted">Chưa có lần trước để so.</p>';
+  h += '<div class="sets">';
+  for (let j = 0; j < n; j++) {
+    const v = val(reps[j]), p = pv ? val(pv.r[j]) : '';
+    h += `<div class="set"><label for="r-${e.id}-${j}">Hiệp ${j + 1}</label><input id="r-${e.id}-${j}" class="rep${v !== '' && v >= e.hi ? ' hit' : ''}" inputmode="numeric" pattern="[0-9]*" data-ex="${e.id}" data-j="${j}" value="${v}" placeholder="${p}"></div>`;
+  }
+  h += `<div class="set"><label for="w-${e.id}">Tải, kg</label><input id="w-${e.id}" class="rep load" inputmode="decimal" data-exw="${e.id}" value="${val(x.w)}" placeholder="${pv && val(pv.w) !== '' ? val(pv.w) : '0'}"></div></div>
+<input class="in exv" data-exv="${e.id}" value="${esc(x.v || '')}" placeholder="Biến thể, band, độ kê… (tùy chọn)" aria-label="Ghi chú bài ${esc(e.n)}">
+<p class="st" id="st-${e.id}">${exStatus(e, reps, n)}</p></article>`;
+  return h;
+}
+const rideEstNote = (k, R, r) => `Lấy kcal từ đồng hồ/Strava nếu có. Để trống thì app ước tính ≈ ${rideEst(k, R, r)} kcal (${RF[R.type]} kcal/kg/giờ × ${f1(wEst(k))} kg).`;
+function rideBlock(k, P, d) {
+  const R = P.ride, r = d.ride || {}, est = rideEst(k, R, r);
+  const easy = isDeload(k) && (R.type === 'thr' || R.type === 'vo2');
+  const rf = (lbl, key, mode, ph) => `<label class="fld"><span>${lbl}</span><input class="in numin s" data-ride="${key}" inputmode="${mode}" value="${r[key] == null ? '' : esc(r[key])}" placeholder="${esc(ph == null ? '' : ph)}"></label>`;
+  return `<section class="blk"><h2>${P.ex ? 'Chiều: ' : ''}${esc(R.t)}${R.opt ? ' <small>tùy chọn</small>' : ''}</h2>
+${easy ? '<p class="banner">Tuần deload: đạp Zone 2 cùng thời lượng thay cho bài cường độ.</p>' : ''}
+<ul class="steps">${R.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ul>${R.note ? `<p class="note">${esc(R.note)}</p>` : ''}
+<label class="chk${r.done ? ' on' : ''}"><input type="checkbox" data-ride-done${r.done ? ' checked' : ''}><span>${R.type === 'walk' ? 'Đã đi xong' : 'Đã đạp xong'}</span></label>
+<div class="row">${rf('Phút', 'min', 'numeric', R.min)}${rf('kcal', 'kcal', 'numeric', '≈' + est)}${rf('km', 'km', 'decimal')}${rf('Leo, m', 'elev', 'numeric')}${rf('HR TB', 'hr', 'numeric')}${rf('RPE', 'rpe', 'decimal')}</div>
+<p class="note" id="ride-est">${rideEstNote(k, R, r)}</p></section>`;
+}
+function vToday() {
+  const k = ui.date, w = wd(k), P = dayPlan(k), d = D(k) || {};
+  let h = `<h1 class="dayh">${WDL[w]}, ${dm(k)}${k === todayKey() ? '<span class="tag">hôm nay</span>' : ''}</h1>
+<p class="focusline"><span class="code">${esc(P.code)}</span>${esc(P.focus)}${P.dur ? ` <span class="muted">~${P.dur} phút</span>` : ''}</p>
+<button class="nutline" id="nutline" data-go="food">${nutLine(k)}</button>`;
+  if (P.pause) {
+    h += `<p class="banner warn"><b>Không tập, không đạp xe, không đổ mồ hôi</b> đến hết ${dm(SET().pauseTo)}. Từ ${dm(addDays(SET().pauseTo, 1))}: tập nhẹ, vẫn tránh đổ mồ hôi${isKey(SET().reentryTo) ? ` đến hết ${dm(SET().reentryTo)}` : ''}.</p>`;
+    h += habBlock(k);
+    h += walkBlock(k, d);
+    h += metricsBlock(k, d);
+    h += checklist('Hồi phục hôm nay', 'p', P.restItems, d);
+    h += '<p class="note">Không band, không push-up, không gồng sức — đều làm tăng áp lực lên vùng đầu. Bài buổi sáng và buổi tối cũng tạm dừng.</p><p class="note">Cân sẽ dao động vì nước, glycogen và sưng: không chỉnh calo trong đợt này, không đo InBody.</p>';
+    h += `<section class="blk"><h2>Ghi chú</h2><textarea class="in ta" rows="3" data-daynote aria-label="Ghi chú ngày" placeholder="Sưng, đau, giấc ngủ, lời dặn khi tái khám…">${esc(d.note || '')}</textarea></section>`;
+    return h;
+  }
+  if (P.reentry) h += `<p class="banner"><b>Tập nhẹ, chưa đổ mồ hôi</b> đến hết ${dm(SET().reentryTo)}. Tập trong phòng mát hoặc bật quạt, ½ số hiệp, RIR 3–4, nghỉ dài hơn bình thường. Rịn mồ hôi ở trán → dừng bài đó. Căng, nhói hay nóng ở vùng cấy → dừng buổi.</p>`;
+  else if (isDeload(k)) h += '<p class="banner"><b>Tuần deload.</b> Giữ bài, ½ số hiệp, RIR 3–4, chỉ đạp Zone 2.</p>';
+  if (headSafe(k) && P.ex && P.ex.some(e => e.orig)) h += `<p class="banner">Đang bảo vệ vùng cấy đến ${dmy(SET().headSafeTo)}: pike và decline push-up được thay bằng bài giữ đầu cao.</p>`;
+  h += habBlock(k);
+  h += walkBlock(k, d);
+  h += metricsBlock(k, d);
+  h += checklist('Buổi sáng', 'm', MORNING, d);
+  if (P.rest) h += checklist('Hôm nay', 'r', P.restItems, d, P.restNote);
+  if (P.ex) {
+    h += checklist('Khởi động', 'w', P.warm, d, 'Không mỏi, không tính vào số hiệp.');
+    h += `<section class="blk"><h2>Calisthenics <small>đúng thứ tự</small></h2>${P.ex.map((e, i) => exBlock(k, e, i)).join('')}`;
+    if (P.after) h += P.after.map((t, i) => chkItem('a' + i, t, d)).join('');
+    if (P.exNote) h += `<p class="note">${esc(P.exNote)}</p>`;
+    h += '</section>';
+  }
+  if (P.ride) h += rideBlock(k, P, d);
+  if (P.eve) h += checklist('Buổi tối: ' + EVE[P.eve].t, 'e', EVE[P.eve].items, d, P.eveNote);
+  h += `<section class="blk"><h2>Ghi chú</h2><textarea class="in ta" rows="3" data-daynote aria-label="Ghi chú ngày" placeholder="Cảm giác, đau mỏi, thời tiết, cung đường…">${esc(d.note || '')}</textarea></section>`;
+  return h;
+}
+
+/* ---------- Ăn ---------- */
+function vFood() {
+  const k = ui.date, d = D(k) || {}, items = d.food || [], t = totals(items), tg = targets(k), ex = exKcal(k), fl = floorKcal();
+  let h = `<h1 class="dayh">Ăn uống, ${WDL[wd(k)]} ${dm(k)}</h1>
+<p class="focusline">Mục tiêu <b>${tg.kcal} kcal</b>: P ${tg.p} g, C ${tg.c} g, F ${tg.f} g</p>${tg.dynamic ? `<p class="note">${esc(tg.note)}</p>` : ''}
+${kcalWidget(k)}
+<section class="blk"><h2>Năng lượng còn lại sau tập</h2>`;
+  if (items.length) {
+    const rem = Math.round(t.kcal - ex.total), okF = rem >= fl;
+    h += `<p class="big${okF ? '' : ' warnc'}">${rem}</p><p class="note">= ăn ${Math.round(t.kcal)} − tập ${ex.total} (${ex.walk ? `đi bộ ${ex.walk}, ` : ''}đạp ${ex.ride}${ex.rideEst ? ' ước tính' : ''}, calisthenics ${ex.calis}). Sàn ${fl}. ${okF ? 'Trên sàn.' : `Dưới sàn ${fl - rem} kcal → thêm ~${Math.ceil((fl - rem) / 4)} g carb nếu đã hết ngày.`}</p>`;
+  } else h += `<p class="note">Ghi món ăn để tính. Sàn ${fl} kcal = 30 × ${f1(ffm())} kg cân nặng không mỡ, xét theo trung bình tuần.</p>`;
+  h += `</section><section class="blk"><h2>Đã ăn <small>${items.length} món</small></h2><div class="list">`;
+  h += items.length
+    ? items.map(it => `<div class="li"><div class="nm">${esc(it.n)}</div><div class="mc">${f0(num(it.kcal))} kcal<br>P${f0(num(it.p))} C${f0(num(it.c))} F${f0(num(it.f))}</div><button class="x" data-delfood="${esc(it.id)}" aria-label="Xóa ${esc(it.n)}">×</button></div>`).join('')
+    : '<p class="note">Chưa ghi món nào cho ngày này.</p>';
+  h += `</div><div class="row" style="margin-top:12px">
+<label class="fld grow"><span>Món</span><input class="in" id="f-n" placeholder="VD: cơm + ức gà" autocomplete="off"></label>
+<label class="fld"><span>kcal</span><input class="in numin s" id="f-kcal" inputmode="numeric"></label>
+<label class="fld"><span>P, g</span><input class="in numin s" id="f-p" inputmode="decimal"></label>
+<label class="fld"><span>C, g</span><input class="in numin s" id="f-c" inputmode="decimal"></label>
+<label class="fld"><span>F, g</span><input class="in numin s" id="f-f" inputmode="decimal"></label></div>
+<div class="row" style="margin-top:10px"><button class="btn pri" data-addfood="1">Thêm món</button><button class="btn" data-addfood="2">Thêm và lưu mẫu</button><span class="note" id="f-msg" role="status"></span></div>
+<p class="note">Để trống kcal thì app tự tính từ P, C, F.</p></section>`;
+  h += `<section class="blk"><h2>Món mẫu <small>chạm để thêm</small>${state.presets.length ? `<button class="btn sm" data-editpresets>${ui.editPresets ? 'Xong' : 'Sửa'}</button>` : ''}</h2>`;
+  h += state.presets.length
+    ? `<div class="chips">${state.presets.map((p, i) => `<span class="pchip"><button class="chip" data-preset="${i}">${esc(p.n)}<small>${f0(num(p.kcal))}</small></button>${ui.editPresets ? `<button class="x" data-delpreset="${i}" aria-label="Xóa mẫu ${esc(p.n)}">×</button>` : ''}</span>`).join('')}</div>`
+    : '<p class="note">Món hay ăn: bấm "Thêm và lưu mẫu" để lần sau chạm một lần là xong.</p>';
+  h += `</section><section class="blk"><h2>Nhắc nhở</h2><ul class="steps"><li>Protein ${tg.p} g, chia 4 bữa × 30–35 g.</li><li>Carb dồn quanh buổi tập và buổi đạp.</li><li>Chủ nhật: ăn = sàn + kcal buổi đạp; không đạp thì ăn như thứ 7.</li><li>Dầu ăn: 1 thìa canh ≈ 120 kcal — khoản hay bị bỏ sót nhất.</li></ul></section>`;
+  return h;
+}
+
+/* ---------- charts ---------- */
+function lineChart(o) {
+  const W = 600, H = o.h || 180, L = 42, R = 10, T = 12, B = 24;
+  const all = o.series.reduce((a, s) => a.concat(s.pts), []);
+  if (!all.length) return '<p class="note">Chưa có dữ liệu.</p>';
+  const x0 = o.x0, x1 = o.x1 === o.x0 ? o.x0 + 1 : o.x1;
+  let y0 = Math.min.apply(null, all.map(p => p[1])), y1 = Math.max.apply(null, all.map(p => p[1]));
+  const padY = Math.max((y1 - y0) * 0.15, o.minPad || 0.4); y0 -= padY; y1 += padY;
+  const X = x => L + (x - x0) / (x1 - x0) * (W - L - R), Y = y => T + (1 - (y - y0) / (y1 - y0)) * (H - T - B);
+  let g = '';
+  for (let i = 0; i <= 3; i++) { const v = y0 + (y1 - y0) * i / 3, yy = Y(v).toFixed(1); g += `<line class="gl" x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}"/><text x="${L - 6}" y="${(+yy + 4).toFixed(1)}" text-anchor="end">${f1(v)}</text>`; }
+  g += `<text x="${L}" y="${H - 6}">${esc(o.xFmt(x0))}</text><text x="${W - R}" y="${H - 6}" text-anchor="end">${esc(o.xFmt(x1))}</text>`;
+  o.series.forEach(s => {
+    const pts = s.pts.slice().sort((a, b) => a[0] - b[0]);
+    if (s.line && pts.length > 1) g += `<polyline class="${s.cls}" points="${pts.map(p => X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1)).join(' ')}"/>`;
+    if (s.dots) g += pts.map(p => `<circle class="${s.cls}" cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="${s.r || 3}"/>`).join('');
+  });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label)}">${g}</svg>`;
+}
+function sleepChart(endK) {
+  const W = 600, H = 150, L = 30, R = 8, T = 8, B = 22, n = 14, bw = (W - L - R) / n;
+  const vals = []; for (let i = n - 1; i >= 0; i--) { const k = addDays(endK, -i); vals.push({ k, m: sleepMin((D(k) || {}).sleep) }); }
+  const max = Math.max(600, ...vals.map(v => v.m || 0));
+  const Y = m => T + (1 - m / max) * (H - T - B);
+  let s = '';
+  [360, 420, 480].forEach(m => { s += `<line class="${m === 420 ? 'ref' : 'gl'}" x1="${L}" x2="${W - R}" y1="${Y(m).toFixed(1)}" y2="${Y(m).toFixed(1)}"/><text x="${L - 4}" y="${(Y(m) + 4).toFixed(1)}" text-anchor="end">${m / 60}h</text>`; });
+  vals.forEach((v, i) => {
+    const x = L + i * bw + 3;
+    if (v.m) s += `<rect class="${v.m < 420 ? 'low' : 'okb'}" x="${x.toFixed(1)}" y="${Y(v.m).toFixed(1)}" width="${(bw - 6).toFixed(1)}" height="${(H - B - Y(v.m)).toFixed(1)}" rx="2"/>`;
+    if (i % 2 === 1) s += `<text x="${(x + (bw - 6) / 2).toFixed(1)}" y="${H - 6}" text-anchor="middle">${dm(v.k)}</text>`;
+  });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Thời lượng ngủ 14 đêm gần nhất">${s}</svg>`;
+}
+
+/* ---------- Ngủ ---------- */
+function vSleep() {
+  const k = ui.date, s = (D(k) || {}).sleep || {};
+  const last = []; for (let i = 0; i < 7; i++) { const v = sleepMin((D(addDays(k, -i)) || {}).sleep); if (v != null) last.push(v); }
+  return `<h1 class="dayh">Giấc ngủ</h1><p class="focusline">Đêm trước sáng ${WDL[wd(k)]} ${dm(k)}</p>
+<section class="blk"><div class="row">
+<label class="fld"><span>Đi ngủ</span><input class="in" type="time" data-sleep="bed" value="${esc(s.bed || '')}"></label>
+<label class="fld"><span>Thức dậy</span><input class="in" type="time" data-sleep="wake" value="${esc(s.wake || '')}"></label>
+<div class="fld"><span>Thời lượng</span><b class="big" id="sl-dur">${hm(sleepMin(s))}</b></div></div>
+<p class="lbl">Chất lượng, 1 là rất tệ, 5 là rất tốt</p><div class="q" role="group" aria-label="Chất lượng giấc ngủ">${[1, 2, 3, 4, 5].map(q => `<button data-sq="${q}" aria-pressed="${s.q === q}">${q}</button>`).join('')}</div></section>
+<section class="blk"><h2>14 đêm gần nhất <small>trung bình 7 đêm: ${hm(avg(last))}</small></h2>${sleepChart(k)}
+<p class="note">Mục tiêu 7–9 giờ. Cột đỏ là đêm dưới 7 giờ.</p></section>`;
+}
+
+/* ---------- Cơ thể ---------- */
+function ibFormHtml() {
+  const f = (lbl, id, mode) => `<label class="fld"><span>${lbl}</span><input class="in numin" id="ib-${id}" inputmode="${mode}"></label>`;
+  return `<div class="ibform"><div class="row"><label class="fld"><span>Ngày đo</span><input class="in" type="date" id="ib-date" value="${ui.date}"></label>
+${f('Cân, kg', 'weight', 'decimal')}${f('Mỡ, %', 'bf', 'decimal')}${f('Mỡ, kg', 'fat', 'decimal')}${f('Cơ xương, kg', 'smm', 'decimal')}${f('Không mỡ, kg', 'ffm', 'decimal')}${f('BMR, kcal', 'bmr', 'numeric')}${f('Mỡ nội tạng', 'visc', 'numeric')}${f('Mỡ thân, % chuẩn', 'trunk', 'decimal')}</div>
+<label class="chk"><input type="checkbox" id="ib-protocol" checked><span>Đúng giao thức: sáng T5, nhịn ăn, sau vệ sinh, trước tập, cùng máy</span></label>
+<label class="fld"><span>Ghi chú</span><input class="in" id="ib-note" autocomplete="off"></label>
+<div class="row" style="margin-top:10px"><button class="btn pri" data-ibsave>Lưu lần đo</button><span class="note" id="ib-msg" role="status"></span></div>
+<p class="note">Có cân và % mỡ thì app tự tính mỡ kg và cân nặng không mỡ.</p></div>`;
+}
+function vBody() {
+  const k = ui.date, base = addDays(k, -55), xf = i => dm(addDays(base, i));
+  const W = [], MA = [], WA = [];
+  for (let i = 0; i < 56; i++) {
+    const kk = addDays(base, i), dd = D(kk) || {};
+    if (num(dd.weight)) W.push([i, num(dd.weight)]);
+    if (num(dd.waist)) WA.push([i, num(dd.waist)]);
+    const win = []; for (let j = 0; j < 7; j++) { const x = D(addDays(kk, -j)); if (x && num(x.weight)) win.push(num(x.weight)); }
+    if (win.length >= 3) MA.push([i, avg(win)]);
+  }
+  const s0 = weekStats(mondayOf(k)), s1 = weekStats(addDays(mondayOf(k), -7));
+  const lw = lastVal('waist', k), ls = lastVal('shoulder', k), ratio = lw && ls ? ls.v / lw.v : null;
+  let h = `<h1 class="dayh">Cơ thể</h1>
+<section class="blk"><h2>Cân nặng <small>8 tuần đến ${dm(k)}</small></h2>
+<div class="kv"><div><span>Trung bình tuần này</span><b>${f1(s0.avgW)}</b></div><div><span>So với tuần trước</span><b>${s0.avgW != null && s1.avgW != null ? sgn(s0.avgW - s1.avgW, 2) : '–'}</b></div><div><span>Nhịp mục tiêu mỗi tuần</span><b>−0.2 đến −0.35</b></div></div>
+${lineChart({ series: [{ pts: W, cls: 'raw', dots: true }, { pts: MA, cls: 'main', line: true }], x0: 0, x1: 55, xFmt: xf, label: 'Cân nặng 8 tuần' })}
+<p class="note">Chấm: cân từng sáng. Đường: trung bình 7 ngày. Sáng T2 thường cao nhất tuần, sáng T5 thấp nhất (nước đi theo carb) — chỉ đọc trung bình tuần.</p></section>
+<section class="blk"><h2>Vòng eo và vai</h2>
+<div class="kv"><div><span>Eo${lw ? ', ' + dm(lw.k) : ''}</span><b>${lw ? f1(lw.v) : '–'}</b></div><div><span>Vai${ls ? ', ' + dm(ls.k) : ''}</span><b>${ls ? f1(ls.v) : '–'}</b></div><div><span>Vai / eo</span><b>${ratio ? ratio.toFixed(2) : '–'}</b></div><div><span>Mục tiêu</span><b>≥ 1.5–1.6</b></div></div>
+${WA.length ? lineChart({ series: [{ pts: WA, cls: 'main', line: true, dots: true }], x0: 0, x1: 55, xFmt: xf, label: 'Vòng eo 8 tuần', h: 150 }) : ''}
+<p class="note">Ghi eo và vai ở tab Hôm nay: eo mỗi tuần, vai 2–4 tuần một lần.</p></section>`;
+  const list = state.inbody.filter(e => e && isKey(e.date)).sort((a, b) => a.date < b.date ? 1 : -1);
+  h += `<section class="blk"><h2>InBody / BIA <small>4–6 tuần một lần</small><button class="btn sm" data-ibform>${ui.ibForm ? 'Đóng' : 'Thêm lần đo'}</button></h2>`;
+  if (ui.ibForm) h += ibFormHtml();
+  if (list.length) {
+    h += `<div class="scroll"><table class="tbl"><thead><tr><th>Ngày</th><th>Cân</th><th>Mỡ %</th><th>Mỡ kg</th><th>Cơ xương</th><th>Không mỡ</th><th>BMR</th><th>Nội tạng</th><th><span class="sr">Xóa</span></th></tr></thead><tbody>`
+      + list.map(e => `<tr><td>${dmy(e.date)}${e.protocol ? '' : '<span class="flag"> *</span>'}</td><td>${f1(num(e.weight))}</td><td>${f1(num(e.bf))}</td><td>${f1(num(e.fat))}</td><td>${f1(num(e.smm))}</td><td>${f1(num(e.ffm))}</td><td>${f0(num(e.bmr))}</td><td>${f0(num(e.visc))}</td><td><button class="x" data-delib="${esc(e.id)}" aria-label="Xóa lần đo ${dmy(e.date)}">×</button></td></tr>`).join('')
+      + '</tbody></table></div>';
+    if (list.some(e => !e.protocol)) h += '<p class="note"><span class="flag">*</span> Không đo theo giao thức sáng T5, nhịn ăn — đừng so trực tiếp với các lần đúng giao thức.</p>';
+    if (list[0].note) h += `<p class="note">Ghi chú lần gần nhất: ${esc(list[0].note)}</p>`;
+    if (list.length >= 2) {
+      const a = list[0], b = list[1];
+      h += `<p class="note">Từ ${dmy(b.date)} đến ${dmy(a.date)}: mỡ ${sgn(num(a.fat) - num(b.fat))} kg, cơ xương ${sgn(num(a.smm) - num(b.smm))} kg, mỡ ${sgn(num(a.bf) - num(b.bf))} điểm %.</p>`;
+      const first = list[list.length - 1].date, bf = list.filter(e => num(e.bf) != null).map(e => [daysBetween(first, e.date), num(e.bf)]);
+      if (bf.length >= 2) h += lineChart({ series: [{ pts: bf, cls: 'main', line: true, dots: true }], x0: 0, x1: daysBetween(first, list[0].date), xFmt: i => dm(addDays(first, i)), label: 'Tỷ lệ mỡ qua các lần đo', h: 150 });
+    }
+  } else h += '<p class="note">Chưa có lần đo nào. Bấm "Thêm lần đo" để ghi mốc đầu tiên.</p>';
+  h += `<p class="note">Sàn năng lượng dùng ${f1(ffm())} kg cân nặng không mỡ → ${floorKcal()} kcal/ngày (30 kcal mỗi kg).</p></section>`;
+  return h;
+}
+
+/* ---------- Tuần ---------- */
+function vWeek() {
+  const mon = mondayOf(ui.date), wk = phaseWeek(mon), s = weekStats(mon), p = weekStats(addDays(mon, -7));
+  let h = `<h1 class="dayh">${isPausedWeek(mon) ? 'Tạm nghỉ hồi phục' : wk >= 1 ? 'Tuần ' + wk : 'Trước giai đoạn 1'}</h1><p class="focusline">${dm(mon)} – ${dm(addDays(mon, 6))}. Giai đoạn 1 bắt đầu ${dmy(phaseStart())}.</p>
+<section class="blk"><div class="kv">
+<div><span>Cân trung bình</span><b>${f1(s.avgW)}</b></div><div><span>So với tuần trước</span><b>${s.avgW != null && p.avgW != null ? sgn(s.avgW - p.avgW, 2) : '–'}</b></div>
+<div><span>Eo cuối tuần</span><b>${f1(s.waist)}</b></div><div><span>Ngủ trung bình</span><b>${hm(s.sleep)}</b></div><div><span>Bước TB/ngày</span><b>${f0(s.steps)}</b></div>
+<div><span>Buổi tập xong</span><b>${s.done}/${s.planned}</b></div><div><span>Ngày đủ protein</span><b>${s.protein}/${s.nFood}</b></div>
+<div><span>kcal trung bình đã ghi</span><b>${f0(s.kcal)}</b></div><div><span>Còn lại sau tập</span><b>${f0(s.ea)}</b></div>${s.habTotal ? `<div><span>Thói quen đã tick</span><b>${s.habDone}/${s.habTotal}</b></div>` : ''}</div></section>
+<section class="blk"><h2>Gợi ý điều chỉnh</h2>${advice(mon).map(a => `<p class="banner${a.c === 'warn' ? ' warn' : a.c === 'ok' ? ' ok' : ''}">${a.t}</p>`).join('')}</section>`;
+  let rows = '';
+  for (let i = 0; i < 8; i++) {
+    const m = addDays(mon, -7 * i), st = weekStats(m), pr = weekStats(addDays(m, -7)), n = phaseWeek(m);
+    rows += `<tr><td>${isPausedWeek(m) ? 'Nghỉ ' + dm(m) : n >= 1 ? 'Tuần ' + n : dm(m)}</td><td>${f1(st.avgW)}</td><td>${st.avgW != null && pr.avgW != null ? sgn(st.avgW - pr.avgW, 2) : '–'}</td><td>${f1(st.waist)}</td><td>${hm(st.sleep)}</td><td>${st.done}/${st.planned}</td><td>${f0(st.kcal)}</td></tr>`;
+  }
+  h += `<section class="blk"><h2>8 tuần gần nhất</h2><div class="scroll"><table class="tbl"><thead><tr><th>Tuần</th><th>Cân TB</th><th>Thay đổi</th><th>Eo</th><th>Ngủ</th><th>Buổi</th><th>kcal</th></tr></thead><tbody>${rows}</tbody></table></div></section>
+<details class="blk"><summary>Nguyên tắc của lịch 4.2</summary><ul class="steps">${RULES.map(r => `<li>${esc(r)}</li>`).join('')}</ul></details>`;
+  return h;
+}
+
+/* ---------- Cài đặt ---------- */
+const floorNote = () => `Để trống thì lấy từ lần đo BIA gần nhất (${f1(ffmAuto())} kg). Sàn năng lượng = 30 × ${f1(ffm())} = ${floorKcal()} kcal.`;
+function habRows() {
+  const list = habits();
+  if (!list.length) return '<p class="note">Chưa có thói quen nào.</p>';
+  return list.map(h => `<div class="hrow"><div class="row">
+<label class="fld grow"><span>Tên</span><input class="in" data-habf="n" data-hid="${esc(h.id)}" value="${esc(h.n || '')}" placeholder="VD: Thuốc kháng sinh"></label>
+<label class="fld"><span>Thời điểm</span><input class="in" style="width:8em" data-habf="t" data-hid="${esc(h.id)}" value="${esc(h.t || '')}" placeholder="Sáng / 21:00"></label></div>
+<div class="row" style="margin-top:8px"><label class="fld"><span>Từ ngày</span><input class="in" type="date" data-habf="from" data-hid="${esc(h.id)}" value="${esc(h.from || '')}"></label>
+<label class="fld"><span>Đến hết (trống = mãi)</span><input class="in" type="date" data-habf="to" data-hid="${esc(h.id)}" value="${esc(h.to || '')}"></label>
+<button class="x" data-habdel="${esc(h.id)}" aria-label="Xóa ${esc(h.n || 'thói quen')}">×</button></div></div>`).join('');
+}
+function sheetHtml() {
+  const st = state.settings;
+  return `<div class="pane"><div class="sheethead"><h2>Cài đặt</h2><button class="iconbtn" data-close aria-label="Đóng">×</button></div>
+<div class="row" style="margin-top:14px"><label class="fld"><span>Bắt đầu giai đoạn 1</span><input class="in" type="date" data-set="phaseStart" value="${esc(phaseStart())}"></label>
+<label class="fld"><span>Cân nặng không mỡ, kg</span><input class="in numin" data-set="ffm" inputmode="decimal" value="${st.ffm == null ? '' : esc(st.ffm)}" placeholder="${f1(ffmAuto())}"></label></div>
+<p class="note" id="floor-note">${floorNote()}</p>
+<label class="chk"><input type="checkbox" data-set="autoTimer"${st.autoTimer ? ' checked' : ''}><span>Tự bấm giờ nghỉ khi ghi xong một hiệp (theo đúng khoảng nghỉ của bài, superset và lúc chuyển bài)</span></label>
+<label class="chk"><input type="checkbox" data-set="sound"${st.sound ? ' checked' : ''}><span>Kêu và rung khi hết giờ nghỉ</span></label>
+<label class="fld" style="margin-top:10px"><span>Giao diện</span><select class="in" data-set="theme"><option value="auto">Theo thiết bị</option><option value="light">Sáng</option><option value="dark">Tối</option><option value="strava">Strava (tối, cam)</option></select></label>
+<h2>Tạm nghỉ hồi phục</h2>
+<div class="row"><label class="fld grow"><span>Lý do</span><input class="in" data-set="pauseLabel" value="${esc(st.pauseLabel || '')}" placeholder="VD: Hậu phẫu"></label></div>
+<div class="row" style="margin-top:8px">
+<label class="fld"><span>Nghỉ từ</span><input class="in" type="date" data-set="pauseFrom" value="${esc(st.pauseFrom || '')}"></label>
+<label class="fld"><span>Nghỉ đến hết</span><input class="in" type="date" data-set="pauseTo" value="${esc(st.pauseTo || '')}"></label>
+<label class="fld"><span>Tập nhẹ, chưa đổ mồ hôi đến hết</span><input class="in" type="date" data-set="reentryTo" value="${esc(st.reentryTo || '')}"></label>
+<label class="fld"><span>Bài an toàn vùng đầu đến hết</span><input class="in" type="date" data-set="headSafeTo" value="${esc(st.headSafeTo || '')}"></label>
+<label class="fld"><span>Đạp xe lại từ (trống = chưa)</span><input class="in" type="date" data-set="rideFrom" value="${esc(st.rideFrom || '')}"></label>
+<label class="fld"><span>Tuần deload</span><input class="in numin s" data-set="deloadWeek" inputmode="numeric" value="${esc(st.deloadWeek || 7)}"></label></div>
+<p class="note">Đợt nghỉ không tính vào số tuần của giai đoạn 1. Đặt ngày "Đạp xe lại" khi bác sĩ cho đội mũ bảo hiểm và ra nắng; trước ngày đó các buổi đạp thành đi bộ.</p>
+<h2 id="hab-set">Thói quen hằng ngày</h2>
+<div id="hab-list">${habRows()}</div>
+<button class="btn" data-habadd style="margin-top:10px">+ Thêm thói quen</button>
+<p class="note">Mỗi dòng hiện ở tab Hôm nay trong khoảng ngày đã đặt (để trống "đến" = không giới hạn). Ghi đúng tên thuốc và giờ theo đơn phòng khám.</p>
+<h2>Dữ liệu</h2><p class="note">${storeInfo()}</p>
+<div class="row" style="margin-top:8px"><button class="btn" data-export>Xuất dữ liệu (JSON)</button><label class="btn filebtn">Nhập từ file JSON<input type="file" accept="application/json,.json" data-import hidden></label></div>
+<details><summary>Dán nội dung JSON thay vì chọn file</summary><textarea class="in ta" id="imp-text" rows="4" aria-label="Nội dung JSON"></textarea><button class="btn" data-importtext style="margin-top:8px">Nhập nội dung đã dán</button></details>
+<p class="note" id="io-msg" role="status"></p>
+<p class="note">Sổ tập V-taper, lịch 4.2. Nhập dữ liệu sẽ ghi đè những ngày trùng.</p></div>`;
+}
+
+/* ---------- render ---------- */
+const VIEWS = { today: vToday, food: vFood, sleep: vSleep, body: vBody, week: vWeek };
+function render() {
+  renderHeader();
+  const v = $('#view');
+  try { v.innerHTML = VIEWS[ui.tab](); }
+  catch (e) { console.error(e); v.innerHTML = `<p class="banner warn">Không hiển thị được mục này: ${esc(e && e.message)}</p>`; }
+  $$('nav.tabs button').forEach(b => { if (b.dataset.tab === ui.tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+  markNext(); setStatus();
+}
+let toastT = null;
+function toast(t) { const el = $('#toast'); if (!el) return; el.textContent = t; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 3400); }
+const THEMES = ['light', 'dark', 'strava'];
+let viewerTheme = document.documentElement.getAttribute('data-theme');
+function applyTheme() {
+  const t = state.settings.theme, el = document.documentElement;
+  if (THEMES.includes(t)) { if (el.getAttribute('data-theme') !== t) el.setAttribute('data-theme', t); }
+  else if (viewerTheme) el.setAttribute('data-theme', viewerTheme);
+  else el.removeAttribute('data-theme');
+}
+// Khung xem có thể tự đổi data-theme; giữ lựa chọn của bạn nếu đã chọn theme cố định.
+new MutationObserver(() => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  if (THEMES.includes(state.settings.theme)) { if (cur !== state.settings.theme) applyTheme(); }
+  else viewerTheme = cur;
+}).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+function goTab(t) { ui.tab = t; render(); window.scrollTo(0, 0); }
+
+/* ---------- rest timer (biết mình đang ở đâu trong buổi) ---------- */
+const TM = { end: 0, iv: null, ctx: null, target: null, goText: '', cueT: null };
+let lastLogAt = 0, batchNoted = false;
+function audioInit() {
+  if (!state.settings.sound) return;
+  try { if (!TM.ctx) { const AC = window.AudioContext || window.webkitAudioContext; if (AC) TM.ctx = new AC(); } if (TM.ctx && TM.ctx.state === 'suspended') TM.ctx.resume(); } catch (e) {}
+}
+function beep() {
+  const c = TM.ctx; if (!c) return;
+  try {
+    const t = c.currentTime;
+    [0, 0.3].forEach(off => {
+      const o = c.createOscillator(), g = c.createGain();
+      o.type = 'sine'; o.frequency.value = 880;
+      g.gain.setValueAtTime(0.0001, t + off); g.gain.exponentialRampToValueAtTime(0.35, t + off + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + off + 0.22);
+      o.connect(g); g.connect(c.destination); o.start(t + off); o.stop(t + off + 0.25);
+    });
+  } catch (e) {}
+}
+function markNext() {
+  $$('.rep.next').forEach(x => x.classList.remove('next'));
+  if (!TM.target) return;
+  const el = document.getElementById(TM.target);
+  if (el && el.value === '') el.classList.add('next');
+}
+function setBar(head, sub, target) {
+  $('#tm-head').textContent = head || 'Nghỉ';
+  $('#tm-sub').textContent = sub || '';
+  TM.target = target || null; markNext();
+}
+function startTimer(sec, head, sub, target, goText) {
+  audioInit(); clearTimeout(TM.cueT);
+  TM.end = Date.now() + sec * 1000; TM.goText = goText || 'Vào hiệp tiếp!';
+  setBar(head, sub, target);
+  $('#timer').classList.remove('go');
+  document.body.classList.add('timing');
+  clearInterval(TM.iv); TM.iv = setInterval(tick, 250); tick();
+}
+function showCue(head, sub, target) {
+  clearInterval(TM.iv); TM.iv = null; clearTimeout(TM.cueT);
+  $('#tm-time').textContent = '→';
+  setBar(head, sub, target);
+  $('#timer').classList.add('go');
+  document.body.classList.add('timing');
+  TM.cueT = setTimeout(() => { if (!TM.iv) hideBar(); }, 7000);
+}
+function tick() {
+  const left = Math.max(0, Math.ceil((TM.end - Date.now()) / 1000));
+  $('#tm-time').textContent = mmss(left);
+  if (left > 0) return;
+  clearInterval(TM.iv); TM.iv = null;
+  $('#timer').classList.add('go'); $('#tm-head').textContent = TM.goText;
+  if (state.settings.sound) { beep(); try { if (navigator.vibrate) navigator.vibrate([250, 120, 250]); } catch (e) {} }
+  TM.cueT = setTimeout(() => { if (!TM.iv) hideBar(); }, 8000);
+}
+function hideBar() { clearInterval(TM.iv); TM.iv = null; clearTimeout(TM.cueT); document.body.classList.remove('timing'); $('#timer').classList.remove('go'); }
+function stopTimer() { hideBar(); TM.target = null; markNext(); }
+function exDef(id) { return (dayPlan(ui.date).ex || []).find(e => e.id === id); }
+function nextInfo(ex, set, k) {
+  const n = setsFor(ex, k), pv = prevLog(ex.id, k), pr = pv ? num(pv.r[set]) : null;
+  return { id: `r-${ex.id}-${set}`, what: `hiệp ${set + 1}/${n} ${ex.n}`, goal: `Mục tiêu ${ex.lo}–${ex.hi}${pr != null ? ` (lần trước ${pr})` : ''}` };
+}
+function nextStep(list, idx, j, k) {
+  const e = list[idx], n = setsFor(e, k), tag = e.tag || '';
+  const isA = /^\d+a$/.test(tag), isB = /^\d+b$/.test(tag);
+  if (isA && list[idx + 1]) { const b = list[idx + 1], x = nextInfo(b, j, k); return { rest: 0, head: `Sang ngay ${b.tag}: ${b.n}`, sub: `Hiệp ${j + 1}. ${x.goal}`, x }; }
+  if (isB && list[idx - 1] && j < n - 1) { const a = list[idx - 1], x = nextInfo(a, j + 1, k); return { rest: e.rest || 60, head: `Nghỉ rồi lặp ${a.tag}`, sub: `Tiếp: ${x.what}. ${x.goal}`, x }; }
+  if (!isB && j < n - 1) {
+    const x = nextInfo(e, j + 1, k);
+    if (!e.rest) return { rest: 0, head: 'Làm tiếp, không nghỉ riêng', sub: `${e.rl ? e.rl + '. ' : ''}Tiếp: hiệp ${j + 2}/${n}. ${x.goal}`, x };
+    return { rest: e.rest, head: 'Nghỉ giữa hiệp', sub: `Tiếp: hiệp ${j + 2}/${n}. ${x.goal}`, x };
+  }
+  const nx = list[idx + 1];
+  if (!nx) return null;
+  const x = nextInfo(nx, 0, k);
+  return { rest: Math.min(150, Math.max(60, nx.rest || 60)), head: `Chuyển bài: ${nx.tag || idx + 2}. ${nx.n}`, sub: `Hiệp 1/${setsFor(nx, k)}. ${x.goal}`, x };
+}
+function smartRest(id, j) {
+  const k = ui.date, list = dayPlan(k).ex || [], idx = list.findIndex(e => e.id === id);
+  if (idx < 0) return;
+  const e = list[idx], n = setsFor(e, k), reps = ((((D(k) || {}).sets) || {})[id] || {}).r || [];
+  for (let i = 0; i < j; i++) if (num(reps[i]) == null) return;       // ghi lệch thứ tự → không bấm giờ
+  for (let i = j + 1; i < n; i++) if (num(reps[i]) != null) return;   // sửa hiệp cũ → không bấm giờ
+  const now = Date.now(), gap = now - lastLogAt; lastLogAt = now;
+  if (gap < 20000) {                                                  // ghi bù nhiều hiệp liền nhau
+    stopTimer();
+    if (!batchNoted) { toast('Đang ghi bù nhiều hiệp liền — tạm tắt đồng hồ nghỉ.'); batchNoted = true; }
+    return;
+  }
+  batchNoted = false;
+  const st = nextStep(list, idx, j, k);
+  if (!st) { stopTimer(); toast('Xong phần calisthenics hôm nay.'); return; }
+  if (st.rest <= 0) { showCue(st.head, st.sub, st.x.id); return; }
+  startTimer(st.rest, st.head, st.sub, st.x.id, 'Vào ' + st.x.what);
+}
+const repPend = {};
+function commitRep(inp) {
+  clearTimeout(repPend[inp.id]); delete repPend[inp.id];
+  const was = inp.dataset.before || '';
+  if (was === '' && inp.value !== '' && state.settings.autoTimer) smartRest(inp.dataset.ex, +inp.dataset.j);
+  inp.dataset.before = inp.value;
+}
+
+/* ---------- targeted refreshes (không vẽ lại cả trang khi đang gõ) ---------- */
+function refreshEx(id) {
+  const e = exDef(id); if (!e) return;
+  const n = setsFor(e, ui.date), x = ((D(ui.date) || {}).sets || {})[id] || {}, reps = x.r || [];
+  const st = $('#st-' + id); if (st) st.innerHTML = exStatus(e, reps, n);
+  const art = $('#ex-' + id); if (art) art.classList.toggle('done', exComplete(reps, n));
+  $$(`.rep[data-ex="${id}"]`).forEach(inp => { const v = num(inp.value); inp.classList.toggle('hit', v != null && v >= e.hi); });
+  renderHeader();
+}
+function refreshWalk() {
+  const k = ui.date, g = stepGoal(k); if (!g) return;
+  const st = num((D(k) || {}).steps) || 0;
+  const b = $('#walk-bar'); if (b) b.style.width = Math.min(100, st / g * 100).toFixed(0) + '%';
+  const t = $('#walk-txt'); if (t) t.textContent = st ? `${f0(st)} / ${g} bước` : `Mục tiêu ${g} bước`;
+  const n = $('#walk-kcal'); if (n) n.textContent = walkNote(k);
+  renderHeader();
+}
+function refreshRide() {
+  const nl = $('#nutline'); if (nl) nl.innerHTML = nutLine(ui.date);
+  const P = dayPlan(ui.date), r = (D(ui.date) || {}).ride || {};
+  if (P.ride) {
+    const el = $('#ride-est'); if (el) el.textContent = rideEstNote(ui.date, P.ride, r);
+    const kc = $('input[data-ride="kcal"]'); if (kc) kc.placeholder = '≈' + rideEst(ui.date, P.ride, r);
+  }
+  renderHeader();
+}
+
+/* ---------- actions ---------- */
+function addFood(savePreset) {
+  const g = id => $('#' + id), msg = g('f-msg');
+  const name = g('f-n').value.trim();
+  let kcal = num(g('f-kcal').value);
+  const p = num(g('f-p').value), c = num(g('f-c').value), f = num(g('f-f').value);
+  if (kcal == null && p == null && c == null && f == null) { msg.textContent = 'Nhập kcal hoặc P, C, F.'; g('f-kcal').focus(); return; }
+  if (kcal == null) kcal = Math.round((p || 0) * 4 + (c || 0) * 4 + (f || 0) * 9);
+  const item = { id: uid(), n: name || 'Món', kcal, p: p || 0, c: c || 0, f: f || 0 };
+  const d = dayW(ui.date); d.food = d.food || []; d.food.push(item); touch(ui.date);
+  if (savePreset) { state.presets.push({ n: item.n, kcal: item.kcal, p: item.p, c: item.c, f: item.f }); queue('presets'); }
+  render();
+  const el = $('#f-n'); if (el) el.focus();
+  toast(savePreset ? 'Đã thêm và lưu mẫu ' + item.n : 'Đã thêm ' + item.n);
+}
+function saveInbody() {
+  const g = id => num(($('#ib-' + id) || {}).value), msg = $('#ib-msg');
+  const date = ($('#ib-date') || {}).value;
+  const e = { id: 'ib-' + uid(), date, weight: g('weight'), bf: g('bf'), fat: g('fat'), smm: g('smm'), ffm: g('ffm'), bmr: g('bmr'), visc: g('visc'), trunk: g('trunk'), protocol: !!($('#ib-protocol') || {}).checked, note: (($('#ib-note') || {}).value || '').trim() };
+  if (!isKey(date)) { msg.textContent = 'Chọn ngày đo.'; return; }
+  if (e.weight == null && e.bf == null) { msg.textContent = 'Nhập ít nhất cân nặng hoặc % mỡ.'; return; }
+  if (e.weight != null && e.bf != null && e.fat == null) e.fat = Math.round(e.weight * e.bf) / 100;
+  if (e.weight != null && e.fat != null && e.bf == null) e.bf = Math.round(e.fat / e.weight * 1000) / 10;
+  if (e.weight != null && e.fat != null && e.ffm == null) e.ffm = Math.round((e.weight - e.fat) * 10) / 10;
+  Object.keys(e).forEach(x => { if (e[x] == null || e[x] === '') delete e[x]; });
+  state.inbody.push(e); queue('inbody'); ui.ibForm = false; render();
+  toast('Đã lưu lần đo ' + dm(date));
+}
+function toggleHow(id) {
+  const panel = $('#how-' + id); if (!panel) return;
+  const open = !panel.classList.contains('open');
+  panel.classList.toggle('open', open);
+  if (open) ui.openHow.add(id); else ui.openHow.delete(id);
+  $$(`[data-how="${id}"]`).forEach(x => x.setAttribute('aria-expanded', String(open)));
+  const head = panel.parentElement;
+  if (!open && head) { head.classList.add('nohov'); head.addEventListener('mouseleave', () => head.classList.remove('nohov'), { once: true }); }
+}
+function armed(b) {
+  if (b.classList.contains('armed')) return true;
+  const old = b.textContent; b.classList.add('armed'); b.textContent = 'Xóa?';
+  setTimeout(() => { if (b.isConnected) { b.classList.remove('armed'); b.textContent = old; } }, 3000);
+  return false;
+}
+function ioMsg(t) { const el = $('#io-msg'); if (el) el.textContent = t; else toast(t); }
+async function doExport() {
+  const data = JSON.stringify({ app: 'so-tap-vtaper', v: 1, exportedAt: new Date().toISOString(), settings: state.settings, inbody: state.inbody, presets: state.presets, days: state.days });
+  const name = 'so-tap-vtaper-' + todayKey() + '.json';
+  const C = window.claude;
+  if (C && typeof C.use === 'function') {
+    try {
+      const dl = await C.use('downloads');
+      if (dl) { await dl.save({ filename: name, data }); ioMsg('Đã xuất ' + name + '.'); return; }
+    } catch (e) {
+      if (e && e.code === 'declined') { ioMsg('Đã hủy xuất.'); return; }
+      if (e && e.code === 'rate_limited') { ioMsg('Đang có một hộp thoại lưu file — thử lại sau giây lát.'); return; }
+      ioMsg('Không xuất được file ở đây (' + ((e && e.code) || 'lỗi') + ').'); return;
+    }
+  }
+  try {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' })); a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    ioMsg('Đã tải ' + name + '.');
+  } catch (e) { ioMsg('Trình duyệt chặn tải file.'); }
+}
+async function doImport(text) {
+  let o;
+  try { o = JSON.parse(text); } catch (e) { ioMsg('Nội dung không phải JSON hợp lệ.'); return; }
+  if (!o || typeof o !== 'object' || !o.days || typeof o.days !== 'object') { ioMsg('Không thấy dữ liệu sổ tập trong nội dung này.'); return; }
+  const keys = Object.keys(o.days).filter(isKey);
+  if (o.settings && typeof o.settings === 'object') state.settings = Object.assign({}, DEF, state.settings, o.settings);
+  if (Array.isArray(o.inbody)) state.inbody = o.inbody.filter(x => x && isKey(x.date));
+  if (Array.isArray(o.presets)) state.presets = o.presets.filter(x => x && x.n);
+  keys.forEach(k => { if (o.days[k] && typeof o.days[k] === 'object') state.days[k] = Object.assign({}, o.days[k], { date: k }); });
+  keysCache = null;
+  ioMsg(`Đang lưu ${keys.length} ngày…`);
+  await saveAllNow(['settings', 'inbody', 'presets'].concat(keys.map(k => 'day:' + k)), (i, n) => ioMsg(`Đang lưu ${i}/${n}…`));
+  applyTheme(); render();
+  ioMsg(S.failed.size ? `Đã nhập, nhưng ${S.failed.size} mục chưa lưu được — thử nhập lại.` : `Đã nhập ${keys.length} ngày.`);
+}
+function openSheet() {
+  const sh = $('#sheet'); sh.innerHTML = sheetHtml(); sh.classList.add('open');
+  const sel = sh.querySelector('[data-set="theme"]'); if (sel) sel.value = state.settings.theme || 'auto';
+  const c = sh.querySelector('[data-close]'); if (c) c.focus();
+}
+function closeSheet() { const sh = $('#sheet'); sh.classList.remove('open'); sh.innerHTML = ''; $('#setbtn').focus(); }
+
+/* ---------- events ---------- */
+function wire() {
+  const view = $('#view');
+  $('#prevw').addEventListener('click', () => { if (!ui.ready) return; ui.date = addDays(ui.date, -7); render(); });
+  $('#nextw').addEventListener('click', () => { if (!ui.ready) return; ui.date = addDays(ui.date, 7); render(); });
+  $('#todaybtn').addEventListener('click', () => { if (!ui.ready) return; ui.date = todayKey(); render(); });
+  $('#setbtn').addEventListener('click', () => { if (ui.ready) openSheet(); });
+  $('#ridge-days').addEventListener('click', e => { const b = e.target.closest('button[data-day]'); if (!b || !ui.ready) return; ui.date = b.dataset.day; render(); });
+  $('nav.tabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (b && ui.ready) goTab(b.dataset.tab); });
+  $('#tm-minus').addEventListener('click', () => { if (TM.iv) { TM.end -= 15000; tick(); } });
+  $('#tm-plus').addEventListener('click', () => { if (TM.iv) { TM.end += 15000; tick(); } });
+  $('#tm-stop').addEventListener('click', stopTimer);
+  $('#tm-go').addEventListener('click', () => { const el = TM.target && document.getElementById(TM.target); if (!el) return; if (el.scrollIntoView) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.focus({ preventScroll: true }); });
+
+  view.addEventListener('focusin', e => { const t = e.target; if (t.classList && t.classList.contains('rep')) t.dataset.before = t.value; });
+  view.addEventListener('input', e => {
+    const t = e.target, k = ui.date, ds = t.dataset;
+    if (ds.ex && ds.j != null) {
+      const d = dayW(k); d.sets = d.sets || {}; const x = d.sets[ds.ex] = d.sets[ds.ex] || {}; x.r = x.r || [];
+      x.r[+ds.j] = num(t.value); touch(k); refreshEx(ds.ex); markNext();
+      clearTimeout(repPend[t.id]);
+      if (t.value !== '') repPend[t.id] = setTimeout(() => { commitRep(t); if (document.activeElement === t) t.blur(); }, 1200);
+      return;
+    }
+    if (ds.exw) { const d = dayW(k); d.sets = d.sets || {}; const x = d.sets[ds.exw] = d.sets[ds.exw] || {}; const v = num(t.value); if (v == null) delete x.w; else x.w = v; touch(k); return; }
+    if (ds.exv) { const d = dayW(k); d.sets = d.sets || {}; const x = d.sets[ds.exv] = d.sets[ds.exv] || {}; const v = t.value.trim(); if (v) x.v = v; else delete x.v; touch(k, 1000); return; }
+    if (ds.metric) { const d = dayW(k), v = num(t.value); if (v == null) delete d[ds.metric]; else d[ds.metric] = v; touch(k); if (ds.metric === 'steps') refreshWalk(); return; }
+    if (ds.ride) { const d = dayW(k); d.ride = d.ride || {}; const v = num(t.value); if (v == null) delete d.ride[ds.ride]; else d.ride[ds.ride] = v; touch(k); refreshRide(); return; }
+    if (t.hasAttribute('data-daynote')) { const d = dayW(k); if (t.value.trim()) d.note = t.value; else delete d.note; touch(k, 1200); return; }
+    if (ds.sleep) { const d = dayW(k); d.sleep = d.sleep || {}; if (t.value) d.sleep[ds.sleep] = t.value; else delete d.sleep[ds.sleep]; touch(k); const el = $('#sl-dur'); if (el) el.textContent = hm(sleepMin(d.sleep)); return; }
+  });
+  view.addEventListener('change', e => {
+    const t = e.target, k = ui.date, ds = t.dataset;
+    if (ds.ex && ds.j != null) { commitRep(t); return; }
+    if (ds.hab) {
+      const d = dayW(k); d.hab = d.hab || {}; if (t.checked) d.hab[ds.hab] = true; else delete d.hab[ds.hab];
+      t.closest('.habit').classList.toggle('on', t.checked); touch(k);
+      const h = habits().find(x => x.id === ds.hab), sEl = h && $(`[data-hs="${ds.hab}"]`); if (sEl) { const n = habStreak(h, k); sEl.textContent = n ? n + ' ngày' : ''; }
+      const list = habits().filter(x => habActive(x, k)), c = $('#hab-count'); if (c) c.textContent = `${list.filter(x => habOn(k, x.id)).length}/${list.length}`;
+      return;
+    }
+    if (ds.chk) { const d = dayW(k); d.chk = d.chk || {}; if (t.checked) d.chk[ds.chk] = true; else delete d.chk[ds.chk]; t.closest('.chk').classList.toggle('on', t.checked); touch(k); return; }
+    if (t.hasAttribute('data-photo')) { const d = dayW(k); if (t.checked) d.photo = true; else delete d.photo; t.closest('.chk').classList.toggle('on', t.checked); touch(k); return; }
+    if (t.hasAttribute('data-ride-done')) { const d = dayW(k); d.ride = d.ride || {}; if (t.checked) d.ride.done = true; else delete d.ride.done; t.closest('.chk').classList.toggle('on', t.checked); touch(k); refreshRide(); return; }
+  });
+  view.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b || !ui.ready) return;
+    const k = ui.date, ds = b.dataset;
+    if (ds.how) { toggleHow(ds.how); return; }
+    if (b.hasAttribute('data-habedit')) { openSheet(); const el = $('#hab-set'); if (el && el.scrollIntoView) el.scrollIntoView({ block: 'start' }); return; }
+    if (ds.go) { goTab(ds.go); return; }
+    if (ds.timer) { startTimer(+ds.timer, 'Nghỉ: ' + (ds.label || ''), 'Bấm giờ thủ công'); return; }
+    if (ds.addfood) { addFood(ds.addfood === '2'); return; }
+    if (ds.delfood) { const d = dayW(k); d.food = (d.food || []).filter(x => String(x.id) !== ds.delfood); touch(k); render(); return; }
+    if (ds.preset != null) { const p = state.presets[+ds.preset]; if (!p) return; const d = dayW(k); d.food = d.food || []; d.food.push({ id: uid(), n: p.n, kcal: p.kcal, p: p.p, c: p.c, f: p.f }); touch(k); render(); toast('Đã thêm ' + p.n); return; }
+    if (b.hasAttribute('data-editpresets')) { ui.editPresets = !ui.editPresets; render(); return; }
+    if (ds.delpreset != null) { if (!armed(b)) return; state.presets.splice(+ds.delpreset, 1); queue('presets'); render(); return; }
+    if (ds.sq) { const d = dayW(k); d.sleep = d.sleep || {}; const q = +ds.sq; if (d.sleep.q === q) delete d.sleep.q; else d.sleep.q = q; touch(k); $$('.q button').forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.sq === d.sleep.q))); return; }
+    if (b.hasAttribute('data-ibform')) { ui.ibForm = !ui.ibForm; render(); const f = $('#ib-weight'); if (ui.ibForm && f) f.focus(); return; }
+    if (b.hasAttribute('data-ibsave')) { saveInbody(); return; }
+    if (ds.delib) { if (!armed(b)) return; state.inbody = state.inbody.filter(x => x.id !== ds.delib); queue('inbody'); render(); return; }
+  });
+
+  const sh = $('#sheet');
+  sh.addEventListener('click', e => {
+    if (e.target === sh) { closeSheet(); return; }
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.hasAttribute('data-close')) { closeSheet(); return; }
+    if (b.hasAttribute('data-export')) { doExport(); return; }
+    if (b.hasAttribute('data-habadd')) {
+      const list = habits().slice(); list.push({ id: 'h' + uid(), n: '', t: '', from: todayKey(), to: null });
+      SET().habits = list; queue('settings'); $('#hab-list').innerHTML = habRows();
+      const ins = $$('#hab-list input[data-habf="n"]'); if (ins.length) ins[ins.length - 1].focus();
+      render(); return;
+    }
+    if (b.dataset.habdel) { if (!armed(b)) return; SET().habits = habits().filter(h => h.id !== b.dataset.habdel); queue('settings'); $('#hab-list').innerHTML = habRows(); render(); return; }
+    if (b.hasAttribute('data-importtext')) { const ta = $('#imp-text'); if (ta && ta.value.trim()) doImport(ta.value); else ioMsg('Dán nội dung JSON vào ô trước.'); }
+  });
+  sh.addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.habf) {
+      const list = habits().map(h => Object.assign({}, h)), h = list.find(x => x.id === t.dataset.hid); if (!h) return;
+      const f = t.dataset.habf; let v = t.value;
+      if (t.type === 'date') v = isKey(v) ? v : null; else v = String(v).trim();
+      h[f] = v; SET().habits = list; queue('settings'); render(); return;
+    }
+    if (t.dataset.set) {
+      const key = t.dataset.set;
+      let v = t.type === 'checkbox' ? t.checked : t.value;
+      if (key === 'ffm' || key === 'deloadWeek') v = num(v);
+      if (t.type === 'date') v = isKey(v) ? v : null;
+      if (key === 'pauseLabel') v = String(v).trim();
+      state.settings[key] = v; queue('settings');
+      if (key === 'theme') applyTheme();
+      const fn = $('#floor-note'); if (fn) fn.textContent = floorNote();
+      render(); return;
+    }
+    if (t.hasAttribute('data-import') && t.files && t.files[0]) {
+      const fr = new FileReader();
+      fr.onload = () => doImport(String(fr.result));
+      fr.onerror = () => ioMsg('Không đọc được file.');
+      fr.readAsText(t.files[0]); t.value = '';
+    }
+  });
+  document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; if ($('#sheet').classList.contains('open')) { closeSheet(); return; } const h = document.activeElement && document.activeElement.closest && document.activeElement.closest('.exhead'); if (h) { h.classList.add('nohov'); h.addEventListener('mouseleave', () => h.classList.remove('nohov'), { once: true }); } });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') { flushAll(); return; }
+    const tk = todayKey();
+    if (ui.lastToday !== tk) { if (ui.date === ui.lastToday) ui.date = tk; ui.lastToday = tk; if (ui.ready && !isTyping()) render(); }
+    refreshFromDb();
+  });
+  window.addEventListener('pagehide', flushAll);
+}
+
+/* ---------- boot ---------- */
+async function boot() {
+  wire(); applyTheme(); renderHeader(); setStatus();
+  await initStore();
+  ui.ready = true;
+  if (!state.settings.phaseStart) { state.settings.phaseStart = mondayOf(todayKey()); queue('settings'); }
+  applyTheme(); render();
+}
+boot();
+})();
+</script>
+</body>
+</html>
+
+</body></html>
