@@ -1774,13 +1774,22 @@ function syUpd() { const i = $('#sync-info'); if (i) i.textContent = syncInfo();
 function syApi(method, body) { return fetch('https://api.github.com/repos/' + SY.REPO + '/contents/' + SY.FILE, { method, cache: 'no-store', headers: { Authorization: 'Bearer ' + syTok(), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }, body: body ? JSON.stringify(body) : undefined }); }
 const b64e = s => { const b = new TextEncoder().encode(s); let r = ''; for (let i = 0; i < b.length; i += 0x8000) r += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(r); };
 const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, '')), c => c.charCodeAt(0)));
+function mergeHabits(o) {
+  const rh = o && o.settings && Array.isArray(o.settings.habits) ? o.settings.habits.filter(x => x && x.id) : [];
+  if (!rh.length) return 0;
+  const loc = Array.isArray(state.settings.habits) ? state.settings.habits.filter(x => x && x.id).map(x => Object.assign({}, x)) : [];
+  let n = 0;
+  rh.forEach(r => { const i = loc.findIndex(x => x.id === r.id); if (i < 0) { loc.push(Object.assign({}, r)); n++; } else if (JSON.stringify(loc[i]) !== JSON.stringify(Object.assign({}, loc[i], r))) { loc[i] = Object.assign({}, loc[i], r); n++; } });
+  if (n) { state.settings.habits = loc; if (S.mode === 'local') lsSet('settings', state.settings); }
+  return n;
+}
 function syncSoon() { if (!syTok()) return; clearTimeout(SY.t); SY.t = setTimeout(syncPush, 2500); }
 function exportObj() { return { app: 'so-tap-vtaper', v: 1, exportedAt: new Date().toISOString(), settings: state.settings, inbody: state.inbody, presets: state.presets, days: state.days }; }
 async function syncPush() {
   if (!syTok()) return; if (SY.busy) { SY.again = true; return; } SY.busy = true;
   try {
     for (let tries = 0; tries < 2; tries++) {
-      if (!SY.sha) { const g = await syApi('GET'); if (g.ok) SY.sha = (await g.json()).sha; else if (g.status !== 404) throw new Error('HTTP ' + g.status); }
+      if (!SY.sha) { const g = await syApi('GET'); if (g.ok) { const gj = await g.json(); SY.sha = gj.sha; try { SY.applying = true; if (mergeHabits(JSON.parse(b64d(gj.content)))) render(); } catch (e) {} SY.applying = false; } else if (g.status !== 404) throw new Error('HTTP ' + g.status); }
       const body = { message: 'sync ' + new Date().toISOString(), content: b64e(JSON.stringify(exportObj(), null, 1)) }; if (SY.sha) body.sha = SY.sha;
       const r = await syApi('PUT', body);
       if (r.ok) { SY.sha = (await r.json()).content.sha; SY.last = Date.now(); SY.err = ''; try { localStorage.setItem('vtsync:last', String(SY.last)); } catch (e) {} break; }
@@ -1801,6 +1810,7 @@ async function syncPull(verbose) {
     Object.keys(o.days || {}).forEach(k => { const v = o.days[k], c = state.days[k]; if (v && isKey(k) && (!c || (v.u || 0) > (c.u || 0))) { state.days[k] = v; if (S.mode === 'local') lsSet('day:' + k, v); n++; } });
     if (Array.isArray(o.inbody)) { const have = new Set(state.inbody.map(x => x.id)); const add = o.inbody.filter(x => x && x.id && !have.has(x.id)); if (add.length) { state.inbody = state.inbody.concat(add).sort((a, b) => a.date < b.date ? -1 : 1); if (S.mode === 'local') lsSet('inbody', { list: state.inbody }); n++; } }
     if (Array.isArray(o.presets)) { const have = new Set(state.presets.map(x => x.n)); const add = o.presets.filter(x => x && x.n && !have.has(x.n)); if (add.length) { state.presets = state.presets.concat(add); if (S.mode === 'local') lsSet('presets', { list: state.presets }); } }
+    n += mergeHabits(o);
     SY.applying = false; keysCache = null; SY.err = ''; SY.last = Date.now();
     if (n) { render(); toast('Đã lấy ' + n + ' mục mới từ bản đồng bộ.'); }
     if (verbose) ioMsg('Đã kết nối. Lấy về ' + n + ' mục mới.');
