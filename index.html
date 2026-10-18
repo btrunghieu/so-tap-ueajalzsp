@@ -1,13 +1,11 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html>
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-j7YxvR/SxhMxTv5IsMCG/rYgf8pIr2z/hYVPEuYKw2o='; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src https://life-db.buitrunghieu11322004htt.workers.dev; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sổ tập V-taper 4.2</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
 <style>
 :root{
   --paper:#EEF2EC;--surface:#F9FBF7;--ink:#1C2B25;--muted:#56665E;--line:#C6D1C4;--soft:#DCE4D9;
@@ -397,23 +395,23 @@ const RULES = [
 ];
 
 /* ---------- đợt tạm nghỉ, tập lại, bài an toàn vùng đầu ---------- */
-// Thay bài có đầu thấp hơn tim trong thời gian bảo vệ vùng cấy
+// Thay bài có đầu thấp hơn tim trong thời gian bảo vệ vùng đầu
 const HEAD_SAFE = {
-  tue_pike: { id: 'tue_ohpress', n: 'Đẩy vai tạ đơn, ngồi ghế tựa', s: 4, lo: 8, hi: 12, rir: '2', rest: 150, rl: "nghỉ 2'30", cue: 'Thay pike push-up khi đang bảo vệ vùng cấy: người thẳng, đầu luôn cao. Thở ra khi đẩy, không nín thở gồng.' },
+  tue_pike: { id: 'tue_ohpress', n: 'Đẩy vai tạ đơn, ngồi ghế tựa', s: 4, lo: 8, hi: 12, rir: '2', rest: 150, rl: "nghỉ 2'30", cue: 'Thay pike push-up khi đang bảo vệ vùng đầu: người thẳng, đầu luôn cao. Thở ra khi đẩy, không nín thở gồng.' },
   tue_decline: { id: 'tue_incline', n: 'Push-up tay kê cao', s: 3, lo: 8, hi: 15, rir: '1–2', rest: 120, rl: "nghỉ 2'", cue: 'Thay decline push-up: tay đặt trên bàn hoặc ghế chắc chắn, đầu luôn cao hơn chân. >15 rep → hạ độ cao tay (bàn → ghế) hoặc đeo balo.' }
 };
 const HEAD_SAFE_WARM = { 'Hiệp mồi: pike push-up trên sàn (không kê chân) × 3–5': 'Hiệp mồi: đẩy vai tạ nhẹ × 8' };
-const PAUSE_NUT = { kcal: 2000, p: 130, c: 235, f: 60 };      // 4 ngày đầu sau cấy: ăn duy trì
+const PAUSE_NUT = { kcal: 2000, p: 130, c: 235, f: 60 };      // 4 ngày đầu của đợt nghỉ: ăn duy trì
 const WALK_NUT = { kcal: 1850, p: 130, c: 209, f: 55 };       // ngày 5–14: chỉ đi bộ, không đổ mồ hôi
 const LIGHT_NUT = { kcal: 1950, p: 130, c: 234, f: 55 };      // ngày 15–31: tập nhẹ + đi bộ, không đổ mồ hôi
 const BASE_STEPS = 4000;                                       // bước sinh hoạt đã nằm trong mức duy trì
-const WALK_TIPS = ['Đi lúc mát: trước 7h sáng hoặc sau 18h. Tránh nắng chiếu thẳng da đầu — chọn bóng râm, che ô; chỉ đội mũ rộng không chạm vùng cấy khi bác sĩ cho.', 'Tốc độ nói chuyện thoải mái (~4–5 km/h), đường bằng, tránh leo dốc dài.', 'Chia 2–3 lần trong ngày, mỗi lần 20–40 phút. Thấy rịn mồ hôi ở trán → đi chậm lại hoặc đứng nghỉ chỗ mát.', 'Mang nước. Không đeo balo nặng, không cúi gập người lâu.'];
-const PAUSE_EARLY = ['Nghỉ ngơi, chỉ đi lại nhẹ trong nhà', 'Ngủ theo tư thế phòng khám dặn (thường là nửa ngồi)', 'Protein 4 bữa × 30–35 g — đồ mềm: trứng, cháo gà/cá, sữa chua, whey', 'Uống 2–2.5 lít nước', 'Không rượu, hạn chế đồ mặn (mì gói, đồ hộp, chấm nhiều nước mắm)', 'Chăm sóc vùng cấy đúng hướng dẫn phòng khám'];
-const PAUSE_LATE = ['Protein 4 bữa × 30–35 g (có thể dời 1 bữa thành sữa chua/sữa + whey trước ngủ)', 'Uống 2–2.5 lít nước', 'Không rượu, hạn chế đồ mặn', 'Ngủ 7–9 giờ', 'Chăm sóc vùng cấy đúng hướng dẫn phòng khám'];
+const WALK_TIPS = ['Đi lúc mát: trước 7h sáng hoặc sau 18h. Tránh nắng chiếu thẳng da đầu — chọn bóng râm, che ô; chỉ đội mũ rộng không chạm vùng đầu khi bác sĩ cho.', 'Tốc độ nói chuyện thoải mái (~4–5 km/h), đường bằng, tránh leo dốc dài.', 'Chia 2–3 lần trong ngày, mỗi lần 20–40 phút. Thấy rịn mồ hôi ở trán → đi chậm lại hoặc đứng nghỉ chỗ mát.', 'Mang nước. Không đeo balo nặng, không cúi gập người lâu.'];
+const PAUSE_EARLY = ['Nghỉ ngơi, chỉ đi lại nhẹ trong nhà', 'Ngủ theo tư thế phòng khám dặn (thường là nửa ngồi)', 'Protein 4 bữa × 30–35 g — đồ mềm: trứng, cháo gà/cá, sữa chua, whey', 'Uống 2–2.5 lít nước', 'Không rượu, hạn chế đồ mặn (mì gói, đồ hộp, chấm nhiều nước mắm)', 'Chăm sóc vùng đầu đúng hướng dẫn phòng khám'];
+const PAUSE_LATE = ['Protein 4 bữa × 30–35 g (có thể dời 1 bữa thành sữa chua/sữa + whey trước ngủ)', 'Uống 2–2.5 lít nước', 'Không rượu, hạn chế đồ mặn', 'Ngủ 7–9 giờ', 'Chăm sóc vùng đầu đúng hướng dẫn phòng khám'];
 function walkFor(R) {
   const long = R.type === 'long';
   return { type: 'walk', t: long ? 'Đi bộ 45–60 phút (thay long ride)' : R.opt ? 'Đi bộ nhẹ 20–30 phút (tùy chọn)' : 'Đi bộ nhanh 30–45 phút (thay đạp xe)', min: long ? 50 : R.opt ? 25 : 40, opt: R.opt,
-    steps: ['Đi nơi có bóng râm, hoặc sáng sớm và chiều muộn.', 'Tốc độ vẫn nói chuyện được, chỉ ra mồ hôi nhẹ.', 'Chỉ đội mũ rộng không ép lên vùng cấy, và chỉ khi bác sĩ cho.'],
+    steps: ['Đi nơi có bóng râm, hoặc sáng sớm và chiều muộn.', 'Tốc độ vẫn nói chuyện được, chỉ ra mồ hôi nhẹ.', 'Chỉ đội mũ rộng không ép lên vùng đầu, và chỉ khi bác sĩ cho.'],
     note: 'Đạp xe lại khi bác sĩ cho đội mũ bảo hiểm và ra nắng — đặt ngày "Đạp xe lại từ" trong ⚙.' };
 }
 
@@ -610,12 +608,12 @@ HOW.db_press = {
   m: 'Vai trước và vai giữa, tay sau — thay pike push-up mà đầu vẫn luôn cao hơn tim.',
   setup: 'Ngồi ghế có tựa lưng, lưng áp ghế, hai bàn chân vững. Đưa tạ lên ngang tai, khuỷu hơi chếch về trước (không bè thẳng hai bên), lòng bàn tay hơi hướng vào trong.',
   steps: ['Đẩy tạ thẳng lên trên đầu, hai tạ hơi tiến lại gần nhau ở đỉnh.', 'Dừng ngay trước khi khóa khuỷu.', 'Hạ chậm 2s về ngang tai.'],
-  breath: 'Thở ra khi đẩy, hít vào khi hạ — tuyệt đối không nín thở gồng khi đang bảo vệ vùng cấy.',
+  breath: 'Thở ra khi đẩy, hít vào khi hạ — tuyệt đối không nín thở gồng khi đang bảo vệ vùng đầu.',
   feel: 'Vai trước và mặt trên vai; tay sau phụ.',
   err: ['Ưỡn thắt lưng rời ghế để đẩy.', 'Khuỷu bè thẳng ngang, gây khó chịu khớp vai.', 'Hạ nông, chỉ đẩy nửa trên.', 'Gồng đến đỏ mặt — giữ RIR 2.'],
   easy: 'Tạ nhẹ hơn; làm từng tay.',
   hard: 'Tăng rep trong dải 8–12 rồi tăng tạ; hạ 3s.',
-  safe: 'Trong 3 tháng sau cấy: dừng ngay nếu thấy căng, nhói hoặc nóng ở vùng cấy.'
+  safe: 'Trong thời gian bảo vệ vùng đầu: dừng ngay nếu thấy căng, nhói hoặc nóng ở vùng đầu.'
 };
 HOW.incline_pu = {
   m: 'Ngực (thiên phần dưới), vai trước, tay sau — thay decline push-up, đầu luôn cao hơn chân.',
@@ -710,10 +708,10 @@ function dayPlan(k) {
 }
 const ALL_EX = (() => { const out = []; Object.values(PLAN).forEach(P => (P.ex || []).forEach(e => out.push(e))); Object.values(HEAD_SAFE).forEach(e => out.push(e)); return out; })();
 function latestInbody() { let b = null; state.inbody.forEach(e => { if (e && isKey(e.date) && (!b || e.date > b.date)) b = e; }); return b; }
-function ffmAuto() { const ib = latestInbody(); return (ib && num(ib.ffm)) || 47.4; }
+function ffmAuto() { const ib = latestInbody(); return (ib && num(ib.ffm)) || 45; }
 const ffm = () => num(state.settings.ffm) || ffmAuto();
 const floorKcal = () => Math.round(30 * ffm());
-/* ---------- thói quen hằng ngày (thuốc, chăm sóc tóc…) ---------- */
+/* ---------- thói quen hằng ngày (thuốc, chăm sóc…) ---------- */
 const habits = () => Array.isArray(SET().habits) ? SET().habits.filter(h => h && h.id) : [];
 const habActive = (h, k) => (!isKey(h.from) || k >= h.from) && (!isKey(h.to) || k <= h.to);
 const habOn = (k, id) => !!(((D(k) || {}).hab || {})[id]);
@@ -734,7 +732,7 @@ function wEst(k) {
   const ws = [];
   for (let i = 0; i < 21 && ws.length < 7; i++) { const d = D(addDays(k, -i)); if (d && num(d.weight)) ws.push(num(d.weight)); }
   if (ws.length) return avg(ws);
-  const ib = latestInbody(); return (ib && num(ib.weight)) || 57.8;
+  const ib = latestInbody(); return (ib && num(ib.weight)) || 60;
 }
 
 /* ---------- energy & targets ---------- */
@@ -863,7 +861,7 @@ function advice(mon) {
   else if (hasReentryDay(mon)) out.push({ c: 'info', t: `<b>Giai đoạn tập nhẹ, chưa đổ mồ hôi.</b> Calisthenics ½ số hiệp, RIR 3–4 trong phòng mát; 12k bước/ngày; ăn ${LIGHT_NUT.kcal} kcal. Chưa đạp xe.` });
   else if (isDeload(mon)) out.push({ c: 'info', t: '<b>Tuần deload.</b> Giữ bài, ½ số hiệp, RIR 3–4, chỉ đạp Zone 2.' });
   else if (wk === dw - 1) out.push({ c: 'info', t: `Tuần sau là deload (tuần ${dw}).` });
-  if (disturbed(ref) || disturbed(addDays(ref, -7))) out.push({ c: 'info', t: 'Tạm chưa đánh giá nhịp giảm cân: tuần đầu sau cấy cân dao động vì sưng và nước. Bắt đầu so từ tuần thứ 3 sau cấy.' });
+  if (disturbed(ref) || disturbed(addDays(ref, -7))) out.push({ c: 'info', t: 'Tạm chưa đánh giá nhịp giảm cân: tuần đầu sau đợt nghỉ cân dao động vì sưng và nước. Bắt đầu so từ tuần thứ 3 sau đợt nghỉ.' });
   else if (ok(a) && ok(b)) {
     const d1 = a.avgW - b.avgW, d2 = ok(c) && !disturbed(addDays(ref, -14)) ? b.avgW - c.avgW : null;
     const wa = a.waist != null && b.waist != null ? a.waist - b.waist : null;
@@ -872,7 +870,7 @@ function advice(mon) {
     else if (d1 <= -0.35) out.push({ c: 'info', t: `${txt} — hơi nhanh. Giữ nguyên nếu rep vẫn giữ hoặc tăng.` });
     else if (d1 <= -0.2) out.push({ c: 'ok', t: `${txt} — đúng nhịp 0.2–0.35 kg/tuần. Giữ nguyên.` });
     else if (d1 < -0.1) out.push({ c: 'info', t: `${txt} — hơi chậm, theo dõi thêm 1 tuần.` });
-    else if (d2 != null && d2 > -0.1 && (wa == null || wa > -0.3)) out.push({ c: 'warn', t: rec ? `${txt}, tuần trước đó ${sgn(d2, 2)} kg — chững 2 tuần. 1) Kiểm tra lại cân đo đồ ăn, dầu, nước chấm, đồ uống; 2) thêm 2000 bước/ngày (vẫn không đổ mồ hôi). Chưa cắt thêm calo khi vùng cấy đang lành.` : `${txt}, tuần trước đó ${sgn(d2, 2)} kg — chững 2 tuần. Làm lần lượt: 1) kiểm tra lại cân đo đồ ăn, dầu, nước chấm, đồ uống; 2) thêm ~3000 bước/ngày; 3) thêm 2 tuần vẫn đứng → bớt 25 g carb ở T2, T4, T7. Không bớt ngày tập đôi và CN.` });
+    else if (d2 != null && d2 > -0.1 && (wa == null || wa > -0.3)) out.push({ c: 'warn', t: rec ? `${txt}, tuần trước đó ${sgn(d2, 2)} kg — chững 2 tuần. 1) Kiểm tra lại cân đo đồ ăn, dầu, nước chấm, đồ uống; 2) thêm 2000 bước/ngày (vẫn không đổ mồ hôi). Chưa cắt thêm calo khi vùng đầu đang lành.` : `${txt}, tuần trước đó ${sgn(d2, 2)} kg — chững 2 tuần. Làm lần lượt: 1) kiểm tra lại cân đo đồ ăn, dầu, nước chấm, đồ uống; 2) thêm ~3000 bước/ngày; 3) thêm 2 tuần vẫn đứng → bớt 25 g carb ở T2, T4, T7. Không bớt ngày tập đôi và CN.` });
     else if (d1 > 0.1) out.push({ c: 'warn', t: `${txt} — đang tăng. Kiểm tra lượng ăn đã ghi, đồ uống${rec ? ' và số bước' : ''}.` });
     else out.push({ c: 'info', t: `${txt} — gần như đứng yên. Tuần sau vẫn vậy sẽ tính là chững.` });
     if (wa != null) out.push({ c: wa <= -0.3 ? 'ok' : 'info', t: `Vòng eo ${sgn(wa, 1)} cm so với tuần trước.` });
@@ -887,168 +885,435 @@ function advice(mon) {
   return out;
 }
 
-/* ---------- storage: account db (claude.ai) → localStorage → memory ---------- */
-const S = { mode: 'init', db: null, uid: null, timers: {}, busy: {}, again: {}, failed: new Set(), fallback: false };
-const LS = 'vt42:';
-const SEED = {"app":"so-tap-vtaper","v":1,"exportedAt":"2026-10-12T14:31:48.115Z","settings":{"phaseStart":"2026-09-21","ffm":null,"autoTimer":true,"sound":true,"theme":"strava","pauseLabel":"Hậu phẫu cấy tóc","pauseFrom":"2026-10-03","pauseTo":"2026-10-16","reentryTo":"2026-11-02","headSafeTo":"2027-01-03","rideFrom":"2026-11-03","deloadWeek":10,"habits":[{"from":"2026-10-03","id":"hmed1","n":"Uống thuốc theo đơn (sáng)","t":"Sáng","to":null},{"from":"2026-10-03","id":"hmed2","n":"Uống thuốc theo đơn (tối)","t":"Tối","to":null},{"from":"2026-10-03","id":"hspray","n":"Xịt / giữ ẩm vùng cấy theo hướng dẫn (1 tháng sau cấy)","t":"Theo giờ hẹn","to":null},{"from":"2026-10-03","id":"hwash","n":"Gội / vệ sinh da đầu đúng cách phòng khám dặn","t":"Hằng ngày","to":null}]},"inbody":[{"bf":18,"bmr":1392,"date":"2026-09-19","fat":10.4,"ffm":47.4,"id":"ib-20260919","note":"T7 11h, sau hôm tập đôi, có thể đã ăn — chưa đúng giao thức","protocol":false,"smm":26.3,"trunk":160.1,"visc":3,"weight":57.76},{"bf":17.5,"bmr":1413,"date":"2026-09-24","fat":10.2,"ffm":45.1,"id":"ib-muf14s0o4qtk","protocol":true,"smm":26.9,"visc":3,"weight":58.51},{"bf":18.5,"bmr":1399,"date":"2026-10-09","fat":10.8,"ffm":44.5,"id":"ib-mv0gigpvc3fk","protocol":true,"smm":26.5,"trunk":158,"visc":3,"weight":58.48}],"presets":[{"c":12,"f":6,"kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":42,"f":0.5,"kcal":195,"n":"Cơm trắng 1 bát (~150 g)","p":4},{"c":0,"f":3.6,"kcal":165,"n":"Ức gà chín bỏ da 100 g","p":31},{"c":0.4,"f":4.8,"kcal":72,"n":"Trứng gà 1 quả","p":6.3},{"c":27,"f":0.4,"kcal":105,"n":"Chuối 1 quả vừa","p":1.3},{"c":17.7,"f":0.1,"kcal":76,"n":"Khoai lang luộc 100 g","p":1.4},{"c":1.9,"f":4.8,"kcal":76,"n":"Đậu phụ 100 g","p":8.1},{"c":0,"f":13.5,"kcal":120,"n":"Dầu ăn 1 thìa canh","p":0},{"c":0,"f":0,"kcal":110,"n":"Whey","p":27}],"days":{"2026-10-12":{"chk":{"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-12","food":[{"c":70,"f":12.9,"id":"mv52u1do2xr8","kcal":516,"n":"Cơm trưa","p":28}],"hab":{"hmed1":true,"hspray":true,"hwash":true},"note":"Kẽm","u":1791804744712},"2026-10-10":{"chk":{"p0":true,"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-10","food":[{"c":106,"f":25.7,"id":"mv2ccncpkdmr","kcal":848,"n":"Trưa","p":36.7},{"c":63.7,"f":27.6,"id":"mv2gyx9o8x8n","kcal":757,"n":"Tối","p":60.8},{"c":0,"f":0,"id":"mv2h6b8snqyk","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"mv2h6coylsuc","kcal":110,"n":"Whey","p":27},{"c":35,"f":22,"id":"mv2nqq8mzyv9","kcal":340,"n":"Bơ","p":5.5}],"hab":{"hmed1":true,"hmed2":true,"hwash":true},"note":"Kẽm","steps":7438,"u":1791652701013},"2026-10-09":{"chk":{"p0":true,"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-09","food":[{"c":179.4,"f":42.4,"id":"mv0y836ary9h","kcal":1473,"n":"Trưa + chè","p":93.7},{"c":73.5,"f":14.1,"id":"mv14n58auev0","kcal":761,"n":"Tối","p":79.1}],"hab":{"hmed1":true,"hmed2":true,"hwash":true},"note":"ko krmx","sleep":{"bed":"03:36","q":4,"wake":"10:20"},"steps":12312,"u":1791567534789,"weight":58.48},"2026-10-08":{"chk":{"p1":true,"p2":true,"p3":true,"p4":true},"date":"2026-10-08","food":[{"c":67.8,"f":32.2,"id":"muzcreo6gfaq","kcal":596,"n":"Trưa","p":32.2},{"c":69.1,"f":28,"id":"muznoqmsq1r8","kcal":864.4,"n":"Tối","p":77.6},{"c":28,"f":5,"id":"muznptwp0p57","kcal":240,"n":"Ăn vặt","p":18},{"c":12,"f":6,"id":"muznpxcokjyg","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0}],"hab":{"hmed1":true,"hmed2":true,"hwash":true},"note":"Kẽm","sleep":{"bed":"03:10","q":5,"wake":"10:46"},"steps":8600,"u":1791519403072},"2026-10-07":{"date":"2026-10-07","hab":{"hmed1":true,"hmed2":true},"note":"ko kẽm","steps":10000,"u":1791452643122},"2026-10-06":{"date":"2026-10-06","hab":{"hmed1":true,"hmed2":true,"hwash":true},"u":1791302276496},"2026-09-28":{"date":"2026-09-28","note":"Nay ko tập vì mải lý do và nói tóm lại là phế\nMai tập lại","u":1790614804841},"2026-09-27":{"date":"2026-09-27","ride":{"done":true,"kcal":1944,"min":272},"steps":8236,"u":1790531191378,"weight":58},"2026-09-26":{"date":"2026-09-26","food":[{"c":0,"f":37.2,"id":"mui4s9oal5ad","kcal":1131,"n":"Sáng trưa","p":71.5},{"c":109.8,"f":52.4,"id":"muijwngvzdct","kcal":1050,"n":"Tối","p":33},{"c":0,"f":0,"id":"muijwr9ooofh","kcal":110,"n":"Whey","p":27}],"note":"Long ride trên 90p","sleep":{"bed":"02:27","q":1,"wake":"06:31"},"u":1790436912396},"2026-09-25":{"chk":{"e0":true,"e1":true,"m0":true,"w0":true},"date":"2026-09-25","food":[{"c":0,"f":0,"id":"mugf8kd9nlsa","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"mugf8l094h3c","kcal":110,"n":"Whey","p":27},{"c":100.8,"f":55.4,"id":"mugs5ifm4rjx","kcal":1087,"n":"Trưa","p":45.3},{"c":28,"f":5,"id":"mugs9r9rlbb8","kcal":240,"n":"Ăn vặt","p":18},{"c":63.8,"f":31.5,"id":"muh3gmaiu08l","kcal":660,"n":"Tối","p":26.4}],"sets":{"fri_ab":{"r":[20,20,20]},"fri_deficit":{"r":[8,6,7]},"fri_diamond":{"r":[10,10],"w":0},"fri_dips":{"r":[6,7,10,5]},"fri_lat":{"r":[12,12,10,12]}},"sleep":{"bed":"02:02","q":3,"wake":"09:03"},"steps":8449,"u":1790355774285},"2026-09-24":{"chk":{"e0":true,"e1":true,"e2":true,"e3":true,"e4":true,"m0":true,"w0":true,"w1":true},"date":"2026-09-24","food":[{"c":0,"f":0,"id":"mufamfoy47sw","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"mufamgmnsdq1","kcal":110,"n":"Whey","p":27},{"c":72.6,"f":22.1,"id":"mufb662ffr15","kcal":696,"n":"Cơm trưa","p":52.8},{"c":0,"f":0,"id":"mufhr5sr624r","kcal":135,"n":"Bánh","p":0},{"c":75.9,"f":20.7,"id":"muft9jnjl7wb","kcal":664,"n":"Tối","p":39.6},{"c":12,"f":6,"id":"muft9nkwgkwh","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":33.1,"f":4.1,"id":"muftgj6yulj6","kcal":178,"n":"Bánh","p":2.8}],"note":"Kẽm","ride":{"done":true,"elev":257,"hr":151,"kcal":567,"km":30,"min":73,"rpe":2},"sets":{"thu_bandlat":{"r":[15,15,15],"v":"Tạ đơn","w":5},"thu_face":{"r":[15,15,15],"v":"Tang cường 1 set"},"thu_invrow":{"r":[8,7,8,7],"w":0},"thu_neutral":{"r":[3,7,6],"v":"Có dây hỗ trợ","w":0}},"sleep":{"bed":"02:40","q":2,"wake":"10:50"},"steps":3915,"u":1790271778790,"weight":58.51},"2026-09-23":{"chk":{"r0":true},"date":"2026-09-23","food":[{"c":28,"f":5,"id":"muds9hb1fmmk","kcal":240,"n":"Ăn vặt pro","p":18},{"c":39.1,"f":8.3,"id":"mudsjyqtgs55","kcal":406,"n":"Cơm trưa","p":40.9},{"c":12,"f":6,"id":"mudsk0orjutp","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":32,"f":12,"id":"mudwze9ocqjw","kcal":250,"n":"Banhs trun thu","p":6},{"c":31.5,"f":9.8,"id":"mue7150kzg1j","kcal":400,"n":"Tối","p":44.5},{"c":0,"f":0,"id":"mue71edmyla4","kcal":110,"n":"Whey","p":27},{"c":24.7,"f":0.54,"id":"muebnfai3fgt","kcal":93,"n":"Táo","p":0.54}],"sleep":{"bed":"01:30","q":3,"wake":"10:50"},"steps":3596,"u":1790223853556,"weight":58.88},"2026-09-22":{"chk":{"e0":true,"e1":true,"m0":true,"w0":true,"w1":true,"w2":true},"date":"2026-09-22","food":[{"c":22.4,"f":0.3,"id":"muc4vgsz0s0d","kcal":87.2,"n":"Chuối","p":1.1},{"c":0,"f":0,"id":"muc4vzqwwnxo","kcal":110,"n":"Whey","p":27},{"c":0,"f":0,"id":"muc4who5xuyg","kcal":110,"n":"Whey","p":27},{"c":27.6,"f":4.8,"id":"muc4xjd5jo57","kcal":240,"n":"Ăn vặt ngũ cốc","p":18},{"c":50.4,"f":0,"id":"mucdptvgb119","kcal":434.4,"n":"Cơm trưa","p":26.7},{"c":75,"f":12,"id":"much8njjc1l0","kcal":450,"n":"Chè","p":6},{"c":28.5,"f":4.3,"id":"mucsgcl5sqw0","kcal":330,"n":"Cơm tối","p":41.1},{"c":12,"f":6,"id":"mucsgng3z8v0","kcal":100,"n":"Gia vị, dầu, lặt vặt","p":0},{"c":23.9,"f":0.3,"id":"mucsmlngvd0n","kcal":93,"n":"Chuối","p":1.2}],"note":"Kẽm thứ 3","ride":{"done":true,"elev":243,"hr":158,"kcal":557,"km":30.19,"min":76},"sets":{"tue_decline":{"r":[8,8,8],"v":"Ghế","w":0},"tue_face":{"r":[15,15,15]},"tue_fly":{"r":[10,6,6],"v":"Mới bổ sung","w":0},"tue_lat":{"r":[12,12,12,12],"w":5},"tue_ohext":{"r":[10,15,15],"w":5},"tue_pike":{"r":[8,6,6,6],"v":"KO kê chân","w":0},"tue_rdl":{"r":[0,0,0],"w":0}},"sleep":{"bed":"01:20","q":3,"wake":"09:30"},"steps":2922,"u":1790142613139,"weight":57.69},"2026-09-21":{"chk":{"e0":true,"e1":true,"e2":true,"e3":true,"e4":true,"m0":true,"m1":true,"w0":true,"w1":true},"date":"2026-09-21","food":[{"c":166,"f":41,"id":"mub9x8aji9ys","kcal":1615,"n":"Lần 1","p":137},{"c":23.5,"f":0.3,"id":"mubhzybkskrd","kcal":92,"n":"Chuối","p":1.1}],"ride":{"done":true,"elev":85,"hr":123,"kcal":169,"km":12.08,"min":36,"rpe":1},"sets":{"mon_chin":{"r":[6,6,4]},"mon_curl":{"r":[10,10,6],"w":6},"mon_hang":{"r":[15,15,15],"w":0},"mon_invrow":{"r":[8,8,8],"w":6},"mon_lat":{"r":[12,12,12],"w":5},"mon_pullup":{"r":[6,6,4,3],"w":0}},"shoulder":97,"sleep":{"bed":"01:31","q":3,"wake":"09:10"},"steps":3601,"u":1790049374721,"waist":75,"weight":57.85}}};
-function localOK() { try { localStorage.setItem(LS + 't', '1'); localStorage.removeItem(LS + 't'); return true; } catch (e) { return false; } }
-function lsGet(k) { try { const v = localStorage.getItem(LS + k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
-function lsSet(k, v) { localStorage.setItem(LS + k, JSON.stringify(v)); }
-function lsKeys() { const out = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.indexOf(LS) === 0) out.push(k.slice(LS.length)); } } catch (e) {} return out; }
-function bodyFor(key) {
-  if (key === 'settings') return clone(state.settings);
-  if (key === 'inbody') return { list: clone(state.inbody) };
-  if (key === 'presets') return { list: clone(state.presets) };
-  const k = key.slice(4); return Object.assign(clone(state.days[k] || {}), { date: k });
+/* ---------- lưu trữ: kho life-db + bộ đệm localStorage (khóa chỉ nằm trên máy này) ---------- */
+const API = 'https://life-db.buitrunghieu11322004htt.workers.dev';
+const LS = 'st2:', KEY_LS = 'st2:key', OLD_LS = 'vt42:', SRC = 'so-tap', WINDOW = 120;
+const S = { mode: 'init', busy: false, again: false, pushT: null, saveT: null, net: 'ok', err: '', last: 0, failed: new Set(), pulling: 0 };
+const R = { base: {}, dirty: {}, failGen: {}, pushedAt: {}, alias: {}, habSrv: [], habBase: [], ibIds: {}, from: null, to: null, me: null, metrics: null };
+const DEFAULT_PRESETS = [{ n: 'Gia vị, dầu, lặt vặt', kcal: 100, p: 0, c: 12, f: 6 }, { n: 'Cơm trắng 1 bát (~150 g)', kcal: 195, p: 4, c: 42, f: 0.5 }, { n: 'Ức gà chín bỏ da 100 g', kcal: 165, p: 31, c: 0, f: 3.6 }, { n: 'Trứng gà 1 quả', kcal: 72, p: 6.3, c: 0.4, f: 4.8 }, { n: 'Chuối 1 quả vừa', kcal: 105, p: 1.3, c: 27, f: 0.4 }, { n: 'Khoai lang luộc 100 g', kcal: 76, p: 1.4, c: 17.7, f: 0.1 }, { n: 'Đậu phụ 100 g', kcal: 76, p: 8.1, c: 1.9, f: 4.8 }, { n: 'Dầu ăn 1 thìa canh', kcal: 120, p: 0, c: 0, f: 13.5 }, { n: 'Whey 1 muỗng', kcal: 110, p: 27, c: 0, f: 0 }];
+// id bài trong giáo án → exercise code trong hl_exercises
+const EXMAP = { mon_pullup: 'pullup_pronated_wide', mon_chin: 'chinup', mon_invrow: 'inverted_row_supinated', mon_lat: 'leaning_lateral_raise', tue_lat: 'leaning_lateral_raise', mon_curl: 'wall_leaned_db_curl', mon_hang: 'hanging_knee_leg_raise', tue_pike: 'pike_pushup_elevated', tue_decline: 'decline_pushup', tue_ohext: 'overhead_db_triceps_ext', tue_face: 'band_face_pull', thu_face: 'band_face_pull', tue_fly: 'band_fly_low_high', thu_invrow: 'inverted_row_pronated_elevated', thu_neutral: 'neutral_grip_pullup', thu_bandlat: 'band_lateral_raise', fri_dips: 'dips', fri_deficit: 'deficit_pushup', fri_lat: 'seated_db_lateral_raise', fri_diamond: 'diamond_pushup', fri_ab: 'ab_wheel_rollout', tue_rdl: 'romanian_deadlift', tue_ohpress: 'seated_db_shoulder_press', tue_incline: 'incline_pushup' };
+const IBF = [['weight', 'weight'], ['smm', 'smm'], ['fat', 'body_fat_mass'], ['bf', 'body_fat_pct'], ['ffm', 'ffm'], ['bmr', 'bmr'], ['visc', 'visceral_fat_level'], ['trunk', 'inbody_trunk']];
+const DAYM = { weight: 'weight', waist_circ: 'waist', shoulder_circ: 'shoulder', steps: 'steps', progress_photo: 'photo', day_note: 'note' };
+const OTHER_HABIT = { code: 'plan_other', name: 'Mục checklist khác của giáo án', schedule: { freq: 'daily' } };
+const MT_TIME = { breakfast: '08:00', lunch: '12:00', dinner: '19:00', snack: '15:00', null: '12:00' };
+function mealType(n) {
+  const l = String(n || '').toLowerCase();
+  if (l.includes('sáng trưa')) return 'lunch';
+  if (l.includes('sáng')) return 'breakfast';
+  if (l.includes('trưa')) return 'lunch';
+  if (l.includes('tối')) return 'dinner';
+  if (['ăn vặt', 'bánh', 'chè', 'chuối', 'táo', 'bơ', 'bưởi', 'whey'].some(w => l.includes(w))) return 'snack';
+  return null;
 }
-function refFor(key) {
-  const base = 'data/users/' + S.uid;
-  return key.indexOf('day:') === 0 ? S.db.doc(base + '/log').collection('days').doc(key.slice(4)) : S.db.doc(base + '/' + key);
+const tsVN = (k, hm5) => `${k}T${hm5}:00+07:00`;
+const nowVN = () => new Date(Date.now() + 7 * 36e5).toISOString().slice(0, 16) + ':00+07:00';
+const hmVN = iso => { const d = new Date(new Date(iso).getTime() + 7 * 36e5); return pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()); };
+const r2 = v => v == null ? null : Math.round(v * 100) / 100;
+const clean = o => { const x = {}; Object.keys(o || {}).forEach(k => { if (o[k] != null && o[k] !== '' && !(Array.isArray(o[k]) && !o[k].length)) x[k] = o[k]; }); return x; };
+const J = o => JSON.stringify(o);
+
+/* --- localStorage --- */
+function lsGet(k, pre) { try { const v = localStorage.getItem((pre || LS) + k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(LS + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+function apiKey() { try { return localStorage.getItem(KEY_LS) || ''; } catch (e) { return ''; } }
+function saveSettings() { const s = Object.assign({}, state.settings); delete s.habits; lsSet('settings', s); }
+function saveCache(now) {
+  clearTimeout(S.saveT);
+  const go = () => { if (!lsSet('cache', { v: 1, at: Date.now(), days: state.days, inbody: state.inbody, habits: SET().habits, base: R.base, dirty: R.dirty, habSrv: R.habSrv, habBase: R.habBase, ibIds: R.ibIds, from: R.from, to: R.to })) toast('Bộ nhớ trình duyệt đã đầy, chưa lưu được bộ đệm.'); };
+  if (now) go(); else S.saveT = setTimeout(go, 300);
 }
-async function writeOnce(key) {
-  const body = bodyFor(key);
-  if (S.mode === 'db') await refFor(key).set(body);
-  else if (S.mode === 'local') lsSet(key, body);
-  if (S.mode === 'local' && !SY.applying) syncSoon();
+function loadLocal() {
+  const st = lsGet('settings');
+  if (st) state.settings = Object.assign({}, DEF, st);
+  else { const old = lsGet('settings', OLD_LS); if (old) { const o = Object.assign({}, old); delete o.habits; state.settings = Object.assign({}, DEF, o); saveSettings(); } }
+  const pr = lsGet('presets');
+  if (pr && pr.list) state.presets = pr.list;
+  else { const old = lsGet('presets', OLD_LS); state.presets = old && Array.isArray(old.list) && old.list.length ? old.list : DEFAULT_PRESETS.slice(); lsSet('presets', { list: state.presets }); }
+  const c = lsGet('cache');
+  if (c && c.v === 1) {
+    state.days = c.days || {}; state.inbody = c.inbody || []; state.settings.habits = c.habits || [];
+    R.base = c.base || {}; R.dirty = c.dirty || {}; R.habSrv = c.habSrv || []; R.habBase = c.habBase || []; R.ibIds = c.ibIds || {}; R.from = c.from || null; R.to = c.to || null;
+    indexHabits();
+  }
+  keysCache = null;
 }
-function pendingCount() { return Object.keys(S.timers).length + Object.keys(S.busy).filter(k => S.busy[k]).length; }
-function queue(key, delay) {
-  clearTimeout(S.timers[key]);
-  S.timers[key] = setTimeout(() => { delete S.timers[key]; flush(key); }, delay == null ? 700 : delay);
-  setStatus();
+
+/* --- API --- */
+class ApiErr extends Error { constructor(status, code) { super(status ? 'HTTP ' + status + (code ? ' (' + code + ')' : '') : 'mất mạng'); this.status = status; this.code = code || ''; } }
+async function api(method, path, body, keyOverride) {
+  const key = keyOverride || apiKey();
+  if (!key) throw new ApiErr(-1, 'chưa có khóa');
+  const h = { Authorization: 'Bearer ' + key };
+  if (body !== undefined) h['Content-Type'] = 'application/json';
+  let r;
+  try { r = await fetch(API + path, { method, headers: h, body: body !== undefined ? JSON.stringify(body) : undefined, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer', mode: 'cors' }); }
+  catch (e) { throw new ApiErr(0, 'offline'); }
+  let j = null; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) throw new ApiErr(r.status, j && j.error ? String(j.error) + (j.field ? ': ' + j.field : '') : '');
+  return j || {};
 }
-async function flush(key) {
-  if (S.busy[key]) { S.again[key] = true; return; }
-  S.busy[key] = true; setStatus();
+async function listAll(table, q) {
+  const out = []; let cur = '';
+  for (let i = 0; i < 200; i++) {
+    const j = await api('GET', `/v1/${table}?limit=200${q ? '&' + q : ''}${cur ? '&cursor=' + encodeURIComponent(cur) : ''}`);
+    (j.data || []).forEach(x => out.push(x)); cur = j.next_cursor; if (!cur) break;
+  }
+  return out;
+}
+async function pool(items, n, fn) { let i = 0; await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => { while (i < items.length) { const x = items[i++]; await fn(x); } })); }
+async function apiDel(table, id) { try { await api('DELETE', `/v1/${table}/${encodeURIComponent(id)}`); } catch (e) { if (e.status === 404) return; if (e.status === 409) { await propose(table, id, 'delete', null); return; } throw e; } }
+async function propose(table, id, action, data) {
+  try { await api('POST', '/v1/proposals', clean({ entity_type: table, entity_id: id, action, data, reason: 'Sửa từ trang sổ tập' })); toast('Dòng này đã bị khóa vì sửa tay trên bảng điều khiển. Đã gửi đề xuất, chờ duyệt.'); }
+  catch (e) { toast('Dòng này đã bị khóa vì sửa tay, chưa gửi được đề xuất.'); }
+}
+
+/* --- thói quen --- */
+function indexHabits() {
+  R.habById = {}; R.habByCode = {}; R.chkDirect = {}; R.chkGroup = {};
+  R.habSrv.forEach(h => { R.habById[h.id] = h; R.habByCode[h.code] = h; const sc = h.extra && h.extra.src_chk; if (h.extra && h.extra.kind === 'plan_checklist' && typeof sc === 'string') { if (/^[a-z]\d+$/.test(sc)) R.chkDirect[sc] = h.code; else R.chkGroup[sc] = h.code; } });
+  R.chkGroup.x = OTHER_HABIT.code;
+}
+const userHabit = h => !(h.extra && h.extra.kind && h.extra.kind !== 'habit') && h.code !== OTHER_HABIT.code;
+function applyHabits(list) {
+  R.habSrv = list.slice().sort((a, b) => (a.created_at || '') < (b.created_at || '') ? -1 : 1);
+  indexHabits();
+  if (R.dirty.habits) return;
+  const loc = R.habSrv.filter(userHabit).map(h => { const s = h.schedule || {}; return { id: h.code, n: h.name, t: s.time_hint || '', from: isKey(s.from) ? s.from : null, to: isKey(s.to) ? s.to : null }; });
+  SET().habits = loc; R.habBase = clone(loc);
+}
+async function habitId(code) {
+  if (R.habByCode[code]) return R.habByCode[code].id;
+  if (code !== OTHER_HABIT.code) return null;
+  try { const r = await api('POST', '/v1/habits', { domain: 'health', code, name: OTHER_HABIT.name, schedule: OTHER_HABIT.schedule, active: true, extra: { src: SRC, kind: 'plan_checklist', src_chk: 'x' } }); R.habSrv.push(r.data); }
+  catch (e) { if (e.status !== 409) throw e; applyHabits(await listAll('habits', 'domain=health')); }
+  indexHabits(); return R.habByCode[code] ? R.habByCode[code].id : null;
+}
+async function pushHabits() {
+  const loc = habits(), base = R.habBase, locIds = new Set(loc.map(h => h.id));
+  for (const b of base) if (!locIds.has(b.id)) { const s = R.habByCode[b.id]; if (s) await apiDel('habits', s.id); R.habSrv = R.habSrv.filter(x => x.code !== b.id); R.habBase = R.habBase.filter(x => x.id !== b.id); indexHabits(); saveCache(); }
+  for (const h of loc) {
+    const name = String(h.n || '').trim(); if (!name) continue;
+    const s = R.habByCode[h.id], b = R.habBase.find(x => x.id === h.id);
+    const sched = Object.assign({ freq: 'daily' }, s && s.schedule, { from: h.from || null, to: h.to || null, time_hint: h.t || '' });
+    if (!s) {
+      let r;
+      try { r = await api('POST', '/v1/habits', { domain: 'health', code: h.id, name, schedule: sched, active: true, extra: { src: SRC, src_id: h.id, kind: 'habit' } }); }
+      catch (e) { if (e.status === 409) { toast('Mã thói quen bị trùng trên kho, hãy xóa dòng này và thêm lại.'); continue; } throw e; }
+      R.habSrv.push(r.data);
+    } else if (!b || J([b.n, b.t || '', b.from || null, b.to || null]) !== J([name, h.t || '', h.from || null, h.to || null])) {
+      try { const r = await api('PATCH', `/v1/habits/${encodeURIComponent(s.id)}`, { name, schedule: sched }); Object.assign(s, r.data || { name, schedule: sched }); }
+      catch (e) { if (e.status === 409) await propose('habits', s.id, 'update', { name, schedule: sched }); else throw e; }
+    }
+    R.habBase = R.habBase.filter(x => x.id !== h.id).concat([{ id: h.id, n: name, t: h.t || '', from: h.from || null, to: h.to || null }]);
+    indexHabits(); saveCache();
+  }
+}
+
+/* --- một ngày ⇄ các dòng trong kho --- */
+function eveKind(k) { const P = dayPlan(k); return P.eve || ({ 0: 'apt', 1: 'apt', 4: 'apt', 2: 'tib', 5: 'tib' })[wd(k)] || 'apt'; }
+function sleepSpan(k, bed, wake) {
+  const bh = +bed.split(':')[0], bd = bh >= 18 ? addDays(k, -1) : k, m = sleepMin({ bed, wake });
+  const end = new Date(new Date(tsVN(bd, bed)).getTime() + m * 6e4);
+  return { start: tsVN(bd, bed), end: end.toISOString().replace('.000Z', 'Z'), min: m };
+}
+// Mỗi "ô" là một dòng trong kho: core = cột được so sánh, extra = khóa extra do trang quản lý.
+function localSlots(k, d) {
+  const L = {}; if (!d) return L;
+  const P = dayPlan(k), today = k === todayKey();
+  (d.food || []).forEach(it => {
+    const core = { title: String(it.n || 'Món').slice(0, 200), kcal: r2(num(it.kcal)), protein_g: r2(num(it.p)), carbs_g: r2(num(it.c)), fat_g: r2(num(it.f)) };
+    L['food:' + it.id] = { t: 'hl_meals', core, extra: {}, create: () => { const mt = mealType(core.title); return Object.assign({ eaten_at: today ? nowVN() : tsVN(k, MT_TIME[mt]), local_date: k, meal_type: mt, estimated: true }, core, { extra: clean({ src: SRC, src_key: 'food:' + k + ':' + it.id, src_id: it.id, time_unknown: !today }) }); } };
+  });
+  Object.keys(d.hab || {}).forEach(code => { if (!d.hab[code]) return; L['hab:' + code] = { t: 'habit_logs', core: { status: 'done' }, extra: {}, create: async () => { const hid = await habitId(code); return hid && { habit_id: hid, local_date: k, status: 'done', extra: { src: SRC, src_key: 'hab:' + k + ':' + code } }; } }; });
+  const groups = {};
+  Object.keys(d.chk || {}).filter(x => d.chk[x]).sort().forEach(x => {
+    if (R.chkDirect[x]) { groups[x] = { code: R.chkDirect[x], keys: [x], direct: true }; return; }
+    const g = x[0] === 'w' && R.chkGroup.w ? 'w' : x[0] === 'e' && R.chkGroup['e:' + eveKind(k)] ? 'e' : 'x';
+    (groups[g] = groups[g] || { code: g === 'e' ? R.chkGroup['e:' + eveKind(k)] : R.chkGroup[g], keys: [] }).keys.push(x);
+  });
+  Object.keys(groups).forEach(g => {
+    const G = groups[g], n = G.keys.length;
+    const tgt = g === 'w' ? ((P.warm || []).length || 2) : g === 'e' ? EVE[eveKind(k)].items.length : 0;
+    const core = G.direct ? { status: 'done' } : { status: tgt && n < tgt ? 'partial' : 'done', value: n };
+    const extra = G.direct ? {} : { src_chk: G.keys };
+    L['chk:' + g] = { t: 'habit_logs', core, extra, create: async () => { const hid = await habitId(G.code); return hid && Object.assign({ habit_id: hid, local_date: k }, core, { extra: Object.assign({ src: SRC, src_key: 'chk:' + k + ':' + g }, extra) }); } };
+  });
+  let any = false;
+  Object.keys(d.sets || {}).forEach(sid => {
+    const x = d.sets[sid] || {}, code = EXMAP[sid]; if (!code) return;
+    (x.r || []).forEach((v, j) => {
+      const n = num(v); if (n == null) return; any = true;
+      const core = { reps: Math.max(0, Math.round(n)), weight_kg: num(x.w) }, extra = clean({ variant: x.v });
+      L['set:' + sid + ':' + (j + 1)] = { t: 'hl_workout_sets', parent: 'strength', core, extra, create: pid => Object.assign({ workout_id: pid, exercise_code: code, set_no: j + 1 }, clean(core), { extra: Object.assign({ src: SRC, src_key: `set:${k}:${sid}:${j + 1}`, src_ex: sid }, extra) }) };
+    });
+  });
+  if (any) L.strength = { t: 'hl_workouts', core: {}, extra: {}, create: () => ({ started_at: today ? nowVN() : tsVN(k, '12:00'), local_date: k, kind: 'strength', title: P.ex ? P.code : 'Calisthenics', extra: { src: SRC, src_key: 'strength:' + k, time_unknown: !today } }) };
+  const r = d.ride;
+  if (r && ['done', 'kcal', 'min', 'km', 'elev', 'hr', 'rpe'].some(f => r[f] != null && r[f] !== false)) {
+    const walk = !!(P.ride && P.ride.type === 'walk');
+    const core = { kind: walk ? 'walking' : 'cycling', duration_min: num(r.min), distance_km: num(r.km), elevation_m: num(r.elev), avg_hr: num(r.hr) == null ? null : Math.round(num(r.hr)), kcal: num(r.kcal) };
+    const extra = clean({ done: !!r.done, src_rpe: num(r.rpe) });
+    L.ride = { t: 'hl_workouts', core, extra, create: () => Object.assign({ started_at: tsVN(k, '12:00'), local_date: k, title: P.ride ? P.ride.t : (walk ? 'Đi bộ' : 'Đạp xe') }, clean(core), { extra: Object.assign({ src: SRC, src_key: 'ride:' + k, time_unknown: true }, extra) }) };
+  }
+  const s = d.sleep;
+  if (s && s.bed && s.wake && sleepMin(s)) {
+    const sp = sleepSpan(k, s.bed, s.wake), core = { sleep_start: sp.start, sleep_end: sp.end, duration_min: sp.min, quality: s.q || null };
+    L.sleep = { t: 'hl_sleep', core, extra: {}, create: () => Object.assign({ local_date: k }, clean(core), { extra: { src: SRC, src_key: 'sleep:' + k } }) };
+  }
+  const M = (f, code, v, method, at, ex) => { L['m:' + f] = { t: 'hl_measurements', core: { value_num: v }, extra: {}, create: () => clean({ metric_code: code, measured_at: tsVN(k, at), local_date: k, value_num: v, method, extra: Object.assign({ src: SRC, src_key: 'day:' + k + ':' + f }, ex) }) }; };
+  if (num(d.weight) != null) M('weight', 'weight', num(d.weight), 'scale', '07:00', { time_unknown: true });
+  if (num(d.waist) != null) M('waist', 'waist_circ', num(d.waist), 'tape', '07:00', { time_unknown: true });
+  if (num(d.shoulder) != null) M('shoulder', 'shoulder_circ', num(d.shoulder), 'tape', '07:00', { time_unknown: true });
+  if (num(d.steps) != null) M('steps', 'steps', Math.round(num(d.steps)), null, '23:59', { daily_total: true });
+  if (d.photo) M('photo', 'progress_photo', 1, null, '12:00', { time_unknown: true });
+  if (d.note && String(d.note).trim()) { const core = { value_text: String(d.note).slice(0, 200), note: String(d.note).slice(0, 4000) }; L.note = { t: 'hl_measurements', core, extra: {}, create: () => Object.assign({ metric_code: 'day_note', measured_at: tsVN(k, '23:59'), local_date: k }, core, { extra: { src: SRC, src_key: 'day:' + k + ':note' } }) }; }
+  return L;
+}
+function buildDay(k, rows, ibW) {
+  const doc = { date: k }, ids = {};
+  const put = (slot, t, row) => { if (ids[slot]) (ids[slot].more = ids[slot].more || []).push(row.id); else ids[slot] = { id: row.id, t, extra: row.extra || {} }; };
+  const byTime = f => (a, b) => (a[f] || '') < (b[f] || '') ? -1 : (a[f] || '') > (b[f] || '') ? 1 : ((a.created_at || '') < (b.created_at || '') ? -1 : 1);
+  rows.meals.slice().sort(byTime('eaten_at')).forEach(m => { (doc.food = doc.food || []).push({ id: m.id, n: m.title || 'Món', kcal: m.kcal, p: m.protein_g, c: m.carbs_g, f: m.fat_g }); put('food:' + m.id, 'hl_meals', m); });
+  rows.logs.slice().sort(byTime('created_at')).forEach(l => {
+    const h = R.habById[l.habit_id]; if (!h || (l.status !== 'done' && l.status !== 'partial')) return;
+    const ex = l.extra || {}, he = h.extra || {};
+    if (userHabit(h)) { (doc.hab = doc.hab || {})[h.code] = true; put('hab:' + h.code, 'habit_logs', l); return; }
+    const sc = typeof he.src_chk === 'string' ? he.src_chk : 'x';
+    let keys, g;
+    if (/^[a-z]\d+$/.test(sc)) { keys = [sc]; g = sc; }
+    else { g = sc === 'w' ? 'w' : sc.indexOf('e:') === 0 ? 'e' : 'x'; keys = Array.isArray(ex.src_chk) ? ex.src_chk : g === 'x' ? [] : Array.from({ length: Math.max(1, Math.round(num(l.value) || num(h.target_value) || 1)) }, (_, i) => g + i); }
+    keys.forEach(x => { (doc.chk = doc.chk || {})[x] = true; });
+    put('chk:' + g, 'habit_logs', l);
+  });
+  rows.workouts.slice().sort(byTime('started_at')).forEach(w => {
+    if (w.kind === 'strength') {
+      put('strength', 'hl_workouts', w);
+      const plan = (dayPlan(k).ex || []).map(e => e.id);
+      (rows.sets[w.id] || []).slice().sort((a, b) => a.set_no - b.set_no).forEach(s => {
+        const ex = s.extra || {}, sid = (ex.src_ex && EXMAP[ex.src_ex]) ? ex.src_ex : (plan.find(id => EXMAP[id] === s.exercise_code) || Object.keys(EXMAP).find(id => EXMAP[id] === s.exercise_code));
+        if (!sid) return;
+        const x = (doc.sets = doc.sets || {})[sid] = (doc.sets || {})[sid] || { r: [] };
+        x.r[s.set_no - 1] = s.reps; if (s.weight_kg != null && x.w == null) x.w = s.weight_kg; if (ex.variant) x.v = ex.variant;
+        put('set:' + sid + ':' + s.set_no, 'hl_workout_sets', s);
+      });
+    } else if (!ids.ride) {
+      const ex = w.extra || {};
+      doc.ride = clean({ done: ex.done !== false, kcal: w.kcal, min: w.duration_min, km: w.distance_km, elev: w.elevation_m, hr: w.avg_hr, rpe: ex.src_rpe != null ? ex.src_rpe : w.rpe });
+      if (!doc.ride.done) delete doc.ride.done;
+      put('ride', 'hl_workouts', w);
+    } else put('ride', 'hl_workouts', w);
+  });
+  rows.meas.slice().sort(byTime('measured_at')).reverse().forEach(m => {
+    const f = DAYM[m.metric_code]; if (!f || m.method === 'inbody') return;
+    if (!ids[f === 'note' ? 'note' : 'm:' + f]) {
+      if (f === 'note') doc.note = m.note || m.value_text || ''; else if (f === 'photo') doc.photo = true; else doc[f] = m.value_num;
+    }
+    put(f === 'note' ? 'note' : 'm:' + f, 'hl_measurements', m);
+  });
+  const skip = {};
+  if (doc.weight == null && ibW != null) { doc.weight = ibW; skip['m:weight'] = true; }
+  const sl = rows.sleep.slice().sort(byTime('created_at'))[0];
+  if (sl) { doc.sleep = clean({ bed: hmVN(sl.sleep_start), wake: hmVN(sl.sleep_end), q: sl.quality }); put('sleep', 'hl_sleep', sl); rows.sleep.slice(1).forEach(x => put('sleep', 'hl_sleep', x)); }
+  const L = localSlots(k, doc), core = {};
+  Object.keys(ids).forEach(s => { if (L[s]) core[s] = { core: L[s].core, extra: L[s].extra }; });
+  return { doc, base: { ids, core, skip } };
+}
+const emptyDay = d => !d || Object.keys(d).every(f => f === 'date' || f === 'u');
+async function fetchRange(from, to) {
+  const q = `from=${from}&to=${to}`;
+  const [meals, logs, workouts, meas, sleep] = await Promise.all(['hl_meals', 'habit_logs', 'hl_workouts', 'hl_measurements', 'hl_sleep'].map(t => listAll(t, q)));
+  const sets = {};
+  await pool(workouts.filter(w => w.kind === 'strength'), 4, async w => { sets[w.id] = await listAll('hl_workout_sets', 'workout_id=' + encodeURIComponent(w.id)); });
+  const by = {}, day = k => by[k] = by[k] || { meals: [], logs: [], workouts: [], meas: [], sleep: [], sets };
+  meals.forEach(x => day(x.local_date).meals.push(x)); logs.forEach(x => day(x.local_date).logs.push(x)); workouts.forEach(x => day(x.local_date).workouts.push(x));
+  meas.forEach(x => day(x.local_date).meas.push(x)); sleep.forEach(x => day(x.local_date).sleep.push(x));
+  return by;
+}
+async function pullRange(from, to) {
+  const t0 = Date.now(); S.pulling++; setStatus();
   try {
-    try { await writeOnce(key); }
-    catch (e) {
-      const c = e && e.code;
-      if (S.mode === 'db' && (c === 'unavailable' || c === 'resource_exhausted')) { await wait(700 + Math.random() * 900); await writeOnce(key); }
-      else throw e;
+    const by = await fetchRange(from, to), ibW = {};
+    state.inbody.forEach(e => { if (num(e.weight) != null) ibW[e.date] = num(e.weight); });
+    let changed = false;
+    for (let k = from; k <= to; k = addDays(k, 1)) {
+      if (R.dirty['day:' + k] || (R.pushedAt[k] || 0) > t0) continue;
+      if (by[k]) { const b = buildDay(k, by[k], ibW[k]); if (J(b.doc) !== J(Object.assign({ date: k }, stripU(state.days[k])))) changed = true; state.days[k] = b.doc; R.base[k] = b.base; }
+      else if (state.days[k] || R.base[k]) { if (!emptyDay(state.days[k])) changed = true; delete state.days[k]; delete R.base[k]; }
     }
-    S.failed.delete(key);
-  } catch (e) {
-    console.warn('save failed', key, e);
-    S.failed.add(key);
-    toast(e && e.code === 'quota_exceeded' ? 'Bộ lưu trữ đã đầy — xuất JSON rồi xóa bớt dữ liệu cũ.' : 'Chưa lưu được. App sẽ thử lại ở lần sửa tiếp theo; có thể xuất JSON để giữ bản sao.');
-    if (S.mode === 'db') { try { lsSet('backup', { at: Date.now(), settings: state.settings, inbody: state.inbody, presets: state.presets, days: state.days }); } catch (e2) {} }
+    R.from = R.from && R.from < from ? R.from : from; R.to = R.to && R.to > to ? R.to : to;
+    keysCache = null; saveCache(); S.net = 'ok'; if (S.err !== 'auth') S.err = '';
+    return changed;
+  } finally { S.pulling--; setStatus(); }
+}
+const stripU = d => { const x = Object.assign({}, d || {}); delete x.u; return x; };
+function applyInbody(rows) {
+  const by = {};
+  rows.forEach(m => { const sid = m.session_id || ('inbody-' + m.local_date); const e = by[sid] = by[sid] || { id: sid, date: m.local_date, protocol: true, _ids: {} }; const f = IBF.find(x => x[1] === m.metric_code); if (!f) return; e[f[0]] = m.value_num; e._ids[f[0]] = m.id; if (m.extra && m.extra.protocol === false) e.protocol = false; if (m.note && (f[0] === 'weight' || !e.note)) e.note = m.note; });
+  if (R.dirty.inbody) return;
+  R.ibIds = {}; state.inbody = Object.values(by).sort((a, b) => a.date < b.date ? -1 : 1).map(e => { R.ibIds[e.id] = { ids: e._ids, done: true }; const x = Object.assign({}, e); delete x._ids; return x; });
+}
+async function pushInbody() {
+  const have = new Set(state.inbody.map(e => e.id));
+  for (const sid of Object.keys(R.ibIds)) if (!have.has(sid)) { for (const id of Object.values(R.ibIds[sid].ids)) await apiDel('hl_measurements', id); delete R.ibIds[sid]; saveCache(); }
+  for (const e of state.inbody) {
+    if (R.ibIds[e.id] && R.ibIds[e.id].done) continue;
+    if (!R.ibIds[e.id]) { let sid = 'inbody-' + e.date, n = 2; while (R.ibIds[sid]) sid = 'inbody-' + e.date + '-' + n++; e.id = sid; R.ibIds[sid] = { ids: {}, done: false }; saveCache(true); }
+    const rec = R.ibIds[e.id];
+    for (const [f, code] of IBF) {
+      if (num(e[f]) == null || rec.ids[f]) continue;
+      const r = await api('POST', '/v1/hl_measurements', clean({ metric_code: code, measured_at: tsVN(e.date, '08:00'), local_date: e.date, value_num: num(e[f]), method: 'inbody', session_id: e.id, note: f === 'weight' ? e.note : null, extra: { src: SRC, src_key: e.id + ':' + f, protocol: !!e.protocol, time_unknown: true } }));
+      rec.ids[f] = r.data.id; saveCache();
+    }
+    rec.done = true; saveCache();
+  }
+}
+async function ensureMetric(code) {
+  if (!R.metrics) R.metrics = new Set((await listAll('hl_metric_types')).map(m => m.code));
+  if (R.metrics.has(code)) return;
+  try { await api('POST', '/v1/hl_metric_types', { code, name: 'Chụp ảnh tiến độ', value_kind: 'number', extra: { src: SRC, doc: '1 = đã chụp ảnh tiến độ trong ngày' } }); } catch (e) { if (e.status !== 409) throw e; }
+  R.metrics.add(code);
+}
+const rank = s => s.indexOf('set:') === 0 ? 2 : s === 'strength' ? 0 : 1;
+async function pushDay(k) {
+  const d = state.days[k], B = R.base[k] = R.base[k] || { ids: {}, core: {}, skip: {} };
+  const L = localSlots(k, d); let pending = false;
+  for (const s of Object.keys(B.ids).filter(s => !L[s]).sort((a, b) => rank(b) - rank(a))) {
+    const x = B.ids[s];
+    for (const id of [x.id].concat(x.more || [])) await apiDel(x.t, id);
+    delete B.ids[s]; delete B.core[s]; saveCache();
+  }
+  for (const s of Object.keys(L).sort((a, b) => rank(a) - rank(b))) {
+    const sl = L[s], cur = { core: sl.core, extra: sl.extra };
+    if (!B.ids[s]) {
+      if (B.skip && B.skip[s]) { if (s === 'm:weight' && J(sl.core) === J({ value_num: num((state.inbody.find(e => e.date === k) || {}).weight) })) continue; delete B.skip[s]; }
+      if (sl.parent && !B.ids[sl.parent]) { pending = true; continue; }
+      if (s === 'm:photo') await ensureMetric('progress_photo');
+      const body = await sl.create(sl.parent ? B.ids[sl.parent].id : undefined);
+      if (!body) { pending = true; continue; }
+      const r = await api('POST', '/v1/' + sl.t, body), row = r.data;
+      let slot = s;
+      if (s.indexOf('food:') === 0) { const tmp = s.slice(5), it = (d.food || []).find(x => String(x.id) === tmp); if (it && tmp !== row.id) { it.id = row.id; R.alias[tmp] = row.id; slot = 'food:' + row.id; } }
+      B.ids[slot] = { id: row.id, t: sl.t, extra: row.extra || body.extra || {} }; B.core[slot] = cur; saveCache();
+    } else if (J(B.core[s]) !== J(cur)) {
+      const old = B.core[s] || { core: {}, extra: {} }, patch = {};
+      Object.keys(sl.core).forEach(f => { if (J(old.core[f]) !== J(sl.core[f])) patch[f] = sl.core[f]; });
+      if (J(old.extra) !== J(sl.extra)) { const ex = Object.assign({}, B.ids[s].extra); Object.keys(old.extra || {}).forEach(f => delete ex[f]); patch.extra = Object.assign(ex, sl.extra); }
+      if (Object.keys(patch).length) {
+        try { const r = await api('PATCH', `/v1/${sl.t}/${encodeURIComponent(B.ids[s].id)}`, patch); if (r.data && r.data.extra) B.ids[s].extra = r.data.extra; else if (patch.extra) B.ids[s].extra = patch.extra; }
+        catch (e) { if (e.status === 404) { delete B.ids[s]; delete B.core[s]; pending = true; saveCache(); continue; } if (e.status === 409) await propose(sl.t, B.ids[s].id, 'update', patch); else throw e; }
+      }
+      B.core[s] = cur; saveCache();
+    }
+  }
+  R.pushedAt[k] = Date.now();
+  return pending;
+}
+function markDirty(key) { R.dirty[key] = (R.dirty[key] || 0) + 1; delete R.failGen[key]; saveCache(); }
+function schedulePush(ms) { clearTimeout(S.pushT); S.pushT = setTimeout(() => { S.pushT = null; pushAll(); }, ms == null ? 1200 : ms); setStatus(); }
+function queue(key, delay) {
+  if (key === 'presets') { lsSet('presets', { list: state.presets }); return; }
+  if (key === 'settings') { saveSettings(); markDirty('habits'); }
+  else markDirty(key);
+  schedulePush(delay == null ? 1200 : Math.max(800, delay));
+}
+async function pushAll() {
+  if (S.busy) { S.again = true; return; }
+  if (!apiKey() || S.err === 'auth') { setStatus(); return; }
+  S.busy = true; setStatus();
+  let retry = false;
+  try {
+    const keys = Object.keys(R.dirty).filter(k => R.failGen[k] !== R.dirty[k]).sort((a, b) => (a === 'habits' ? 0 : a === 'inbody' ? 1 : 2) - (b === 'habits' ? 0 : b === 'inbody' ? 1 : 2) || (a < b ? -1 : 1));
+    for (const key of keys) {
+      const g = R.dirty[key];
+      try {
+        let pending = false;
+        if (key === 'habits') { await pushHabits(); R.failGen = {}; } else if (key === 'inbody') await pushInbody(); else pending = await pushDay(key.slice(4));
+        if (pending) { R.failGen[key] = g; retry = true; } else if (R.dirty[key] === g) delete R.dirty[key];
+        S.failed.delete(key); S.net = 'ok'; S.last = Date.now();
+      } catch (e) {
+        if (e.status === 0 || e.status === 429 || e.status >= 500) { S.net = 'offline'; retry = true; break; }
+        if (e.status === 401 || e.status === -1) { S.err = e.status === 401 ? 'auth' : ''; break; }
+        S.failed.add(key); R.failGen[key] = g; S.err = e.message;
+        console.warn('Chưa ghi được', key, e.status, e.code);
+        toast('Kho từ chối một thay đổi (' + e.message + '). Thay đổi vẫn giữ trên máy.');
+      }
+    }
   } finally {
-    S.busy[key] = false;
-    if (S.again[key]) { S.again[key] = false; flush(key); } else setStatus();
+    S.busy = false; saveCache(true); setStatus();
+    if (S.again) { S.again = false; schedulePush(300); } else if (retry) schedulePush(30000);
   }
 }
-function flushAll() { Object.keys(S.timers).forEach(k => { clearTimeout(S.timers[k]); delete S.timers[k]; flush(k); }); }
-async function saveAllNow(keys, progress) {
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    clearTimeout(S.timers[key]); delete S.timers[key];
-    while (S.busy[key]) await wait(50);
-    S.busy[key] = true;
-    for (let tries = 1; ; tries++) {
-      try { await writeOnce(key); S.failed.delete(key); break; }
-      catch (e) { const c = e && e.code; if (tries < 4 && (c === 'resource_exhausted' || c === 'unavailable')) { await wait(800 * tries); continue; } S.failed.add(key); break; }
-    }
-    S.busy[key] = false;
-    if (progress && (i % 10 === 0 || i === keys.length - 1)) progress(i + 1, keys.length);
-    if (S.mode === 'db') await wait(40);
-  }
-  setStatus();
-}
+function renderQuiet() { const y = window.scrollY; render(); window.scrollTo(0, y); }
+function flushAll() { if (S.pushT) { clearTimeout(S.pushT); S.pushT = null; pushAll(); } }
+function pendingCount() { return Object.keys(R.dirty).length; }
 function setStatus() {
   const el = $('#savestat'); if (!el) return;
   let t, cls = '';
+  const n = pendingCount();
   if (S.mode === 'init') { t = 'đang tải…'; cls = 'busy'; }
-  else if (pendingCount()) { t = 'đang lưu…'; cls = 'busy'; }
-  else if (S.failed.size) { t = 'chưa lưu được'; cls = 'warn'; }
-  else if (S.mode === 'db') t = 'đã lưu';
-  else if (S.mode === 'local') t = 'lưu trên máy này';
-  else { t = 'không lưu được'; cls = 'warn'; }
+  else if (!apiKey()) { t = n ? `chưa kết nối kho, ${n} mục chờ` : 'chưa kết nối kho'; cls = 'warn'; }
+  else if (S.err === 'auth') { t = 'khóa sai hoặc hết hạn'; cls = 'warn'; }
+  else if (S.busy || S.pulling) { t = 'đang đồng bộ…'; cls = 'busy'; }
+  else if (n && S.net === 'offline') { t = `chờ mạng, ${n} mục`; cls = 'warn'; }
+  else if (S.failed.size) { t = 'có mục chưa ghi được'; cls = 'warn'; }
+  else if (n) { t = 'đang chờ lưu…'; cls = 'busy'; }
+  else t = 'đã lưu vào kho';
   el.textContent = t; el.className = cls;
 }
-function storeInfo() {
-  if (S.mode === 'db') return 'Dữ liệu lưu trong tài khoản Claude của bạn, riêng tư và đồng bộ giữa các thiết bị.';
-  if (S.mode === 'local') return 'Dữ liệu lưu trong trình duyệt này. Xuất JSON định kỳ để có bản sao.';
-  return 'Trình duyệt chặn lưu trữ — dữ liệu sẽ mất khi đóng trang. Hãy xuất JSON trước khi đóng.';
+const isTyping = () => { const a = document.activeElement; return !!(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)); };
+async function pullAll() {
+  if (!apiKey()) return false;
+  S.pulling++; setStatus();
+  try {
+    applyHabits(await listAll('habits', 'domain=health'));
+    applyInbody(await listAll('hl_measurements', 'method=inbody'));
+    const to = addDays(todayKey(), 1), from = R.from && R.from < addDays(todayKey(), -WINDOW) ? R.from : addDays(todayKey(), -WINDOW);
+    await pullRange(from, to);
+    return true;
+  } catch (e) { if (e.status === 401) S.err = 'auth'; else if (e.status === 0 || e.status >= 500) S.net = 'offline'; console.warn('Chưa đọc được kho', e.status, e.code); return false; }
+  finally { S.pulling--; setStatus(); }
 }
-function mergeFallback() {
-  if (!localOK() || !lsGet('fallback')) return 0;
-  let n = 0;
-  lsKeys().forEach(key => {
-    if (key.indexOf('day:') !== 0) return;
-    const v = lsGet(key), k = key.slice(4), cur = state.days[k];
-    if (v && isKey(k) && (!cur || (v.u || 0) > (cur.u || 0))) { state.days[k] = v; queue(key, 400 + n * 150); n++; }
-  });
-  const ib = lsGet('inbody');
-  if (ib && ib.list) { const have = new Set(state.inbody.map(x => x.id)); const add = ib.list.filter(x => x && x.id && !have.has(x.id)); if (add.length) { state.inbody = state.inbody.concat(add); queue('inbody', 500); } }
-  const pr = lsGet('presets');
-  if (pr && pr.list) { const have = new Set(state.presets.map(x => x.n)); const add = pr.list.filter(x => x && x.n && !have.has(x.n)); if (add.length) { state.presets = state.presets.concat(add); queue('presets', 600); } }
-  try { localStorage.removeItem(LS + 'fallback'); } catch (e) {}
-  keysCache = null;
-  return n;
+async function refreshFromDb() {
+  if (!apiKey() || !ui.ready || S.pulling) return;
+  S.pulling++;
+  try {
+    applyHabits(await listAll('habits', 'domain=health'));
+    if (await pullRange(addDays(todayKey(), -21), addDays(todayKey(), 1))) { if (!isTyping()) renderQuiet(); }
+  } catch (e) { if (e.status === 401) S.err = 'auth'; }
+  finally { S.pulling--; setStatus(); }
+  if (pendingCount()) schedulePush(500);
+}
+let extending = false;
+async function ensureRange(k) {
+  if (!apiKey() || extending || !R.from || k >= addDays(R.from, 80)) return;
+  extending = true;
+  try { const from = addDays(k, -WINDOW); await pullRange(from, addDays(R.from, -1)); if (!isTyping()) renderQuiet(); }
+  catch (e) { /* thử lại lần sau */ }
+  finally { extending = false; }
+}
+function storeInfo() {
+  if (!apiKey()) return 'Chưa có khóa: dữ liệu chỉ nằm trong bộ đệm của trình duyệt này và sẽ được đẩy lên kho khi có khóa.';
+  return 'Dữ liệu lưu trong kho life-db (mảng sức khỏe). Trình duyệt giữ một bản đệm để mở nhanh và ghi được khi mất mạng.';
+}
+function dbInfo() {
+  if (!apiKey()) return 'Chưa có khóa. Tạo khóa riêng cho trang trên bảng điều khiển life-db (quyền health:rw) rồi dán vào ô dưới.';
+  const m = R.me;
+  return (m ? `Đã kết nối: ${m.name || m.source_id}, quyền ${(m.scopes || []).join(', ') || '–'}${m.expires_at ? ', hết hạn ' + dmy(String(m.expires_at).slice(0, 10)) : ''}. ` : 'Đã lưu khóa trên máy này. ')
+    + (S.last ? 'Ghi lần cuối ' + new Date(S.last).toLocaleTimeString('vi-VN') + '. ' : '') + (pendingCount() ? `${pendingCount()} mục đang chờ đẩy lên.` : '');
+}
+async function testKey(key) {
+  try {
+    const j = await api('GET', '/v1/me', undefined, key), m = j.data || {};
+    const ok = m.is_owner || (m.scopes || []).some(s => s === 'health:rw' || s === '*:rw');
+    return { ok, me: m, msg: ok ? '' : 'Khóa hợp lệ nhưng không có quyền ghi mảng sức khỏe (health:rw).' };
+  } catch (e) { return { ok: false, msg: e.status === 401 ? 'Khóa sai hoặc đã hết hạn.' : e.status === 0 ? 'Không kết nối được kho (mất mạng hoặc bị chặn CORS).' : 'Lỗi kiểm tra: ' + e.message }; }
 }
 async function initStore() {
-  const C = window.claude;
-  if (C && typeof C.use === 'function') {
-    for (let attempt = 0; attempt < 2; attempt++) {
-      try {
-        const [db, user] = await Promise.all([C.use('db'), C.use('user')]);
-        if (!db || !user) break;
-        const id = await user.id();
-        if (!id) break;
-        S.db = db; S.uid = id;
-        const base = 'data/users/' + id;
-        const [st, ib, pr, days] = await Promise.all([
-          db.doc(base + '/settings').get(), db.doc(base + '/inbody').get(), db.doc(base + '/presets').get(),
-          db.doc(base + '/log').collection('days').orderBy('date', 'desc').limit(1000).get()
-        ]);
-        if (st.exists) state.settings = Object.assign({}, DEF, clone(st.data()));
-        if (ib.exists) state.inbody = clone(ib.data().list || []);
-        if (pr.exists) state.presets = clone(pr.data().list || []);
-        days.docs.forEach(doc => { if (doc.exists && isKey(doc.id)) state.days[doc.id] = clone(doc.data()); });
-        keysCache = null; S.mode = 'db';
-        const n = mergeFallback();
-        if (n) setTimeout(() => toast(`Đã gộp ${n} ngày lưu tạm trên máy này vào tài khoản.`), 800);
-        return;
-      } catch (e) {
-        console.warn('account storage unavailable', e);
-        S.db = null; S.uid = null;
-        if (attempt === 0 && e && (e.code === 'unavailable' || e.code === 'resource_exhausted')) { await wait(1200); continue; }
-        break;
-      }
-    }
-    S.fallback = true;
-  }
-  if (localOK()) {
-    S.mode = 'local';
-    const st = lsGet('settings'); if (st) state.settings = Object.assign({}, DEF, st);
-    const ib = lsGet('inbody'); if (ib && ib.list) state.inbody = ib.list;
-    const pr = lsGet('presets'); if (pr && pr.list) state.presets = pr.list;
-    if (!lsGet('seeded') && !lsGet('settings') && !lsKeys().some(k => k.indexOf('day:') === 0)) { try { const o = SEED; lsSet('settings', o.settings || {}); lsSet('inbody', { list: o.inbody || [] }); lsSet('presets', { list: o.presets || [] }); Object.keys(o.days || {}).forEach(k => lsSet('day:' + k, Object.assign({}, o.days[k], { date: k }))); lsSet('seeded', Date.now()); const st2 = lsGet('settings'); state.settings = Object.assign({}, DEF, st2); state.inbody = o.inbody || []; state.presets = o.presets || []; } catch (e) { console.warn('seed failed', e); } }
-    lsKeys().forEach(key => { if (key.indexOf('day:') === 0 && isKey(key.slice(4))) { const v = lsGet(key); if (v) state.days[key.slice(4)] = v; } });
-    keysCache = null;
-    if (S.fallback) { try { lsSet('fallback', true); } catch (e) {} }
-  } else S.mode = 'memory';
+  loadLocal();
+  S.mode = 'ready';
 }
-const isTyping = () => { const a = document.activeElement; return !!(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)); };
-async function refreshFromDb() {
-  if (S.mode !== 'db' || !ui.ready || pendingCount()) return;
-  try {
-    const base = 'data/users/' + S.uid, cutoff = addDays(todayKey(), -21);
-    const [st, ib, pr, days] = await Promise.all([
-      S.db.doc(base + '/settings').get(), S.db.doc(base + '/inbody').get(), S.db.doc(base + '/presets').get(),
-      S.db.doc(base + '/log').collection('days').where('date', '>=', cutoff).get()
-    ]);
-    if (pendingCount()) return;
-    let changed = false;
-    days.docs.forEach(doc => { if (!doc.exists || !isKey(doc.id)) return; const r = doc.data(), l = state.days[doc.id]; if (!l || (r.u || 0) > (l.u || 0)) { state.days[doc.id] = clone(r); changed = true; } });
-    const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-    if (st.exists && !same(st.data(), state.settings)) { state.settings = Object.assign({}, DEF, clone(st.data())); changed = true; }
-    if (ib.exists && !same(ib.data().list || [], state.inbody)) { state.inbody = clone(ib.data().list || []); changed = true; }
-    if (pr.exists && !same(pr.data().list || [], state.presets)) { state.presets = clone(pr.data().list || []); changed = true; }
-    if (changed) { keysCache = null; applyTheme(); if (!isTyping()) render(); }
-  } catch (e) { /* thử lại ở lần mở sau */ }
-}
+
 
 /* ---------- header: the week as a ridge line ---------- */
 function smooth(pts) {
@@ -1188,9 +1453,9 @@ function vToday() {
     h += `<section class="blk"><h2>Ghi chú</h2><textarea class="in ta" rows="3" data-daynote aria-label="Ghi chú ngày" placeholder="Sưng, đau, giấc ngủ, lời dặn khi tái khám…">${esc(d.note || '')}</textarea></section>`;
     return h;
   }
-  if (P.reentry) h += `<p class="banner"><b>Tập nhẹ, chưa đổ mồ hôi</b> đến hết ${dm(SET().reentryTo)}. Tập trong phòng mát hoặc bật quạt, ½ số hiệp, RIR 3–4, nghỉ dài hơn bình thường. Rịn mồ hôi ở trán → dừng bài đó. Căng, nhói hay nóng ở vùng cấy → dừng buổi.</p>`;
+  if (P.reentry) h += `<p class="banner"><b>Tập nhẹ, chưa đổ mồ hôi</b> đến hết ${dm(SET().reentryTo)}. Tập trong phòng mát hoặc bật quạt, ½ số hiệp, RIR 3–4, nghỉ dài hơn bình thường. Rịn mồ hôi ở trán → dừng bài đó. Căng, nhói hay nóng ở vùng đầu → dừng buổi.</p>`;
   else if (isDeload(k)) h += '<p class="banner"><b>Tuần deload.</b> Giữ bài, ½ số hiệp, RIR 3–4, chỉ đạp Zone 2.</p>';
-  if (headSafe(k) && P.ex && P.ex.some(e => e.orig)) h += `<p class="banner">Đang bảo vệ vùng cấy đến ${dmy(SET().headSafeTo)}: pike và decline push-up được thay bằng bài giữ đầu cao.</p>`;
+  if (headSafe(k) && P.ex && P.ex.some(e => e.orig)) h += `<p class="banner">Đang bảo vệ vùng đầu đến ${dmy(SET().headSafeTo)}: pike và decline push-up được thay bằng bài giữ đầu cao.</p>`;
   h += habBlock(k);
   h += walkBlock(k, d);
   h += metricsBlock(k, d);
@@ -1381,7 +1646,7 @@ function sheetHtml() {
 <label class="chk"><input type="checkbox" data-set="sound"${st.sound ? ' checked' : ''}><span>Kêu và rung khi hết giờ nghỉ</span></label>
 <label class="fld" style="margin-top:10px"><span>Giao diện</span><select class="in" data-set="theme"><option value="auto">Theo thiết bị</option><option value="light">Sáng</option><option value="dark">Tối</option><option value="strava">Strava (tối, cam)</option></select></label>
 <h2>Tạm nghỉ hồi phục</h2>
-<div class="row"><label class="fld grow"><span>Lý do</span><input class="in" data-set="pauseLabel" value="${esc(st.pauseLabel || '')}" placeholder="VD: Hậu phẫu"></label></div>
+<div class="row"><label class="fld grow"><span>Lý do</span><input class="in" data-set="pauseLabel" value="${esc(st.pauseLabel || '')}" placeholder="VD: Nghỉ hồi phục"></label></div>
 <div class="row" style="margin-top:8px">
 <label class="fld"><span>Nghỉ từ</span><input class="in" type="date" data-set="pauseFrom" value="${esc(st.pauseFrom || '')}"></label>
 <label class="fld"><span>Nghỉ đến hết</span><input class="in" type="date" data-set="pauseTo" value="${esc(st.pauseTo || '')}"></label>
@@ -1394,17 +1659,20 @@ function sheetHtml() {
 <div id="hab-list">${habRows()}</div>
 <button class="btn" data-habadd style="margin-top:10px">+ Thêm thói quen</button>
 <p class="note">Mỗi dòng hiện ở tab Hôm nay trong khoảng ngày đã đặt (để trống "đến" = không giới hạn). Ghi đúng tên thuốc và giờ theo đơn phòng khám.</p>
-<h2>Dữ liệu</h2><p class="note">${storeInfo()}</p>
-<div class="row" style="margin-top:8px"><button class="btn" data-export>Xuất dữ liệu (JSON)</button><label class="btn filebtn">Nhập từ file JSON<input type="file" accept="application/json,.json" data-import hidden></label></div>
+<h2>Kho dữ liệu life-db</h2><p class="note" id="db-info">${esc(dbInfo())}</p>
+<div class="row" style="margin-top:8px"><label class="fld grow"><span>Khóa life-db (chỉ lưu trên máy này)</span><input class="in" type="password" id="db-key" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="${apiKey() ? '•••••••• đã lưu, dán khóa mới để thay' : 'Dán khóa vào đây'}"></label></div>
+<div class="row" style="margin-top:8px"><button class="btn" data-dbsave>Lưu khóa</button><button class="btn" data-dbtest>Kiểm tra kết nối</button><button class="btn" data-dbsync>Đồng bộ ngay</button><button class="btn" data-dboff>Xóa khóa và bộ đệm</button></div>
+<h2>Sao lưu</h2><p class="note">${esc(storeInfo())}</p>
+<div class="row" style="margin-top:8px"><button class="btn" data-export>Xuất dữ liệu (JSON)</button><label class="btn filebtn">Nhập cài đặt từ file JSON<input type="file" accept="application/json,.json" data-import hidden></label></div>
 <details><summary>Dán nội dung JSON thay vì chọn file</summary><textarea class="in ta" id="imp-text" rows="4" aria-label="Nội dung JSON"></textarea><button class="btn" data-importtext style="margin-top:8px">Nhập nội dung đã dán</button></details>
-<h2>Kết nối đồng bộ</h2><p class="note" id="sync-info">${syncInfo()}</p><div class="row" style="margin-top:8px"><label class="fld grow"><span>GitHub token (chỉ lưu trên máy này)</span><input class="in" type="password" id="sync-token" autocomplete="off" placeholder="github_pat_…"></label></div><div class="row" style="margin-top:8px"><button class="btn" data-syncsave>Lưu & đồng bộ</button><button class="btn" data-syncnow>Đồng bộ ngay</button><button class="btn" data-syncoff>Ngắt kết nối</button></div>
 <p class="note" id="io-msg" role="status"></p>
-<p class="note">Sổ tập V-taper, lịch 4.2. Nhập dữ liệu sẽ ghi đè những ngày trùng.</p></div>`;
+<p class="note">Sổ tập V-taper, lịch 4.2. Nhập file chỉ lấy cài đặt và món mẫu; dữ liệu từng ngày đọc từ kho.</p></div>`;
 }
 
 /* ---------- render ---------- */
 const VIEWS = { today: vToday, food: vFood, sleep: vSleep, body: vBody, week: vWeek };
 function render() {
+  if (ui.ready) ensureRange(ui.date);
   renderHeader();
   const v = $('#view');
   try { v.innerHTML = VIEWS[ui.tab](); }
@@ -1629,17 +1897,12 @@ async function doExport() {
 async function doImport(text) {
   let o;
   try { o = JSON.parse(text); } catch (e) { ioMsg('Nội dung không phải JSON hợp lệ.'); return; }
-  if (!o || typeof o !== 'object' || !o.days || typeof o.days !== 'object') { ioMsg('Không thấy dữ liệu sổ tập trong nội dung này.'); return; }
-  const keys = Object.keys(o.days).filter(isKey);
-  if (o.settings && typeof o.settings === 'object') state.settings = Object.assign({}, DEF, state.settings, o.settings);
-  if (Array.isArray(o.inbody)) state.inbody = o.inbody.filter(x => x && isKey(x.date));
-  if (Array.isArray(o.presets)) state.presets = o.presets.filter(x => x && x.n);
-  keys.forEach(k => { if (o.days[k] && typeof o.days[k] === 'object') state.days[k] = Object.assign({}, o.days[k], { date: k }); });
-  keysCache = null;
-  ioMsg(`Đang lưu ${keys.length} ngày…`);
-  await saveAllNow(['settings', 'inbody', 'presets'].concat(keys.map(k => 'day:' + k)), (i, n) => ioMsg(`Đang lưu ${i}/${n}…`));
+  if (!o || typeof o !== 'object') { ioMsg('Không thấy dữ liệu sổ tập trong nội dung này.'); return; }
+  let n = 0;
+  if (o.settings && typeof o.settings === 'object') { const st = Object.assign({}, o.settings); delete st.habits; state.settings = Object.assign({}, DEF, state.settings, st, { habits: SET().habits }); saveSettings(); n++; }
+  if (Array.isArray(o.presets)) { state.presets = o.presets.filter(x => x && x.n); queue('presets'); n++; }
   applyTheme(); render();
-  ioMsg(S.failed.size ? `Đã nhập, nhưng ${S.failed.size} mục chưa lưu được — thử nhập lại.` : `Đã nhập ${keys.length} ngày.`);
+  ioMsg(n ? 'Đã nhập cài đặt và món mẫu. Dữ liệu từng ngày vẫn lấy từ kho.' : 'File không có cài đặt hay món mẫu.');
 }
 function openSheet() {
   const sh = $('#sheet'); sh.innerHTML = sheetHtml(); sh.classList.add('open');
@@ -1701,7 +1964,7 @@ function wire() {
     if (ds.go) { goTab(ds.go); return; }
     if (ds.timer) { startTimer(+ds.timer, 'Nghỉ: ' + (ds.label || ''), 'Bấm giờ thủ công'); return; }
     if (ds.addfood) { addFood(ds.addfood === '2'); return; }
-    if (ds.delfood) { const d = dayW(k); d.food = (d.food || []).filter(x => String(x.id) !== ds.delfood); touch(k); render(); return; }
+    if (ds.delfood) { const d = dayW(k), fid = R.alias[ds.delfood] || ds.delfood; d.food = (d.food || []).filter(x => String(x.id) !== fid); touch(k); render(); return; }
     if (ds.preset != null) { const p = state.presets[+ds.preset]; if (!p) return; const d = dayW(k); d.food = d.food || []; d.food.push({ id: uid(), n: p.n, kcal: p.kcal, p: p.p, c: p.c, f: p.f }); touch(k); render(); toast('Đã thêm ' + p.n); return; }
     if (b.hasAttribute('data-editpresets')) { ui.editPresets = !ui.editPresets; render(); return; }
     if (ds.delpreset != null) { if (!armed(b)) return; state.presets.splice(+ds.delpreset, 1); queue('presets'); render(); return; }
@@ -1717,9 +1980,27 @@ function wire() {
     const b = e.target.closest('button'); if (!b) return;
     if (b.hasAttribute('data-close')) { closeSheet(); return; }
     if (b.hasAttribute('data-export')) { doExport(); return; }
-    if (b.hasAttribute('data-syncsave')) { const v = ($('#sync-token') || {}).value || ''; if (!v.trim()) { ioMsg('Dán token trước đã.'); return; } try { localStorage.setItem(SY.TK, v.trim()); } catch (e) {} SY.sha = null; ioMsg('Đang kết nối…'); syncPull(true).then(ok => { if (ok) syncPush(); }); return; }
-    if (b.hasAttribute('data-syncnow')) { ioMsg('Đang đồng bộ…'); syncPull(true).then(ok => { if (ok) syncPush(); }); return; }
-    if (b.hasAttribute('data-syncoff')) { try { localStorage.removeItem(SY.TK); } catch (e) {} ioMsg('Đã ngắt đồng bộ trên máy này.'); const i = $('#sync-info'); if (i) i.textContent = syncInfo(); return; }
+    if (b.hasAttribute('data-dbsave')) {
+      const inp = $('#db-key'), v = ((inp || {}).value || '').trim(); if (!v) { ioMsg('Dán khóa trước đã.'); return; }
+      ioMsg('Đang kiểm tra khóa…');
+      testKey(v).then(t => {
+        if (!t.ok) { ioMsg(t.msg); return; }
+        try { localStorage.setItem(KEY_LS, v); } catch (e) { ioMsg('Trình duyệt không cho lưu khóa.'); return; }
+        if (inp) inp.value = '';
+        R.me = t.me; S.err = ''; R.failGen = {};
+        ioMsg('Đã lưu khóa. Đang tải dữ liệu từ kho…');
+        pullAll().then(ok => { const i = $('#db-info'); if (i) i.textContent = dbInfo(); ioMsg(ok ? 'Đã kết nối và tải dữ liệu.' : 'Đã lưu khóa nhưng chưa tải được dữ liệu.'); render(); if (pendingCount()) schedulePush(300); });
+      });
+      return;
+    }
+    if (b.hasAttribute('data-dbtest')) { if (!apiKey()) { ioMsg('Chưa có khóa.'); return; } ioMsg('Đang kiểm tra…'); testKey().then(t => { if (t.me) R.me = t.me; if (t.ok) S.err = ''; const i = $('#db-info'); if (i) i.textContent = dbInfo(); ioMsg(t.ok ? 'Kết nối tốt.' : t.msg); setStatus(); }); return; }
+    if (b.hasAttribute('data-dbsync')) { if (!apiKey()) { ioMsg('Chưa có khóa.'); return; } S.err = ''; R.failGen = {}; S.failed.clear(); ioMsg('Đang đồng bộ…'); pushAll().then(() => pullAll()).then(ok => { const i = $('#db-info'); if (i) i.textContent = dbInfo(); ioMsg(ok ? 'Đã đồng bộ.' : 'Chưa đồng bộ được, thử lại sau.'); if (!isTyping()) renderQuiet(); }); return; }
+    if (b.hasAttribute('data-dboff')) {
+      if (!armed(b)) return;
+      try { localStorage.removeItem(KEY_LS); localStorage.removeItem(LS + 'cache'); } catch (e) {}
+      state.days = {}; state.inbody = []; R.base = {}; R.dirty = {}; R.ibIds = {}; R.from = R.to = null; R.me = null; keysCache = null;
+      ioMsg('Đã xóa khóa và dữ liệu đệm trên máy này. Dữ liệu trong kho không bị ảnh hưởng.'); const i = $('#db-info'); if (i) i.textContent = dbInfo(); render(); return;
+    }
     if (b.hasAttribute('data-habadd')) {
       const list = habits().slice(); list.push({ id: 'h' + uid(), n: '', t: '', from: todayKey(), to: null });
       SET().habits = list; queue('settings'); $('#hab-list').innerHTML = habRows();
@@ -1766,72 +2047,19 @@ function wire() {
 }
 
 
-/* ---------- sync: GitHub private repo (token only in this device's localStorage) ---------- */
-const SY = { TK: 'vtsync:token', REPO: 'btrunghieu/so-tap-data', FILE: 'data.json', sha: null, t: null, busy: false, again: false, applying: false, last: null, err: '' };
-function syTok() { try { return localStorage.getItem(SY.TK) || ''; } catch (e) { return ''; } }
-function syncInfo() { if (!syTok()) return 'Chưa kết nối. Dán token GitHub (chỉ quyền Contents của repo so-tap-data) để tự sao lưu mọi thay đổi.'; return 'Đã kết nối ' + SY.REPO + '. ' + (SY.err ? 'Lỗi: ' + SY.err : SY.last ? 'Đồng bộ lần cuối ' + new Date(SY.last).toLocaleString('vi-VN') : 'Chưa đồng bộ lần nào.'); }
-function syUpd() { const i = $('#sync-info'); if (i) i.textContent = syncInfo(); }
-function syApi(method, body) { return fetch('https://api.github.com/repos/' + SY.REPO + '/contents/' + SY.FILE, { method, cache: 'no-store', headers: { Authorization: 'Bearer ' + syTok(), Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }, body: body ? JSON.stringify(body) : undefined }); }
-const b64e = s => { const b = new TextEncoder().encode(s); let r = ''; for (let i = 0; i < b.length; i += 0x8000) r += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(r); };
-const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, '')), c => c.charCodeAt(0)));
-function mergeHabits(o) {
-  const rh = o && o.settings && Array.isArray(o.settings.habits) ? o.settings.habits.filter(x => x && x.id) : [];
-  if (!rh.length) return 0;
-  const loc = Array.isArray(state.settings.habits) ? state.settings.habits.filter(x => x && x.id).map(x => Object.assign({}, x)) : [];
-  let n = 0;
-  rh.forEach(r => { const i = loc.findIndex(x => x.id === r.id); if (i < 0) { loc.push(Object.assign({}, r)); n++; } else if (JSON.stringify(loc[i]) !== JSON.stringify(Object.assign({}, loc[i], r))) { loc[i] = Object.assign({}, loc[i], r); n++; } });
-  if (n) { state.settings.habits = loc; if (S.mode === 'local') lsSet('settings', state.settings); }
-  return n;
-}
-function syncSoon() { if (!syTok()) return; clearTimeout(SY.t); SY.t = setTimeout(syncPush, 2500); }
-function exportObj() { return { app: 'so-tap-vtaper', v: 1, exportedAt: new Date().toISOString(), settings: state.settings, inbody: state.inbody, presets: state.presets, days: state.days }; }
-async function syncPush() {
-  if (!syTok()) return; if (SY.busy) { SY.again = true; return; } SY.busy = true;
-  try {
-    for (let tries = 0; tries < 2; tries++) {
-      if (!SY.sha) { const g = await syApi('GET'); if (g.ok) { const gj = await g.json(); SY.sha = gj.sha; try { SY.applying = true; if (mergeHabits(JSON.parse(b64d(gj.content)))) render(); } catch (e) {} SY.applying = false; } else if (g.status !== 404) throw new Error('HTTP ' + g.status); }
-      const body = { message: 'sync ' + new Date().toISOString(), content: b64e(JSON.stringify(exportObj(), null, 1)) }; if (SY.sha) body.sha = SY.sha;
-      const r = await syApi('PUT', body);
-      if (r.ok) { SY.sha = (await r.json()).content.sha; SY.last = Date.now(); SY.err = ''; try { localStorage.setItem('vtsync:last', String(SY.last)); } catch (e) {} break; }
-      if (r.status === 409 || r.status === 422) { SY.sha = null; continue; }
-      throw new Error(r.status === 401 ? 'token sai hoặc hết hạn' : r.status === 403 || r.status === 404 ? 'token không có quyền ghi repo' : 'HTTP ' + r.status);
-    }
-  } catch (e) { SY.err = String(e.message || e); console.warn('sync push', e); }
-  SY.busy = false; syUpd(); if (SY.again) { SY.again = false; syncSoon(); }
-}
-async function syncPull(verbose) {
-  if (!syTok()) return false;
-  try {
-    const r = await syApi('GET');
-    if (r.status === 404) { SY.sha = null; if (verbose) ioMsg('Repo chưa có file — sẽ tạo mới.'); return true; }
-    if (!r.ok) throw new Error(r.status === 401 ? 'token sai hoặc hết hạn' : 'HTTP ' + r.status);
-    const j = await r.json(); SY.sha = j.sha; const o = JSON.parse(b64d(j.content));
-    SY.applying = true; let n = 0;
-    Object.keys(o.days || {}).forEach(k => { const v = o.days[k], c = state.days[k]; if (v && isKey(k) && (!c || (v.u || 0) > (c.u || 0))) { state.days[k] = v; if (S.mode === 'local') lsSet('day:' + k, v); n++; } });
-    if (Array.isArray(o.inbody)) { const have = new Set(state.inbody.map(x => x.id)); const add = o.inbody.filter(x => x && x.id && !have.has(x.id)); if (add.length) { state.inbody = state.inbody.concat(add).sort((a, b) => a.date < b.date ? -1 : 1); if (S.mode === 'local') lsSet('inbody', { list: state.inbody }); n++; } }
-    if (Array.isArray(o.presets)) { const have = new Set(state.presets.map(x => x.n)); const add = o.presets.filter(x => x && x.n && !have.has(x.n)); if (add.length) { state.presets = state.presets.concat(add); if (S.mode === 'local') lsSet('presets', { list: state.presets }); } }
-    n += mergeHabits(o);
-    SY.applying = false; keysCache = null; SY.err = ''; SY.last = Date.now();
-    if (n) { render(); toast('Đã lấy ' + n + ' mục mới từ bản đồng bộ.'); }
-    if (verbose) ioMsg('Đã kết nối. Lấy về ' + n + ' mục mới.');
-    syUpd(); return true;
-  } catch (e) { SY.applying = false; SY.err = String(e.message || e); if (verbose) ioMsg('Lỗi đồng bộ: ' + SY.err); syUpd(); return false; }
-}
-
 /* ---------- boot ---------- */
 async function boot() {
   wire(); applyTheme(); renderHeader(); setStatus();
   await initStore();
   ui.ready = true;
-  if (!state.settings.phaseStart) { state.settings.phaseStart = mondayOf(todayKey()); queue('settings'); }
+  if (!state.settings.phaseStart) { state.settings.phaseStart = mondayOf(todayKey()); saveSettings(); }
   applyTheme(); render();
-  if (syTok()) syncPull(false).then(ok => { if (ok) syncSoon(); });
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && syTok() && SY.t) { clearTimeout(SY.t); syncPush(); } });
+  window.addEventListener('online', () => { S.net = 'ok'; R.failGen = {}; refreshFromDb(); });
+  setInterval(() => { if (pendingCount() && !S.busy && navigator.onLine !== false) pushAll(); }, 60000);
+  if (apiKey()) { if (await pullAll()) { R.failGen = {}; if (!isTyping()) renderQuiet(); } if (pendingCount()) schedulePush(300); }
 }
 boot();
 })();
 </script>
 </body>
 </html>
-
-</body></html>
